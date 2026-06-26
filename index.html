@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kerim Ak — iOS Developer</title>
+<meta name="description" content="Kerim Ak — iOS developer based in Istanbul. I build SwiftUI apps end to end, front end and the backend that feeds them. Currently shipping Eczane." />
+
+<!-- ====== FONTS ====== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#EEF0F4;
+    --bg-2:#E5E8EE;
+    --surface:#FFFFFF;
+    --surface-2:#F6F7F9;
+    --ink:#0E1116;
+    --ink-2:#555E6B;
+    --ink-3:#8C95A1;
+    --line:rgba(14,17,22,.08);
+    --line-2:rgba(14,17,22,.12);
+    --accent:#1DAA5B;          /* on-duty pharmacy green */
+    --accent-ink:#137A40;
+    --accent-soft:rgba(29,170,91,.12);
+    --shadow-sm:0 1px 2px rgba(14,17,22,.04), 0 4px 14px rgba(14,17,22,.05);
+    --shadow:0 12px 40px rgba(14,17,22,.10);
+    --shadow-lg:0 30px 80px rgba(14,17,22,.16);
+    --r-card:26px;
+    --r-chip:11px;
+    --maxw:1080px;
+    --display:"Bricolage Grotesque", system-ui, sans-serif;
+    --body:"Inter", system-ui, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 700px at 80% -10%, #fff 0%, rgba(255,255,255,0) 55%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+    font-size:17px;
+    letter-spacing:-.005em;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--accent-soft);}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  /* ====== NAV ====== */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(160%) blur(18px);
+    -webkit-backdrop-filter:saturate(160%) blur(18px);
+    background:rgba(238,240,244,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;}
+  .brand .mark{
+    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+    background:var(--accent);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;
+    box-shadow:0 4px 12px rgba(29,170,91,.35);
+  }
+  .nav-links{display:flex;align-items:center;gap:28px;}
+  .nav-links a{color:var(--ink-2);font-size:15px;font-weight:500;transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    padding:9px 16px;border-radius:11px;background:var(--ink);color:#fff !important;
+    font-weight:500;font-size:14.5px;transition:transform .15s, background .15s;
+  }
+  .nav-cta:hover{background:#000;transform:translateY(-1px);}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px;}
+
+  /* ====== HERO ====== */
+  header.hero{padding:72px 0 40px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
+  .status{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.01em;color:var(--accent-ink);
+    background:var(--accent-soft);padding:7px 13px;border-radius:999px;margin-bottom:26px;
+  }
+  .status .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);position:relative;}
+  .status .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--accent);animation:ping 2.2s ease-out infinite;}
+  @keyframes ping{0%{transform:scale(.7);opacity:.8}70%,100%{transform:scale(1.9);opacity:0}}
+
+  h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(40px,6vw,62px);line-height:1.02;letter-spacing:-.03em;
+    margin:0 0 8px;
+  }
+  .role{
+    font-family:var(--display);font-weight:600;font-size:clamp(20px,2.6vw,26px);
+    color:var(--accent-ink);letter-spacing:-.02em;margin:0 0 22px;
+  }
+  .lede{font-size:18.5px;color:var(--ink-2);max-width:34ch;margin:0 0 14px;}
+  .meta-line{font-family:var(--mono);font-size:13px;color:var(--ink-3);margin-bottom:30px;}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:13px;
+    font-weight:500;font-size:15.5px;transition:transform .15s, box-shadow .15s, background .15s;
+    border:1px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 22px rgba(29,170,91,.30);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(29,170,91,.38);}
+  .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line-2);box-shadow:var(--shadow-sm);}
+  .btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+  .btn svg{width:17px;height:17px;}
+
+  /* ====== PHONE MOCK ====== */
+  .phone-stage{display:flex;justify-content:center;perspective:1400px;}
+  .phone{
+    width:286px;height:586px;border-radius:46px;
+    background:#0E1116;padding:11px;
+    box-shadow:var(--shadow-lg);
+    position:relative;transform:rotateY(-13deg) rotateX(4deg);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .phone:hover{transform:rotateY(-4deg) rotateX(2deg);}
+  .phone::before{content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#0E1116;border-radius:0 0 16px 16px;z-index:5;}
+  .screen{
+    width:100%;height:100%;border-radius:36px;overflow:hidden;position:relative;
+    background:#dfe6e2;
+  }
+  /* fake map */
+  .map{position:absolute;inset:0;background:
+      linear-gradient(135deg,#e8efe9 0%, #dfe7e1 100%),
+      #e6ece8;}
+  .map::after{content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,.9) 2px, transparent 2px),
+      linear-gradient(0deg, rgba(255,255,255,.9) 2px, transparent 2px),
+      linear-gradient(40deg, rgba(180,196,186,.55) 3px, transparent 3px);
+    background-size:64px 64px, 64px 64px, 130px 130px;
+    opacity:.7;}
+  .road{position:absolute;background:#fff;box-shadow:0 0 0 1px rgba(160,176,168,.5);}
+  .r1{top:34%;left:-10%;width:120%;height:9px;transform:rotate(-8deg);border-radius:6px;}
+  .r2{top:0;left:58%;width:9px;height:120%;transform:rotate(7deg);border-radius:6px;}
+
+  .pin{position:absolute;width:13px;height:13px;border-radius:50%;background:#b6c0bb;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+  .pin.p2{top:24%;left:24%;}
+  .pin.p3{top:62%;left:70%;}
+  .pin.dest{top:42%;left:50%;width:18px;height:18px;background:var(--accent);transform:translate(-50%,-50%);z-index:3;}
+  .pin.dest::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2.5px solid var(--accent);animation:ping 2s ease-out infinite;}
+  .me{position:absolute;top:74%;left:34%;width:16px;height:16px;border-radius:50%;background:#2E7DF6;border:3px solid #fff;box-shadow:0 0 0 6px rgba(46,125,246,.18);}
+
+  .statusbar{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 6px;font-family:var(--body);font-weight:600;font-size:13px;color:#0E1116;z-index:6;}
+  .sheet{
+    position:absolute;left:8px;right:8px;bottom:8px;background:#fff;border-radius:26px;
+    padding:16px 16px 18px;box-shadow:0 -10px 30px rgba(14,17,22,.12);z-index:4;
+  }
+  .sheet .grab{width:38px;height:5px;border-radius:3px;background:#d7dbe0;margin:0 auto 13px;}
+  .sheet .nob{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;color:var(--accent-ink);background:var(--accent-soft);padding:4px 9px;border-radius:7px;margin-bottom:10px;}
+  .sheet .nob .x{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .sheet h4{font-family:var(--display);font-weight:700;font-size:17px;margin:0 0 3px;letter-spacing:-.01em;}
+  .sheet .sub{font-size:12.5px;color:var(--ink-2);margin-bottom:13px;}
+  .sheet .row{display:flex;gap:8px;}
+  .sheet .row .a{flex:1;text-align:center;padding:10px;border-radius:12px;font-weight:600;font-size:13px;}
+  .sheet .row .nav-a{background:var(--accent);color:#fff;}
+  .sheet .row .call-a{background:var(--surface-2);color:var(--ink);border:1px solid var(--line-2);}
+
+  /* ====== SECTIONS ====== */
+  section{padding:34px 0;}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:26px;}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--accent-ink);letter-spacing:.02em;text-transform:lowercase;}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:-.025em;margin:6px 0 0;line-height:1.05;}
+  .sec-note{font-size:15px;color:var(--ink-3);max-width:30ch;text-align:right;}
+
+  /* featured card */
+  .featured{
+    background:var(--surface);border-radius:var(--r-card);border:1px solid var(--line);
+    box-shadow:var(--shadow);overflow:hidden;
+    display:grid;grid-template-columns:1.15fr .85fr;
+  }
+  .feat-body{padding:38px;}
+  .feat-tag{font-family:var(--mono);font-size:12px;color:var(--accent-ink);background:var(--accent-soft);display:inline-block;padding:5px 11px;border-radius:8px;margin-bottom:16px;}
+  .featured h3{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.02em;margin:0 0 12px;}
+  .featured p{color:var(--ink-2);font-size:16px;margin:0 0 14px;}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 24px;}
+  .chip{font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:6px 11px;border-radius:var(--r-chip);}
+  .feat-links{display:flex;flex-wrap:wrap;gap:10px;}
+  .link-btn{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:500;padding:10px 15px;border-radius:11px;border:1px solid var(--line-2);background:var(--surface);transition:transform .15s,box-shadow .15s;}
+  .link-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+  .link-btn.solid{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .link-btn svg{width:15px;height:15px;}
+  .feat-visual{
+    background:linear-gradient(160deg,#1DAA5B 0%, #0E8a47 100%);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .feat-visual::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(220px 220px at 30% 20%, rgba(255,255,255,.18), transparent 60%),
+    radial-gradient(200px 200px at 80% 90%, rgba(0,0,0,.12), transparent 60%);}
+  .cross{width:120px;height:120px;position:relative;filter:drop-shadow(0 14px 24px rgba(0,0,0,.25));}
+  .cross::before,.cross::after{content:"";position:absolute;background:#fff;border-radius:14px;}
+  .cross::before{left:42px;top:0;width:36px;height:120px;}
+  .cross::after{top:42px;left:0;height:36px;width:120px;}
+
+  /* work grid */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;
+    box-shadow:var(--shadow-sm);transition:transform .18s, box-shadow .18s;display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+  .card .kicker{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-bottom:14px;}
+  .card h3{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;margin:0 0 8px;}
+  .card p{color:var(--ink-2);font-size:14.5px;margin:0 0 16px;flex:1;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tags span{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:4px 8px;border-radius:8px;}
+  .card.wide{grid-column:span 1;}
+
+  /* toolbox */
+  .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .tool-col h4{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-transform:lowercase;letter-spacing:.02em;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+  .tool-col ul{list-style:none;margin:0;padding:0;}
+  .tool-col li{font-size:15px;color:var(--ink);padding:5px 0;}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .about p{font-size:17px;color:var(--ink-2);margin:0 0 16px;}
+  .about p strong{color:var(--ink);font-weight:600;}
+  .facts{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:8px 24px;box-shadow:var(--shadow-sm);}
+  .fact{display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--line);}
+  .fact:last-child{border-bottom:0;}
+  .fact .k{font-family:var(--mono);font-size:13px;color:var(--ink-3);}
+  .fact .v{font-size:15px;font-weight:500;text-align:right;}
+
+  /* contact */
+  .contact{
+    background:var(--ink);color:#fff;border-radius:var(--r-card);
+    padding:54px 44px;text-align:center;box-shadow:var(--shadow-lg);
+  }
+  .contact h2{color:#fff;margin-bottom:14px;}
+  .contact p{color:rgba(255,255,255,.66);max-width:46ch;margin:0 auto 30px;font-size:17px;}
+  .contact-links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+  .clink{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-weight:500;font-size:15px;transition:background .15s,transform .15s;}
+  .clink:hover{background:rgba(255,255,255,.13);transform:translateY(-2px);}
+  .clink.green{background:var(--accent);border-color:var(--accent);}
+  .clink.green:hover{background:#23c068;}
+  .clink svg{width:17px;height:17px;}
+
+  footer{padding:36px 0 50px;text-align:center;color:var(--ink-3);font-size:14px;}
+  footer .sep{margin:0 8px;}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;}
+    .phone-stage{order:-1;}
+    .phone{transform:none;}
+    .phone:hover{transform:none;}
+    .featured{grid-template-columns:1fr;}
+    .feat-visual{min-height:180px;order:-1;}
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .tools{grid-template-columns:repeat(2,1fr);}
+    .about{grid-template-columns:1fr;gap:28px;}
+    .sec-note{display:none;}
+  }
+  @media (max-width:560px){
+    body{font-size:16px;}
+    .nav-links{position:fixed;inset:62px 0 auto 0;flex-direction:column;background:rgba(238,240,244,.98);backdrop-filter:blur(18px);padding:18px 24px 24px;gap:18px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:transform .25s;align-items:flex-start;}
+    .nav-links.open{transform:none;}
+    .nav-toggle{display:block;}
+    .grid{grid-template-columns:1fr;}
+    .tools{grid-template-columns:1fr;}
+    .contact{padding:40px 24px;}
+    h1{font-size:clamp(34px,11vw,46px);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav>
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand"><span class="mark">K</span>Kerim Ak</a>
+    <button class="nav-toggle" aria-label="Menu" id="navToggle"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="#work">Work</a>
+      <a href="#toolbox">Toolbox</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status"><span class="dot"></span>Available for iOS roles &amp; internships · Summer 2026</span>
+      <h1>Kerim Ak</h1>
+      <p class="role">iOS Developer</p>
+      <p class="lede">I build iOS apps end to end — the SwiftUI front end and the backend that feeds it.</p>
+      <p class="meta-line">Istanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Computer Engineering '26</p>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">
+          See my work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <!-- TODO: replace href with your real CV file path once uploaded -->
+        <a href="#" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M5 21h14"/></svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+
+    <!-- Eczane app, the thesis -->
+    <div class="phone-stage">
+      <div class="phone" aria-hidden="true">
+        <div class="screen">
+          <div class="map"></div>
+          <div class="road r1"></div><div class="road r2"></div>
+          <div class="statusbar"><span>21:47</span><span>Eczane</span></div>
+          <div class="pin p2"></div><div class="pin p3"></div>
+          <div class="pin dest"></div>
+          <div class="me"></div>
+          <div class="sheet">
+            <div class="grab"></div>
+            <span class="nob"><span class="x"></span>NÖBETÇİ · ON DUTY</span>
+            <h4>Merkez Eczanesi</h4>
+            <div class="sub">0.4 km away · Open until 09:00</div>
+            <div class="row">
+              <div class="a nav-a">Navigate</div>
+              <div class="a call-a">Call</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= FEATURED ================= -->
+<section id="featured">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">featured project</span><h2>Eczane</h2></div>
+      <p class="sec-note">The one I'd want you to open first.</p>
+    </div>
+
+    <div class="featured reveal">
+      <div class="feat-body">
+        <span class="feat-tag">iOS · live backend</span>
+        <h3>On-duty pharmacy finder</h3>
+        <p>In Turkey, only a rotating set of pharmacies stay open overnight and on holidays. Finding the nearest one usually means digging through a slow government site at the worst possible moment.</p>
+        <p>Eczane puts every on-duty pharmacy on a map, sorted by distance, with one tap to navigate or call. A FastAPI service caches the official roster so the app stays fast and the source site only gets hit once.</p>
+        <div class="stack">
+          <span class="chip">SwiftUI</span>
+          <span class="chip">MapKit</span>
+          <span class="chip">CoreLocation</span>
+          <span class="chip">FastAPI</span>
+          <span class="chip">SQLite</span>
+          <span class="chip">Cloudflare Tunnel</span>
+        </div>
+        <div class="feat-links">
+          <!-- TODO: paste your TestFlight / App Store link here when live -->
+          <a href="#" class="link-btn solid">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 12l-9 6V6l9 6z"/></svg>
+            TestFlight
+          </a>
+          <a href="https://github.com/kerimxak" class="link-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
+            Source
+          </a>
+        </div>
+      </div>
+      <div class="feat-visual">
+        <div class="cross"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">selected work</span><h2>A few other things I've built</h2></div>
+      <p class="sec-note">Apps, products, and hardware — I like shipping.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card reveal">
+        <div class="kicker">swiftui · series</div>
+        <h3>100 Days of SwiftUI</h3>
+        <p>A run of small, finished apps — a Pomodoro timer shipped at v1.0, a 2048 clone, an expense tracker, and MoneySplit for splitting bills. Reps until the framework felt native.</p>
+        <div class="tags"><span>Swift</span><span>SwiftUI</span><span>SwiftData</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">product · e-commerce</div>
+        <h3>Korin Labs</h3>
+        <p>A 3D-printed designer lamp brand I run end to end — CAD in Fusion 360, printing on a Bambu Lab A1, an online store, and Meta ad campaigns. Real orders, real shipping logistics.</p>
+        <div class="tags"><span>Fusion 360</span><span>3D printing</span><span>Storefront</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">robotics · capstone</div>
+        <h3>Elevator-navigating robot</h3>
+        <p>An autonomous robot that finds and rides elevators between floors, using ROS2 for control and YOLO on a Raspberry Pi for button and door detection.</p>
+        <div class="tags"><span>ROS2</span><span>YOLO</span><span>Raspberry Pi</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">embedded · hardware</div>
+        <h3>ESP32 builds</h3>
+        <p>A pocket digital camera on an ESP32-S3 with an ST7789 display and LiPo power, plus a Snake game on a joystick handheld. Schematics, sourcing, and firmware.</p>
+        <div class="tags"><span>ESP32-S3</span><span>C/C++</span><span>LiPo</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">backend · infra</div>
+        <h3>Self-hosted infrastructure</h3>
+        <p>A FastAPI caching service on a Linux VPS, fronted by a Cloudflare Tunnel — the backbone behind Eczane. Comfortable with Linux, SSH, and keeping a service up.</p>
+        <div class="tags"><span>Python</span><span>FastAPI</span><span>Linux</span></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">open source</div>
+        <h3>Google Summer of Code '26</h3>
+        <p>Applied to the Processing Foundation to work on their Translation Tracker — an Astro/JavaScript tool for coordinating community translations.</p>
+        <div class="tags"><span>JavaScript</span><span>Astro</span><span>Open source</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOOLBOX ================= -->
+<section id="toolbox">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">toolbox</span><h2>What I reach for</h2></div>
+    </div>
+    <div class="tools reveal">
+      <div class="tool-col">
+        <h4>ios</h4>
+        <ul><li>Swift</li><li>SwiftUI</li><li>MapKit</li><li>CoreLocation</li><li>SwiftData</li><li>Xcode &amp; TestFlight</li></ul>
+      </div>
+      <div class="tool-col">
+        <h4>backend</h4>
+        <ul><li>Python</li><li>FastAPI</li><li>SQLite</li><li>REST APIs</li><li>Cloudflare Tunnel</li><li>Linux / SSH</li></ul>
+      </div>
+      <div class="tool-col">
+        <h4>tools</h4>
+        <ul><li>Git &amp; GitHub</li><li>JavaScript</li><li>Astro</li><li>Figma basics</li><li>VPS deployment</li></ul>
+      </div>
+      <div class="tool-col">
+        <h4>hardware</h4>
+        <ul><li>ESP32 / RP2040</li><li>Arduino</li><li>ROS2 · YOLO</li><li>Fusion 360 (CAD)</li><li>3D printing</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">about</span><h2>Who's building this</h2></div>
+    </div>
+    <div class="about reveal">
+      <div>
+        <p>I'm a final-year Computer Engineering student in Istanbul, focused on <strong>iOS development</strong>. I like the whole loop — designing a screen, wiring the Swift behind it, and standing up the backend that makes it real.</p>
+        <p>Outside of the IDE I run a small 3D-printed lamp brand, tinker with ESP32 and RP2040 boards, and founded a university club for students new to Istanbul. The common thread is finishing things and putting them in front of people.</p>
+        <p>I'm looking for an <strong>iOS role or summer internship</strong> where I can learn from a strong team and ship work that gets used.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><span class="k">based in</span><span class="v">Istanbul, Türkiye</span></div>
+        <div class="fact"><span class="k">languages</span><span class="v">English C2 · Turkish · Russian</span></div>
+        <div class="fact"><span class="k">studying</span><span class="v">Computer Eng. · BAU · '26</span></div>
+        <div class="fact"><span class="k">focus</span><span class="v">iOS / SwiftUI</span></div>
+        <div class="fact"><span class="k">open to</span><span class="v">Internship · Junior iOS · Remote</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <span class="eyebrow" style="color:#5fe49a">contact</span>
+      <h2>Let's talk</h2>
+      <p>If you're hiring for iOS — or just want to see Eczane in action — I'm a message away.</p>
+      <div class="contact-links">
+        <a href="mailto:kerimxak@icloud.com" class="clink green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          kerimxak@icloud.com
+        </a>
+        <a href="https://t.me/kerimxak" class="clink">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.4 13.6l-4.7-1.5c-1-.3-1-1 .2-1.5l18.4-7.1c.8-.3 1.6.2 1.6 1.3z"/></svg>
+          @kerimxak
+        </a>
+        <a href="https://github.com/kerimxak" class="clink">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
+          github.com/kerimxak
+        </a>
+        <!-- TODO: add your LinkedIn URL -->
+        <a href="#" class="clink">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Built by hand with HTML &amp; CSS <span class="sep">·</span> Istanbul <span class="sep">·</span> <span id="year"></span>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // mobile nav
+  const t = document.getElementById('navToggle');
+  const l = document.getElementById('navLinks');
+  t.addEventListener('click', () => l.classList.toggle('open'));
+  l.querySelectorAll('a').forEach(a => a.addEventListener('click', () => l.classList.remove('open')));
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
