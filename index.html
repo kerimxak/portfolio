@@ -82,8 +82,15 @@
   .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;}
   .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px;}
 
+  /* language toggle */
+  .lang-toggle{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:13px;}
+  .lang-toggle button{background:none;border:0;cursor:pointer;font-family:inherit;font-size:inherit;color:var(--ink-3);padding:2px;transition:color .15s;}
+  .lang-toggle button:hover{color:var(--ink-2);}
+  .lang-toggle button.active{color:var(--accent-ink);font-weight:600;}
+  .lang-toggle .lang-sep{color:var(--ink-3);}
+
   /* ====== HERO ====== */
-  header.hero{padding:72px 0 40px;}
+  header.hero{padding:32px 0 40px;}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
   .status{
     display:inline-flex;align-items:center;gap:9px;
@@ -118,57 +125,21 @@
   .btn svg{width:17px;height:17px;}
 
   /* ====== PHONE MOCK ====== */
-  .phone-stage{display:flex;justify-content:center;perspective:1400px;}
-  .phone{
-    width:286px;height:586px;border-radius:46px;
-    background:#0E1116;padding:11px;
-    box-shadow:var(--shadow-lg);
-    position:relative;transform:rotateY(-13deg) rotateX(4deg);
+  .phone-stage{display:flex;justify-content:center;perspective:1200px;}
+  .hero-shot{
+    width:100%;
+    max-width:400px;
+    height:auto;
+    filter:drop-shadow(0 30px 60px rgba(14,17,22,.22));
+    transform:rotateY(7deg) rotateX(10deg) rotate(-6deg);
     transition:transform .5s cubic-bezier(.2,.8,.2,1);
+    will-change:transform;
+    transform-origin:center center;
   }
-  .phone:hover{transform:rotateY(-4deg) rotateX(2deg);}
-  .phone::before{content:"";position:absolute;top:13px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#0E1116;border-radius:0 0 16px 16px;z-index:5;}
-  .screen{
-    width:100%;height:100%;border-radius:36px;overflow:hidden;position:relative;
-    background:#dfe6e2;
+  .hero-shot:hover{
+    transform:rotateY(-6deg) rotateX(3deg) rotate(1deg) scale(1.32);
   }
-  /* fake map */
-  .map{position:absolute;inset:0;background:
-      linear-gradient(135deg,#e8efe9 0%, #dfe7e1 100%),
-      #e6ece8;}
-  .map::after{content:"";position:absolute;inset:0;
-    background-image:
-      linear-gradient(90deg, rgba(255,255,255,.9) 2px, transparent 2px),
-      linear-gradient(0deg, rgba(255,255,255,.9) 2px, transparent 2px),
-      linear-gradient(40deg, rgba(180,196,186,.55) 3px, transparent 3px);
-    background-size:64px 64px, 64px 64px, 130px 130px;
-    opacity:.7;}
-  .road{position:absolute;background:#fff;box-shadow:0 0 0 1px rgba(160,176,168,.5);}
-  .r1{top:34%;left:-10%;width:120%;height:9px;transform:rotate(-8deg);border-radius:6px;}
-  .r2{top:0;left:58%;width:9px;height:120%;transform:rotate(7deg);border-radius:6px;}
-
-  .pin{position:absolute;width:13px;height:13px;border-radius:50%;background:#b6c0bb;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.2);}
-  .pin.p2{top:24%;left:24%;}
-  .pin.p3{top:62%;left:70%;}
-  .pin.dest{top:42%;left:50%;width:18px;height:18px;background:var(--accent);transform:translate(-50%,-50%);z-index:3;}
-  .pin.dest::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2.5px solid var(--accent);animation:ping 2s ease-out infinite;}
-  .me{position:absolute;top:74%;left:34%;width:16px;height:16px;border-radius:50%;background:#2E7DF6;border:3px solid #fff;box-shadow:0 0 0 6px rgba(46,125,246,.18);}
-
-  .statusbar{position:absolute;top:0;left:0;right:0;height:46px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 6px;font-family:var(--body);font-weight:600;font-size:13px;color:#0E1116;z-index:6;}
-  .sheet{
-    position:absolute;left:8px;right:8px;bottom:8px;background:#fff;border-radius:26px;
-    padding:16px 16px 18px;box-shadow:0 -10px 30px rgba(14,17,22,.12);z-index:4;
-  }
-  .sheet .grab{width:38px;height:5px;border-radius:3px;background:#d7dbe0;margin:0 auto 13px;}
-  .sheet .nob{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;color:var(--accent-ink);background:var(--accent-soft);padding:4px 9px;border-radius:7px;margin-bottom:10px;}
-  .sheet .nob .x{width:6px;height:6px;border-radius:50%;background:var(--accent);}
-  .sheet h4{font-family:var(--display);font-weight:700;font-size:17px;margin:0 0 3px;letter-spacing:-.01em;}
-  .sheet .sub{font-size:12.5px;color:var(--ink-2);margin-bottom:13px;}
-  .sheet .row{display:flex;gap:8px;}
-  .sheet .row .a{flex:1;text-align:center;padding:10px;border-radius:12px;font-weight:600;font-size:13px;}
-  .sheet .row .nav-a{background:var(--accent);color:#fff;}
-  .sheet .row .call-a{background:var(--surface-2);color:var(--ink);border:1px solid var(--line-2);}
-
+   
   /* ====== SECTIONS ====== */
   section{padding:34px 0;}
   .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:26px;}
@@ -194,17 +165,20 @@
   .link-btn.solid{background:var(--ink);color:#fff;border-color:var(--ink);}
   .link-btn svg{width:15px;height:15px;}
   .feat-visual{
-    background:linear-gradient(160deg,#1DAA5B 0%, #0E8a47 100%);
-    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+    background:transparent;
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:visible;padding:30px 10px;
   }
-  .feat-visual::before{content:"";position:absolute;inset:0;background:
-    radial-gradient(220px 220px at 30% 20%, rgba(255,255,255,.18), transparent 60%),
-    radial-gradient(200px 200px at 80% 90%, rgba(0,0,0,.12), transparent 60%);}
-  .cross{width:120px;height:120px;position:relative;filter:drop-shadow(0 14px 24px rgba(0,0,0,.25));}
-  .cross::before,.cross::after{content:"";position:absolute;background:#fff;border-radius:14px;}
-  .cross::before{left:42px;top:0;width:36px;height:120px;}
-  .cross::after{top:42px;left:0;height:36px;width:120px;}
-
+  .feat-fan{position:relative;display:flex;align-items:center;justify-content:center;width:100%;}
+  .feat-fan img{
+    width:42%;
+    max-width:155px;
+    height:auto;
+    filter:drop-shadow(0 18px 34px rgba(14,17,22,.30));
+  }
+  .feat-fan img:nth-child(1){transform:rotate(-13deg) translateY(12px);margin-right:-13%;z-index:1;}
+  .feat-fan img:nth-child(2){z-index:3;}
+  .feat-fan img:nth-child(3){transform:rotate(13deg) translateY(12px);margin-left:-13%;z-index:1;}
+  
   /* work grid */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .card{
@@ -217,6 +191,7 @@
   .card p{color:var(--ink-2);font-size:14.5px;margin:0 0 16px;flex:1;}
   .tags{display:flex;flex-wrap:wrap;gap:6px;}
   .tags span{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:4px 8px;border-radius:8px;}
+  .card-cta{font-family:var(--mono);font-size:11.5px;color:var(--accent-ink);margin-top:12px;}
   .card.wide{grid-column:span 1;}
 
   /* toolbox */
@@ -260,8 +235,6 @@
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr;gap:40px;}
     .phone-stage{order:-1;}
-    .phone{transform:none;}
-    .phone:hover{transform:none;}
     .featured{grid-template-columns:1fr;}
     .feat-visual{min-height:180px;order:-1;}
     .grid{grid-template-columns:repeat(2,1fr);}
@@ -293,10 +266,15 @@
     <a href="#top" class="brand"><span class="mark">K</span>Kerim Ak</a>
     <button class="nav-toggle" aria-label="Menu" id="navToggle"><span></span><span></span><span></span></button>
     <div class="nav-links" id="navLinks">
-      <a href="#work">Work</a>
-      <a href="#toolbox">Toolbox</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="nav-cta">Get in touch</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#toolbox" data-i18n="nav.toolbox">Toolbox</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <div class="lang-toggle" id="langToggle">
+        <button data-set-lang="en">EN</button>
+        <span class="lang-sep">/</span>
+        <button data-set-lang="tr">TR</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.contact">Get in touch</a>
     </div>
   </div>
 </nav>
@@ -305,46 +283,26 @@
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="status"><span class="dot"></span>Available for iOS roles &amp; internships · Summer 2026</span>
+      <span class="status"><span class="dot"></span><span data-i18n="hero.status">Available for iOS roles &amp; internships · Summer 2026</span></span>
       <h1>Kerim Ak</h1>
-      <p class="role">iOS Developer</p>
-      <p class="lede">I build iOS apps end to end — the SwiftUI front end and the backend that feeds it.</p>
-      <p class="meta-line">Istanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Computer Engineering '26</p>
+      <p class="role" data-i18n="hero.role">iOS Developer</p>
+      <p class="lede" data-i18n="hero.lede">I build iOS apps end to end — the SwiftUI front end and the backend that feeds it.</p>
+      <p class="meta-line" data-i18n="hero.meta">Istanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Computer Engineering '26</p>
       <div class="hero-cta">
         <a href="#work" class="btn btn-primary">
-          See my work
+          <span data-i18n="hero.seework">See my work</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <!-- TODO: replace href with your real CV file path once uploaded -->
-        <a href="#" class="btn btn-ghost">
+        <a href="cv/kerim-cv-en.pdf" download target="_blank" rel="noopener" class="btn btn-ghost" id="cv-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M5 21h14"/></svg>
-          Download CV
+          <span data-i18n="hero.cv">Download CV</span>
         </a>
       </div>
     </div>
 
     <!-- Eczane app, the thesis -->
     <div class="phone-stage">
-      <div class="phone" aria-hidden="true">
-        <div class="screen">
-          <div class="map"></div>
-          <div class="road r1"></div><div class="road r2"></div>
-          <div class="statusbar"><span>21:47</span><span>Eczane</span></div>
-          <div class="pin p2"></div><div class="pin p3"></div>
-          <div class="pin dest"></div>
-          <div class="me"></div>
-          <div class="sheet">
-            <div class="grab"></div>
-            <span class="nob"><span class="x"></span>NÖBETÇİ · ON DUTY</span>
-            <h4>Merkez Eczanesi</h4>
-            <div class="sub">0.4 km away · Open until 09:00</div>
-            <div class="row">
-              <div class="a nav-a">Navigate</div>
-              <div class="a call-a">Call</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <img src="images/eczane-hero.png" alt="Eczane app showing on-duty pharmacies on a map" class="hero-shot" />
     </div>
   </div>
 </header>
@@ -353,16 +311,16 @@
 <section id="featured">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><span class="eyebrow">featured project</span><h2>Eczane</h2></div>
-      <p class="sec-note">The one I'd want you to open first.</p>
+      <div><span class="eyebrow" data-i18n="feat.eyebrow">featured project</span><h2 data-i18n="feat.title">On-Duty Pharmacies</h2></div>
+      <p class="sec-note" data-i18n="feat.note">The one I'd want you to open first.</p>
     </div>
 
     <div class="featured reveal">
       <div class="feat-body">
-        <span class="feat-tag">iOS · live backend</span>
-        <h3>On-duty pharmacy finder</h3>
-        <p>In Turkey, only a rotating set of pharmacies stay open overnight and on holidays. Finding the nearest one usually means digging through a slow government site at the worst possible moment.</p>
-        <p>Eczane puts every on-duty pharmacy on a map, sorted by distance, with one tap to navigate or call. A FastAPI service caches the official roster so the app stays fast and the source site only gets hit once.</p>
+        <span class="feat-tag" data-i18n="feat.tag">iOS · live backend</span>
+        <h3 data-i18n="feat.h3">On-duty pharmacy finder</h3>
+        <p data-i18n="feat.p1">In Turkey, only a rotating set of pharmacies stay open overnight and on holidays. Finding the nearest one usually means digging through a slow government site at the worst possible moment.</p>
+        <p data-i18n="feat.p2">Eczane puts every on-duty pharmacy on a map, sorted by distance, with one tap to navigate or call. A FastAPI service caches the official roster so the app stays fast and the source site only gets hit once.</p>
         <div class="stack">
           <span class="chip">SwiftUI</span>
           <span class="chip">MapKit</span>
@@ -372,19 +330,25 @@
           <span class="chip">Cloudflare Tunnel</span>
         </div>
         <div class="feat-links">
-          <!-- TODO: paste your TestFlight / App Store link here when live -->
+          <!-- TODO: paste your TestFlight link here when your Apple Developer account is ready -- add a ">" after --
           <a href="#" class="link-btn solid">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 12l-9 6V6l9 6z"/></svg>
             TestFlight
           </a>
-          <a href="https://github.com/kerimxak" class="link-btn">
+          remove this line -->
+          <a href="https://github.com/kerimxak/eczane" class="link-btn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
-            Source
+            <span data-i18n="feat.source">Source</span>
           </a>
         </div>
       </div>
       <div class="feat-visual">
-        <div class="cross"></div>
+        <div class="feat-fan">
+          <img src="images/eczane-1.png" alt="Eczane map screen" />
+          <img src="images/eczane-3.png" alt="Eczane route to a pharmacy" />
+          <img src="images/eczane-2.png" alt="Eczane pharmacy list" />
+
+        </div>
       </div>
     </div>
   </div>
@@ -394,51 +358,45 @@
 <section id="work">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><span class="eyebrow">selected work</span><h2>A few other things I've built</h2></div>
-      <p class="sec-note">Apps, products, and hardware — I like shipping.</p>
+      <div><span class="eyebrow" data-i18n="work.eyebrow">selected work</span><h2 data-i18n="work.h2">A few other things I've built</h2></div>
+      <p class="sec-note" data-i18n="work.note">Apps, products, and hardware — I like shipping.</p>
     </div>
 
     <div class="grid">
       <div class="card reveal">
-        <div class="kicker">swiftui · series</div>
+        <div class="kicker" data-i18n="c1.kicker">swiftui · series</div>
         <h3>100 Days of SwiftUI</h3>
-        <p>A run of small, finished apps — a Pomodoro timer shipped at v1.0, a 2048 clone, an expense tracker, and MoneySplit for splitting bills. Reps until the framework felt native.</p>
+        <p data-i18n="c1.p">A run of small, finished apps — a Pomodoro timer shipped at v1.0, an expense tracker, and MoneySplit for splitting bills. Reps until the framework felt native.</p>
         <div class="tags"><span>Swift</span><span>SwiftUI</span><span>SwiftData</span></div>
       </div>
 
-      <div class="card reveal">
-        <div class="kicker">product · e-commerce</div>
+      <a href="https://korinlabs.store" target="_blank" rel="noopener" class="card reveal">
+        <div class="kicker" data-i18n="c2.kicker">product · e-commerce</div>
         <h3>Korin Labs</h3>
-        <p>A 3D-printed designer lamp brand I run end to end — CAD in Fusion 360, printing on a Bambu Lab A1, an online store, and Meta ad campaigns. Real orders, real shipping logistics.</p>
+        <p data-i18n="c2.p">A 3D-printed designer lamp brand I run end to end — CAD in Fusion 360, printing on a Bambu Lab A1, an online store, and Meta ad campaigns. Real orders, real shipping logistics.</p>
         <div class="tags"><span>Fusion 360</span><span>3D printing</span><span>Storefront</span></div>
-      </div>
+        <div class="card-cta">korinlabs.store ↗</div>
+      </a>
 
       <div class="card reveal">
-        <div class="kicker">robotics · capstone</div>
-        <h3>Elevator-navigating robot</h3>
-        <p>An autonomous robot that finds and rides elevators between floors, using ROS2 for control and YOLO on a Raspberry Pi for button and door detection.</p>
+        <div class="kicker" data-i18n="c3.kicker">robotics · capstone</div>
+        <h3 data-i18n="c3.h3">Elevator-navigating robot</h3>
+        <p data-i18n="c3.p">An autonomous robot that finds and rides elevators between floors, using ROS2 for control and YOLO on a Raspberry Pi for button and door detection.</p>
         <div class="tags"><span>ROS2</span><span>YOLO</span><span>Raspberry Pi</span></div>
       </div>
 
       <div class="card reveal">
-        <div class="kicker">embedded · hardware</div>
-        <h3>ESP32 builds</h3>
-        <p>A pocket digital camera on an ESP32-S3 with an ST7789 display and LiPo power, plus a Snake game on a joystick handheld. Schematics, sourcing, and firmware.</p>
+        <div class="kicker" data-i18n="c4.kicker">embedded · hardware</div>
+        <h3 data-i18n="c4.h3">ESP32 builds</h3>
+        <p data-i18n="c4.p">A pocket digital camera on an ESP32-S3 with an ST7789 display and LiPo power, plus a Snake game on a joystick handheld. Schematics, sourcing, and firmware.</p>
         <div class="tags"><span>ESP32-S3</span><span>C/C++</span><span>LiPo</span></div>
       </div>
 
       <div class="card reveal">
-        <div class="kicker">backend · infra</div>
-        <h3>Self-hosted infrastructure</h3>
-        <p>A FastAPI caching service on a Linux VPS, fronted by a Cloudflare Tunnel — the backbone behind Eczane. Comfortable with Linux, SSH, and keeping a service up.</p>
+        <div class="kicker" data-i18n="c5.kicker">backend · infra</div>
+        <h3 data-i18n="c5.h3">Self-hosted infrastructure</h3>
+        <p data-i18n="c5.p">A FastAPI caching service on a Linux VPS, fronted by a Cloudflare Tunnel — the backbone behind Eczane. Comfortable with Linux, SSH, and keeping a service up.</p>
         <div class="tags"><span>Python</span><span>FastAPI</span><span>Linux</span></div>
-      </div>
-
-      <div class="card reveal">
-        <div class="kicker">open source</div>
-        <h3>Google Summer of Code '26</h3>
-        <p>Applied to the Processing Foundation to work on their Translation Tracker — an Astro/JavaScript tool for coordinating community translations.</p>
-        <div class="tags"><span>JavaScript</span><span>Astro</span><span>Open source</span></div>
       </div>
     </div>
   </div>
@@ -448,7 +406,7 @@
 <section id="toolbox">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><span class="eyebrow">toolbox</span><h2>What I reach for</h2></div>
+      <div><span class="eyebrow" data-i18n="tb.eyebrow">toolbox</span><h2 data-i18n="tb.h2">What I reach for</h2></div>
     </div>
     <div class="tools reveal">
       <div class="tool-col">
@@ -456,16 +414,16 @@
         <ul><li>Swift</li><li>SwiftUI</li><li>MapKit</li><li>CoreLocation</li><li>SwiftData</li><li>Xcode &amp; TestFlight</li></ul>
       </div>
       <div class="tool-col">
-        <h4>backend</h4>
+        <h4 data-i18n="tb.col2">backend</h4>
         <ul><li>Python</li><li>FastAPI</li><li>SQLite</li><li>REST APIs</li><li>Cloudflare Tunnel</li><li>Linux / SSH</li></ul>
       </div>
       <div class="tool-col">
-        <h4>tools</h4>
-        <ul><li>Git &amp; GitHub</li><li>JavaScript</li><li>Astro</li><li>Figma basics</li><li>VPS deployment</li></ul>
+        <h4 data-i18n="tb.col3">tools</h4>
+        <ul><li>Git &amp; GitHub</li><li>JavaScript</li><li>Astro</li><li data-i18n="tb.figma">Figma basics</li><li data-i18n="tb.vps">VPS deployment</li></ul>
       </div>
       <div class="tool-col">
-        <h4>hardware</h4>
-        <ul><li>ESP32 / RP2040</li><li>Arduino</li><li>ROS2 · YOLO</li><li>Fusion 360 (CAD)</li><li>3D printing</li></ul>
+        <h4 data-i18n="tb.col4">hardware</h4>
+        <ul><li>ESP32 / RP2040</li><li>Arduino</li><li>ROS2 · YOLO</li><li>Fusion 360 (CAD)</li><li data-i18n="tb.print">3D printing</li></ul>
       </div>
     </div>
   </div>
@@ -475,20 +433,20 @@
 <section id="about">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><span class="eyebrow">about</span><h2>Who's building this</h2></div>
+      <div><span class="eyebrow" data-i18n="about.eyebrow">about</span><h2 data-i18n="about.h2">Who's building this</h2></div>
     </div>
     <div class="about reveal">
       <div>
-        <p>I'm a final-year Computer Engineering student in Istanbul, focused on <strong>iOS development</strong>. I like the whole loop — designing a screen, wiring the Swift behind it, and standing up the backend that makes it real.</p>
-        <p>Outside of the IDE I run a small 3D-printed lamp brand, tinker with ESP32 and RP2040 boards, and founded a university club for students new to Istanbul. The common thread is finishing things and putting them in front of people.</p>
-        <p>I'm looking for an <strong>iOS role or summer internship</strong> where I can learn from a strong team and ship work that gets used.</p>
+        <p data-i18n="about.p1">I'm a Computer Engineering graduate in Istanbul, focused on <strong>iOS development</strong>. I like the whole loop — designing a screen, wiring the Swift behind it, and standing up the backend that makes it real.</p>
+        <p data-i18n="about.p2">Outside of the IDE I run a small 3D-printed lamp brand, tinker with ESP32 and RP2040 boards, and founded a university club for students new to Istanbul. The common thread is finishing things and putting them in front of people.</p>
+        <p data-i18n="about.p3">I'm looking for an <strong>iOS role or internship</strong> where I can learn from a strong team and ship work that gets used.</p>
       </div>
       <div class="facts">
-        <div class="fact"><span class="k">based in</span><span class="v">Istanbul, Türkiye</span></div>
-        <div class="fact"><span class="k">languages</span><span class="v">English C2 · Turkish · Russian</span></div>
-        <div class="fact"><span class="k">studying</span><span class="v">Computer Eng. · BAU · '26</span></div>
-        <div class="fact"><span class="k">focus</span><span class="v">iOS / SwiftUI</span></div>
-        <div class="fact"><span class="k">open to</span><span class="v">Internship · Junior iOS · Remote</span></div>
+        <div class="fact"><span class="k" data-i18n="about.f1k">based in</span><span class="v">Istanbul, Türkiye</span></div>
+        <div class="fact"><span class="k" data-i18n="about.f2k">languages</span><span class="v" data-i18n="about.f2v">English C2 · Turkish C2 · Russian</span></div>
+        <div class="fact"><span class="k" data-i18n="about.f3k">education</span><span class="v">Computer Eng. · BAU · '26</span></div>
+        <div class="fact"><span class="k" data-i18n="about.f4k">focus</span><span class="v">iOS / SwiftUI</span></div>
+        <div class="fact"><span class="k" data-i18n="about.f5k">open to</span><span class="v" data-i18n="about.f5v">Internship · Junior iOS · Remote</span></div>
       </div>
     </div>
   </div>
@@ -498,9 +456,9 @@
 <section id="contact">
   <div class="wrap">
     <div class="contact reveal">
-      <span class="eyebrow" style="color:#5fe49a">contact</span>
-      <h2>Let's talk</h2>
-      <p>If you're hiring for iOS — or just want to see Eczane in action — I'm a message away.</p>
+      <span class="eyebrow" style="color:#5fe49a" data-i18n="contact.eyebrow">contact</span>
+      <h2 data-i18n="contact.h2">Let's talk</h2>
+      <p data-i18n="contact.p">If you're hiring for iOS — or just want to see Eczane in action — I'm a message away.</p>
       <div class="contact-links">
         <a href="mailto:kerimxak@icloud.com" class="clink green">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
@@ -514,8 +472,8 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
           github.com/kerimxak
         </a>
-        <!-- TODO: add your LinkedIn URL -->
-        <a href="#" class="clink">
+        <!-- TODO: confirm this LinkedIn URL resolves to your profile -->
+        <a href="https://linkedin.com/in/kerimxak" class="clink">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg>
           LinkedIn
         </a>
@@ -526,11 +484,160 @@
 
 <footer>
   <div class="wrap">
-    Built by hand with HTML &amp; CSS <span class="sep">·</span> Istanbul <span class="sep">·</span> <span id="year"></span>
+    <span data-i18n="footer.text">Built by hand with HTML &amp; CSS · Istanbul ·</span> <span id="year"></span>
   </div>
 </footer>
 
 <script>
+  // ====== i18n ======
+  const translations = {
+    en: {
+      docTitle: "Kerim Ak — iOS Developer",
+      "nav.work": "Work",
+      "nav.toolbox": "Toolbox",
+      "nav.about": "About",
+      "nav.contact": "Get in touch",
+      "hero.status": "Available for iOS roles &amp; internships · Summer 2026",
+      "hero.role": "iOS Developer",
+      "hero.lede": "I build iOS apps end to end — the SwiftUI front end and the backend that feeds it.",
+      "hero.meta": "Istanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Computer Engineering '26",
+      "hero.seework": "See my work",
+      "hero.cv": "Download CV",
+      "feat.title": "On-Duty Pharmacies",
+      "feat.eyebrow": "featured project",
+      "feat.note": "The one I'd want you to open first.",
+      "feat.tag": "iOS · live backend",
+      "feat.h3": "The nearest open pharmacy, right when you need it",
+      "feat.p1": "In Turkey most pharmacies shut at night and on holidays — only a rotating handful stay open. The official way to find them is a slow, clunky government site, which is the last thing you want to fight with when it's late and someone needs medicine.",
+      "feat.p2": "I built this because none of the existing options were actually pleasant to use. It shows the open pharmacies near you on a map, closest first, and gets you there or on the phone in one tap — fast, native, and simple, the way an iOS app should feel.",
+      "feat.source": "Source",
+      "work.eyebrow": "selected work",
+      "work.h2": "A few other things I've built",
+      "work.note": "Apps, products, and hardware — I like shipping.",
+      "c1.kicker": "swiftui · series",
+      "c1.p": "A run of small, finished apps — a Pomodoro timer shipped at v1.0, an expense tracker, and MoneySplit for splitting bills. Reps until the framework felt native.",
+      "c2.kicker": "product · e-commerce",
+      "c2.p": "A 3D-printed designer lamp brand I run end to end — CAD in Fusion 360, printing on a Bambu Lab A1, an online store, and Meta ad campaigns. Real orders, real shipping logistics.",
+      "c3.kicker": "robotics · capstone",
+      "c3.h3": "Elevator-navigating robot",
+      "c3.p": "An autonomous robot that finds and rides elevators between floors, using ROS2 for control and YOLO on a Raspberry Pi for button and door detection.",
+      "c4.kicker": "embedded · hardware",
+      "c4.h3": "ESP32 builds",
+      "c4.p": "A pocket digital camera on an ESP32-S3 with an ST7789 display and LiPo power, plus a Snake game on a joystick handheld. Schematics, sourcing, and firmware.",
+      "c5.kicker": "backend · infra",
+      "c5.h3": "Self-hosted infrastructure",
+      "c5.p": "A FastAPI caching service on a Linux VPS, fronted by a Cloudflare Tunnel — the backbone behind Eczane. Comfortable with Linux, SSH, and keeping a service up.",
+      "tb.eyebrow": "toolbox",
+      "tb.h2": "What I reach for",
+      "tb.col2": "backend",
+      "tb.col3": "tools",
+      "tb.col4": "hardware",
+      "tb.figma": "Figma basics",
+      "tb.vps": "VPS deployment",
+      "tb.print": "3D printing",
+      "about.eyebrow": "about",
+      "about.h2": "Who's building this",
+      "about.p1": "I'm a Computer Engineering graduate in Istanbul, focused on <strong>iOS development</strong>. I like the whole loop — designing a screen, wiring the Swift behind it, and standing up the backend that makes it real.",
+      "about.p2": "Outside of the IDE I run a small 3D-printed lamp brand, tinker with ESP32 and RP2040 boards, and founded a university club for students new to Istanbul. The common thread is finishing things and putting them in front of people.",
+      "about.p3": "I'm looking for an <strong>iOS role or internship</strong> where I can learn from a strong team and ship work that gets used.",
+      "about.f1k": "based in",
+      "about.f2k": "languages",
+      "about.f2v": "English C2 · Turkish C2 · Russian",
+      "about.f3k": "education",
+      "about.f4k": "focus",
+      "about.f5k": "open to",
+      "about.f5v": "Internship · Junior iOS · Remote",
+      "contact.eyebrow": "contact",
+      "contact.h2": "Let's talk",
+      "contact.p": "If you're hiring for iOS — or just want to see Eczane in action — I'm a message away.",
+      "footer.text": "Built by hand with HTML &amp; CSS · Istanbul ·"
+    },
+    tr: {
+      docTitle: "Kerim Ak — iOS Geliştirici",
+      "nav.work": "Çalışmalar",
+      "nav.toolbox": "Araçlar",
+      "nav.about": "Hakkımda",
+      "nav.contact": "İletişime geç",
+      "hero.status": "iOS pozisyonları ve stajlar için uygun · Yaz 2026",
+      "hero.role": "iOS Geliştirici",
+      "hero.lede": "iOS uygulamalarını uçtan uca geliştiriyorum — SwiftUI arayüzü ve onu besleyen arka uç.",
+      "hero.meta": "İstanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Bilgisayar Mühendisliği '26",
+      "hero.seework": "Çalışmalarımı gör",
+      "hero.cv": "CV'yi indir",
+      "feat.eyebrow": "öne çıkan proje",
+      "feat.title": "Nöbetçi Eczane",
+      "feat.note": "İlk açmanızı istediğim proje.",
+      "feat.tag": "iOS · canlı arka uç",
+      "feat.h3": "İhtiyacın olduğu an, en yakın açık eczane",
+      "feat.p1": "Türkiye'de eczanelerin çoğu gece ve tatillerde kapalı; sadece dönüşümlü birkaçı nöbetçi kalıyor. Onları bulmanın resmi yolu ise yavaş ve hantal bir devlet sitesi — hem de gece yarısı, birine ilaç lazımken uğraşmak isteyeceğin son şey.",
+      "feat.p2": "Bunu yaptım çünkü mevcut seçeneklerin hiçbiri düzgün kullanılmıyordu. Sana en yakın açık eczaneleri, en yakından başlayarak haritada gösterir; tek dokunuşla yol tarifi alır ya da ararsın. Hızlı, sade ve bir iOS uygulamasının olması gerektiği gibi.",
+      "feat.source": "Kaynak",
+      "work.eyebrow": "seçilmiş çalışmalar",
+      "work.h2": "Geliştirdiğim birkaç şey daha",
+      "work.note": "Uygulamalar, ürünler ve donanım — bitirmeyi severim.",
+      "c1.kicker": "swiftui · seri",
+      "c1.p": "Tamamlanmış küçük uygulamalardan oluşan bir seri — v1.0 olarak yayınlanan bir Pomodoro zamanlayıcı, bir harcama takipçisi ve hesap bölüşmek için MoneySplit. Framework doğal gelene kadar tekrar.",
+      "c2.kicker": "ürün · e-ticaret",
+      "c2.p": "Uçtan uca yönettiğim 3D baskı tasarım lamba markası — Fusion 360'ta CAD, Bambu Lab A1'de baskı, çevrim içi mağaza ve Meta reklam kampanyaları. Gerçek siparişler, gerçek kargo lojistiği.",
+      "c3.kicker": "robotik · bitirme projesi",
+      "c3.h3": "Asansör kullanan robot",
+      "c3.p": "Katlar arasında asansör bulup kullanan otonom robot; kontrol için ROS2, düğme ve kapı tespiti için Raspberry Pi üzerinde YOLO.",
+      "c4.kicker": "gömülü · donanım",
+      "c4.h3": "ESP32 projeleri",
+      "c4.p": "ST7789 ekranlı ve LiPo güçlü bir ESP32-S3 üzerinde cep boyutunda dijital kamera, ayrıca joystick'li bir el konsolunda Snake oyunu. Şemalar, tedarik ve firmware.",
+      "c5.kicker": "arka uç · altyapı",
+      "c5.h3": "Kendi barındırdığım altyapı",
+      "c5.p": "Linux VPS üzerinde, önünde Cloudflare Tunnel olan bir FastAPI önbellek servisi — Eczane'nin arkasındaki omurga. Linux, SSH ve bir servisi ayakta tutma konusunda rahatım.",
+      "tb.eyebrow": "araçlar",
+      "tb.h2": "Kullandıklarım",
+      "tb.col2": "arka uç",
+      "tb.col3": "araçlar",
+      "tb.col4": "donanım",
+      "tb.figma": "Figma (temel)",
+      "tb.vps": "VPS dağıtımı",
+      "tb.print": "3D baskı",
+      "about.eyebrow": "hakkımda",
+      "about.h2": "Bunu kim yapıyor",
+      "about.p1": "İstanbul'da, <strong>iOS geliştirmeye</strong> odaklanan bir Bilgisayar Mühendisliği mezunuyum. Tüm döngüyü severim — bir ekran tasarlamak, arkasındaki Swift'i yazmak ve onu gerçek kılan arka ucu ayağa kaldırmak.",
+      "about.p2": "IDE dışında küçük bir 3D baskı lamba markası işletiyorum, ESP32 ve RP2040 kartlarıyla uğraşıyorum ve İstanbul'a yeni gelen öğrenciler için bir üniversite kulübü kurdum. Ortak nokta: işleri bitirip insanların önüne koymak.",
+      "about.p3": "Güçlü bir ekipten öğrenebileceğim ve kullanılan işler çıkarabileceğim bir <strong>iOS pozisyonu veya staj</strong> arıyorum.",
+      "about.f1k": "konum",
+      "about.f2k": "diller",
+      "about.f2v": "İngilizce C2 · Türkçe C2 · Rusça",
+      "about.f3k": "eğitim",
+      "about.f4k": "odak",
+      "about.f5k": "açık olduğum",
+      "about.f5v": "Staj · Junior iOS · Uzaktan",
+      "contact.eyebrow": "iletişim",
+      "contact.h2": "Konuşalım",
+      "contact.p": "iOS için işe alım yapıyorsanız — ya da sadece Eczane'yi çalışırken görmek istiyorsanız — bir mesaj uzağınızdayım.",
+      "footer.text": "El emeğiyle HTML &amp; CSS ile yapıldı · İstanbul ·"
+    }
+  };
+
+  function setLang(lang){
+    document.documentElement.lang = lang;
+    try { localStorage.setItem('lang', lang); } catch(e){}
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const val = translations[lang][key];
+      if (val !== undefined) el.innerHTML = val;
+    });
+    const cv = document.getElementById('cv-btn');
+    if (cv) cv.setAttribute('href', lang === 'tr' ? 'cv/kerim-cv-tr.pdf' : 'cv/kerim-cv-en.pdf');
+    document.querySelectorAll('[data-set-lang]').forEach(b =>
+      b.classList.toggle('active', b.getAttribute('data-set-lang') === lang));
+    document.title = translations[lang].docTitle;
+  }
+
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch(e){}
+  const browserTR = (navigator.language || '').toLowerCase().startsWith('tr');
+  setLang(saved || (browserTR ? 'tr' : 'en'));
+
+  document.querySelectorAll('[data-set-lang]').forEach(b =>
+    b.addEventListener('click', () => setLang(b.getAttribute('data-set-lang'))));
+
   // year
   document.getElementById('year').textContent = new Date().getFullYear();
 
