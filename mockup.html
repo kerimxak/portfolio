@@ -1,0 +1,375 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kerim Ak — mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDECE7;
+  --ink:#101010;
+  --rule:#C6C4BD;
+  --rule-soft:#DBD9D3;
+  --muted:#78766F;
+  --accent:#FF3B00;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --disp:"Archivo",Helvetica,Arial,sans-serif;
+  --pad:clamp(16px,3.2vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--mono);font-size:12px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:10px;
+}
+.frame{border:1px solid var(--ink);min-height:calc(100vh - 20px)}
+
+.lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ---- top bar ---- */
+header{
+  display:flex;align-items:stretch;justify-content:space-between;
+  border-bottom:1px solid var(--ink);position:sticky;top:10px;
+  background:var(--paper);z-index:10;
+}
+.brand{padding:14px var(--pad);font-family:var(--disp);font-weight:700;
+  font-size:15px;letter-spacing:-.02em;line-height:1.4;white-space:nowrap}
+nav{display:flex}
+nav a,nav button{
+  display:flex;align-items:center;padding:14px 16px;
+  border-left:1px solid var(--rule);background:none;cursor:pointer;
+  font:inherit;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+}
+nav a:hover,nav button:hover{color:var(--ink)}
+nav .on{color:var(--ink)}
+nav a:focus-visible,nav button:focus-visible,.row:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+
+/* ---- masthead ---- */
+.mast{
+  padding:clamp(34px,6vw,74px) var(--pad) clamp(28px,5vw,56px);
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.82fr);
+  gap:clamp(24px,4vw,60px);align-items:end;
+}
+h1{
+  font-family:var(--disp);font-weight:600;
+  font-size:clamp(38px,6.6vw,86px);line-height:.94;letter-spacing:-.035em;
+  max-width:13ch;
+}
+h1 em{font-style:normal;color:var(--accent)}
+.mast p{margin-top:clamp(20px,3vw,34px);max-width:44ch;color:var(--muted);font-size:12px}
+.mast p b{font-weight:400;color:var(--ink)}
+.mast figcaption{display:flex;justify-content:space-between;gap:12px}
+
+/* ---- index ---- */
+.idx{border-top:1px solid var(--ink)}
+.item{border-bottom:1px solid var(--rule)}
+.item:last-child{border-bottom:1px solid var(--ink)}
+.row{
+  width:100%;display:grid;
+  grid-template-columns:64px 1fr 130px 62px 20px;
+  align-items:center;gap:12px;
+  padding:18px var(--pad);
+  background:none;border:0;cursor:pointer;font:inherit;text-align:left;
+  position:relative;color:var(--ink);
+}
+.row:hover{background:#E6E4DE}
+.row .no{font-size:10px;letter-spacing:.14em;color:var(--muted)}
+.row .nm{font-family:var(--disp);font-weight:600;font-size:clamp(17px,2.6vw,26px);letter-spacing:-.02em}
+.row .ty,.row .yr{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.row .mk{justify-self:end;width:9px;height:9px;border:1px solid var(--muted)}
+.item.open .row .no{color:var(--accent)}
+.item.open .row .mk{background:var(--accent);border-color:var(--accent)}
+.item.open .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+
+.wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s cubic-bezier(.2,.7,.3,1)}
+.item.open .wrap{grid-template-rows:1fr}
+.inner{overflow:hidden}
+.body{
+  padding:8px var(--pad) clamp(36px,5vw,64px);
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:clamp(20px,3vw,44px);align-items:start;
+}
+.plates{display:grid;grid-template-columns:1fr;gap:14px}
+.plates .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+figure{margin:0}
+figcaption{margin-top:7px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* halftone placeholder */
+.ph{position:relative;background:#E3E1DA;border:1px solid var(--rule);overflow:hidden}
+.ph.r43{aspect-ratio:4/3}
+.ph.r11{aspect-ratio:1/1}
+.ph.r34{aspect-ratio:3/4}
+.ph.r45{aspect-ratio:4/5}
+.ph::before,.ph::after{content:"";position:absolute;inset:0}
+.ph::before{
+  background-image:radial-gradient(circle at center,var(--ink) 1.05px,transparent 1.15px);
+  background-size:8px 8px;opacity:.34;
+}
+.ph::after{
+  background-image:radial-gradient(circle at center,var(--ink) 3.1px,transparent 3.2px);
+  background-size:8px 8px;
+  -webkit-mask-image:radial-gradient(58% 62% at 34% 58%,#000 8%,transparent 72%);
+  mask-image:radial-gradient(58% 62% at 34% 58%,#000 8%,transparent 72%);
+  opacity:.92;
+}
+.ph span{
+  position:absolute;left:9px;bottom:8px;z-index:1;
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  background:var(--paper);padding:3px 6px;border:1px solid var(--rule);
+}
+
+.copy p{max-width:42ch}
+.copy p+p{margin-top:12px}
+dl{margin-top:22px;border-top:1px solid var(--rule)}
+.dr{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule-soft)}
+dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+dd{font-size:11px}
+.links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px}
+.links a{
+  color:var(--accent);text-decoration:none;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--accent);padding-bottom:3px;
+}
+.links a:hover{background:var(--accent);color:var(--paper)}
+.links a[data-x]::after{content:" ↗"}
+
+/* ---- footer ---- */
+footer{padding:clamp(44px,7vw,96px) var(--pad) clamp(28px,4vw,48px)}
+footer h2{font-family:var(--disp);font-weight:600;font-size:clamp(26px,4.6vw,54px);letter-spacing:-.03em;line-height:1}
+.cts{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.cts a{background:var(--paper);padding:16px;text-decoration:none;color:var(--ink);display:block}
+.cts a:hover{background:#E6E4DE}
+.cts .k{display:block;margin-bottom:5px}
+.colo{margin-top:clamp(28px,4vw,52px);padding-top:14px;border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
+
+@media (max-width:820px){
+  .mast{grid-template-columns:1fr;gap:28px;align-items:start}
+  .row{grid-template-columns:40px 1fr 16px;row-gap:4px}
+  .row .ty{grid-column:2;grid-row:2;padding:0}
+  .row .yr{display:none}
+  .body{grid-template-columns:1fr}
+  header{position:static}
+  .brand{padding:12px var(--pad)}
+  nav a,nav button{padding:12px 11px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<div class="frame">
+  <header>
+    <div class="brand">Kerim Ak<span style="color:var(--accent)">.</span></div>
+    <nav>
+      <button class="on">EN</button>
+      <button>TR</button>
+      <a href="#">CV</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="mast">
+    <div>
+      <h1>Software and objects<em>.</em></h1>
+      <p><b>Computer engineer in Istanbul.</b> I build iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on. Five of them below, with what went into each.</p>
+    </div>
+    <figure>
+      <div class="ph r45"><span>Masthead · screened with benday</span></div>
+      <figcaption><span>PharmacyMap, spiral screen</span><span>150 × 187.5 mm</span></figcaption>
+    </figure>
+  </section>
+
+  <div class="idx" id="idx">
+
+    <div class="item open">
+      <button class="row" aria-expanded="true">
+        <span class="no">01/</span>
+        <span class="nm">PharmacyMap</span>
+        <span class="ty">iOS app</span>
+        <span class="yr">2026</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap"><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span></div>
+            <figcaption>Duty map, bottom sheet at medium detent</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r34"><span>Fig 02</span></div><figcaption>Province fallback</figcaption></figure>
+            <figure><div class="ph r34"><span>Fig 03</span></div><figcaption>Detail sheet</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p>Turkey's pharmacies take turns staying open overnight, and finding the one on duty means checking a different site for every province. This finds it on a map.</p>
+          <p>The hard part was the data. I reverse-engineered a nationwide dataset from e-Devlet and got government GPS coordinates for 99.7% of pharmacies, so the map is accurate rather than approximate.</p>
+          <dl>
+            <div class="dr"><dt>App</dt><dd>SwiftUI · MapKit · iOS 26</dd></div>
+            <div class="dr"><dt>Backend</dt><dd>FastAPI · SQLite on a Linux VPS</dd></div>
+            <div class="dr"><dt>Coverage</dt><dd>81 provinces, nationwide</dd></div>
+            <div class="dr"><dt>Role</dt><dd>Everything</dd></div>
+          </dl>
+          <div class="links"><a href="#">App Store</a><a href="#">Source</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="item">
+      <button class="row" aria-expanded="false">
+        <span class="no">02/</span>
+        <span class="nm">benday</span>
+        <span class="ty">Web tool</span>
+        <span class="yr">2026</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap"><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span></div>
+            <figcaption>Spiral screen, 150 × 150 mm plate</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span></div><figcaption>Merged dot screen</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span></div><figcaption>Printed result</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p>A halftone screen generator that thinks in millimetres. It turns a photograph into two-colour vector geometry you can 3D print, laser engrave or plot — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.</p>
+          <p>Dots merge through a signed-distance field rather than pairwise, which is what lets them flow together instead of looking glued.</p>
+          <dl>
+            <div class="dr"><dt>Built with</dt><dd>Vanilla JS · Canvas · SVG</dd></div>
+            <div class="dr"><dt>Hosting</dt><dd>Cloudflare Workers</dd></div>
+            <div class="dr"><dt>Output</dt><dd>SVG in true mm, PNG, JPEG</dd></div>
+            <div class="dr"><dt>Role</dt><dd>Everything</dd></div>
+          </dl>
+          <div class="links"><a href="https://benday.kerimxak.xyz" data-x>benday.kerimxak.xyz</a><a href="#">Source</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="item">
+      <button class="row" aria-expanded="false">
+        <span class="no">03/</span>
+        <span class="nm">Korin Labs</span>
+        <span class="ty">Product</span>
+        <span class="yr">2025—</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap"><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span></div>
+            <figcaption>Tatlı collection — Éclair, Marshmallow</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span></div><figcaption>Twist-lock collar</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span></div><figcaption>Cinnamon Swirl</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p>A small lighting brand. I design the lamps in Fusion 360, print them, photograph them, run the shop and pack the orders.</p>
+          <p>Designing for a 0.4 mm nozzle is its own discipline — the twist-lock collar exists because a threaded one needs supports, and supports on a visible surface ruin the part.</p>
+          <dl>
+            <div class="dr"><dt>Design</dt><dd>Fusion 360</dd></div>
+            <div class="dr"><dt>Production</dt><dd>Bambu Lab A1, in house</dd></div>
+            <div class="dr"><dt>Shop</dt><dd>ikas · shipping in Turkey</dd></div>
+            <div class="dr"><dt>Role</dt><dd>Design, production, everything else</dd></div>
+          </dl>
+          <div class="links"><a href="https://korinlabs.store" data-x>korinlabs.store</a><a href="#">Instagram</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="item">
+      <button class="row" aria-expanded="false">
+        <span class="no">04/</span>
+        <span class="nm">Elevator Robot</span>
+        <span class="ty">Robotics</span>
+        <span class="yr">2026</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap"><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span></div>
+            <figcaption>Chassis and camera mast</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span></div><figcaption>Button detection</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span></div><figcaption>Drive electronics</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p>Graduation project: a robot that rides a lift on its own. It finds the call button, presses it, waits, goes in, and picks the floor — which sounds small until you try it in a building it has never seen.</p>
+          <p>Vision runs on a Raspberry Pi, motor control on an ESP32 over BLE, and the two talk through ROS2.</p>
+          <dl>
+            <div class="dr"><dt>Vision</dt><dd>YOLOv8 on Raspberry Pi 4</dd></div>
+            <div class="dr"><dt>Control</dt><dd>ROS2 · ESP32 over BLE</dd></div>
+            <div class="dr"><dt>Team</dt><dd>Capstone, Bahçeşehir University</dd></div>
+            <div class="dr"><dt>Role</dt><dd>Vision and integration</dd></div>
+          </dl>
+          <div class="links"><a href="#">Write-up</a><a href="#">Source</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <div class="item">
+      <button class="row" aria-expanded="false">
+        <span class="no">05/</span>
+        <span class="nm">ESP32 Console</span>
+        <span class="ty">Hardware</span>
+        <span class="yr">2025</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap"><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span></div>
+            <figcaption>Assembled, printed shell</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span></div><figcaption>Internals</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span></div><figcaption>Snake, Dodge, Breakout</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p>A handheld console built from parts, with three games written for it. Tact switches, a 128 × 128 display, USB-C charging, and a printed shell designed around the board rather than the other way round.</p>
+          <p>High scores survive a power cut, which took longer to get right than any of the games.</p>
+          <dl>
+            <div class="dr"><dt>Board</dt><dd>ESP32</dd></div>
+            <div class="dr"><dt>Display</dt><dd>ST7735, 128 × 128</dd></div>
+            <div class="dr"><dt>Power</dt><dd>LiPo · TP4056 USB-C</dd></div>
+            <div class="dr"><dt>Games</dt><dd>Snake, Dodge, Breakout</dd></div>
+          </dl>
+          <div class="links"><a href="#">Source</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+  </div>
+
+  <footer id="contact">
+    <h2>Open to iOS roles.</h2>
+    <div class="cts">
+      <a href="mailto:kerimxak@icloud.com"><span class="k lbl">Email</span>kerimxak@icloud.com</a>
+      <a href="#"><span class="k lbl">Telegram</span>@kerimxak</a>
+      <a href="#"><span class="k lbl">GitHub</span>kerimxak</a>
+      <a href="#"><span class="k lbl">LinkedIn</span>Kerim Ak</a>
+    </div>
+    <div class="colo lbl">
+      <span>Istanbul · UTC+3</span>
+      <span>Set in Archivo and JetBrains Mono</span>
+      <span>Images screened with benday</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll("#idx .row").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var item = btn.closest(".item");
+    var open = item.classList.contains("open");
+    document.querySelectorAll("#idx .item").forEach(function(i){
+      i.classList.remove("open");
+      i.querySelector(".row").setAttribute("aria-expanded","false");
+    });
+    if(!open){
+      item.classList.add("open");
+      btn.setAttribute("aria-expanded","true");
+    }
+  });
+});
+</script>
