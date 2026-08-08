@@ -57,6 +57,15 @@ Scale, all as written in the mockup:
 Both families are self-hosted as latin **and** latin-ext woff2. latin-ext is not
 optional — it carries `ş ğ İ` for the Turkish copy.
 
+The two critical faces are preloaded with `crossorigin`, which fonts require even
+same-origin. One consequence: opening `index.html` straight off disk logs two
+blocked-preload errors, because `file://` has a null origin and fails the CORS
+check. The page still renders correctly from disk, fonts included — the
+`@font-face` fetches succeed and only the redundant preload is refused. Dropping
+`crossorigin` would silence it but would make the deployed site download each
+font twice, so it stays. Served over http there are no console errors, which is
+what the test asserts.
+
 ## Layout rules
 
 - Everything sits inside `.frame`, a 1px ink border with 10px of paper around it.
