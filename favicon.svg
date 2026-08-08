@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kerim Ak">
+  <!-- The wordmark reduced: a grotesque K in ink on paper, with the accent
+       period from "Kerim Ak." Letterform is drawn as paths so the icon needs
+       no font. Palette matches the site: paper #EDECE7, ink #101010,
+       accent #FF3B00. -->
+  <rect width="64" height="64" fill="#EDECE7"/>
+  <g fill="#101010">
+    <rect x="13" y="13" width="9" height="38"/>
+    <path d="M22 21.55 L31 13 L42 13 L22 32 Z"/>
+    <path d="M22 29 L42 51 L32 51 L22 40 Z"/>
+  </g>
+  <rect x="46" y="43" width="8" height="8" fill="#FF3B00"/>
+</svg>
