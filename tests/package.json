@@ -1,0 +1,13 @@
+{
+  "name": "kerim-portfolio-tests",
+  "private": true,
+  "type": "module",
+  "description": "Playwright checks for the site. Kept out of the repo root so no deploy pipeline mistakes this for a build step — the site has no build.",
+  "scripts": {
+    "test": "node check.mjs",
+    "postinstall": "playwright install chromium webkit"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}
