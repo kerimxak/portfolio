@@ -1,657 +1,661 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kerim Ak — iOS Developer</title>
-<meta name="description" content="Kerim Ak — iOS developer based in Istanbul. I build SwiftUI apps end to end, front end and the backend that feeds them. Currently shipping Eczane." />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<!-- ====== FONTS ====== -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Kerim Ak — Software and objects</title>
+<meta name="description" content="Computer engineer in Istanbul. iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kerim Ak — Software and objects">
+<meta property="og:description" content="Computer engineer in Istanbul. iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on.">
+<meta property="og:image" content="https://kerimxak.xyz/og.png">
+<meta property="og:url" content="https://kerimxak.xyz/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link rel="preload" href="fonts/archivo-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrainsmono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
-  :root{
-    --bg:#EEF0F4;
-    --bg-2:#E5E8EE;
-    --surface:#FFFFFF;
-    --surface-2:#F6F7F9;
-    --ink:#0E1116;
-    --ink-2:#555E6B;
-    --ink-3:#8C95A1;
-    --line:rgba(14,17,22,.08);
-    --line-2:rgba(14,17,22,.12);
-    --accent:#1DAA5B;          /* on-duty pharmacy green */
-    --accent-ink:#137A40;
-    --accent-soft:rgba(29,170,91,.12);
-    --shadow-sm:0 1px 2px rgba(14,17,22,.04), 0 4px 14px rgba(14,17,22,.05);
-    --shadow:0 12px 40px rgba(14,17,22,.10);
-    --shadow-lg:0 30px 80px rgba(14,17,22,.16);
-    --r-card:26px;
-    --r-chip:11px;
-    --maxw:1080px;
-    --display:"Bricolage Grotesque", system-ui, sans-serif;
-    --body:"Inter", system-ui, sans-serif;
-    --mono:"JetBrains Mono", ui-monospace, monospace;
-  }
+/* ---- self-hosted faces: latin + latin-ext, the latter for Turkish ---- */
+@font-face{font-family:"Archivo";font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/archivo-500-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/archivo-500-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:600;font-display:swap;
+  src:url(fonts/archivo-600-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:600;font-display:swap;
+  src:url(fonts/archivo-600-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:700;font-display:swap;
+  src:url(fonts/archivo-700-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:700;font-display:swap;
+  src:url(fonts/archivo-700-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;
+  src:url(fonts/jetbrainsmono-400-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;
+  src:url(fonts/jetbrainsmono-400-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/jetbrainsmono-500-latin-ext.woff2) format("woff2");
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/jetbrainsmono-500-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    font-family:var(--body);
-    color:var(--ink);
-    background:
-      radial-gradient(1200px 700px at 80% -10%, #fff 0%, rgba(255,255,255,0) 55%),
-      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-    background-attachment:fixed;
-    -webkit-font-smoothing:antialiased;
-    line-height:1.55;
-    font-size:17px;
-    letter-spacing:-.005em;
-  }
-  a{color:inherit;text-decoration:none;}
-  ::selection{background:var(--accent-soft);}
+:root{
+  --paper:#EDECE7;
+  --ink:#101010;
+  --rule:#C6C4BD;
+  --rule-soft:#DBD9D3;
+  --muted:#78766F;
+  --accent:#FF3B00;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --disp:"Archivo",Helvetica,Arial,sans-serif;
+  --pad:clamp(16px,3.2vw,40px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--mono);font-size:12px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:10px;
+}
+.frame{border:1px solid var(--ink);min-height:calc(100vh - 20px)}
 
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
-  /* ====== NAV ====== */
-  nav{
-    position:sticky;top:0;z-index:50;
-    backdrop-filter:saturate(160%) blur(18px);
-    -webkit-backdrop-filter:saturate(160%) blur(18px);
-    background:rgba(238,240,244,.72);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:62px;}
-  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;}
-  .brand .mark{
-    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
-    background:var(--accent);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;
-    box-shadow:0 4px 12px rgba(29,170,91,.35);
-  }
-  .nav-links{display:flex;align-items:center;gap:28px;}
-  .nav-links a{color:var(--ink-2);font-size:15px;font-weight:500;transition:color .15s;}
-  .nav-links a:hover{color:var(--ink);}
-  .nav-cta{
-    padding:9px 16px;border-radius:11px;background:var(--ink);color:#fff !important;
-    font-weight:500;font-size:14.5px;transition:transform .15s, background .15s;
-  }
-  .nav-cta:hover{background:#000;transform:translateY(-1px);}
-  .nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;}
-  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:4px 0;border-radius:2px;}
+/* ---- top bar ---- */
+header{
+  display:flex;align-items:stretch;justify-content:space-between;
+  border-bottom:1px solid var(--ink);position:sticky;top:10px;
+  background:var(--paper);z-index:10;
+}
+.brand{padding:14px var(--pad);font-family:var(--disp);font-weight:700;
+  font-size:15px;letter-spacing:-.02em;line-height:1.4;white-space:nowrap}
+nav{display:flex}
+nav a,nav button{
+  display:flex;align-items:center;padding:14px 16px;
+  border-left:1px solid var(--rule);background:none;cursor:pointer;
+  font:inherit;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+}
+nav a:hover,nav button:hover{color:var(--ink)}
+nav .on{color:var(--ink)}
+nav a:focus-visible,nav button:focus-visible,.row:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
 
-  /* language toggle */
-  .lang-toggle{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:13px;}
-  .lang-toggle button{background:none;border:0;cursor:pointer;font-family:inherit;font-size:inherit;color:var(--ink-3);padding:2px;transition:color .15s;}
-  .lang-toggle button:hover{color:var(--ink-2);}
-  .lang-toggle button.active{color:var(--accent-ink);font-weight:600;}
-  .lang-toggle .lang-sep{color:var(--ink-3);}
+/* ---- masthead ---- */
+.mast{
+  padding:clamp(30px,5vw,58px) var(--pad) clamp(24px,3.4vw,38px);
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
+  gap:clamp(20px,4vw,56px);align-items:end;
+}
+h1{
+  font-family:var(--disp);font-weight:600;
+  font-size:clamp(38px,7vw,88px);line-height:.92;letter-spacing:-.035em;
+  max-width:12ch;
+}
+h1 em{font-style:normal;color:var(--accent)}
+.mast p{max-width:42ch;color:var(--muted);font-size:12px}
+.mast p b{font-weight:400;color:var(--ink)}
 
-  /* ====== HERO ====== */
-  header.hero{padding:32px 0 40px;}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;}
-  .status{
-    display:inline-flex;align-items:center;gap:9px;
-    font-family:var(--mono);font-size:12.5px;letter-spacing:.01em;color:var(--accent-ink);
-    background:var(--accent-soft);padding:7px 13px;border-radius:999px;margin-bottom:26px;
-  }
-  .status .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);position:relative;}
-  .status .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--accent);animation:ping 2.2s ease-out infinite;}
-  @keyframes ping{0%{transform:scale(.7);opacity:.8}70%,100%{transform:scale(1.9);opacity:0}}
+/* ---- index ---- */
+.idx{border-top:1px solid var(--ink)}
+.item{border-bottom:1px solid var(--rule)}
+.item:last-child{border-bottom:1px solid var(--ink)}
+.row{
+  width:100%;display:grid;
+  grid-template-columns:64px 1fr 130px 62px 20px;
+  align-items:center;gap:12px;
+  padding:18px var(--pad);
+  background:none;border:0;cursor:pointer;font:inherit;text-align:left;
+  position:relative;color:var(--ink);
+}
+.row:hover{background:#E6E4DE}
+.row .no{font-size:10px;letter-spacing:.14em;color:var(--muted)}
+.row .nm{font-family:var(--disp);font-weight:600;font-size:clamp(17px,2.6vw,26px);letter-spacing:-.02em}
+.row .ty,.row .yr{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.row .mk{justify-self:end;width:9px;height:9px;border:1px solid var(--muted)}
+.item.open .row .no{color:var(--accent)}
+.item.open .row .mk{background:var(--accent);border-color:var(--accent)}
+.item.open .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
 
-  h1{
-    font-family:var(--display);font-weight:700;
-    font-size:clamp(40px,6vw,62px);line-height:1.02;letter-spacing:-.03em;
-    margin:0 0 8px;
-  }
-  .role{
-    font-family:var(--display);font-weight:600;font-size:clamp(20px,2.6vw,26px);
-    color:var(--accent-ink);letter-spacing:-.02em;margin:0 0 22px;
-  }
-  .lede{font-size:18.5px;color:var(--ink-2);max-width:34ch;margin:0 0 14px;}
-  .meta-line{font-family:var(--mono);font-size:13px;color:var(--ink-3);margin-bottom:30px;}
-  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;}
-  .btn{
-    display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:13px;
-    font-weight:500;font-size:15.5px;transition:transform .15s, box-shadow .15s, background .15s;
-    border:1px solid transparent;cursor:pointer;
-  }
-  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 22px rgba(29,170,91,.30);}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(29,170,91,.38);}
-  .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line-2);box-shadow:var(--shadow-sm);}
-  .btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
-  .btn svg{width:17px;height:17px;}
+.wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s cubic-bezier(.2,.7,.3,1)}
+.item.open .wrap{grid-template-rows:1fr}
+.inner{overflow:hidden}
+.body{
+  padding:8px var(--pad) clamp(36px,5vw,64px);
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:clamp(20px,3vw,44px);align-items:start;
+}
+.plates{display:grid;grid-template-columns:1fr;gap:14px}
+.plates .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+figure{margin:0}
+figcaption{margin-top:7px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
-  /* ====== PHONE MOCK ====== */
-  .phone-stage{display:flex;justify-content:center;perspective:1200px;}
-  .hero-shot{
-    width:100%;
-    max-width:400px;
-    height:auto;
-    filter:drop-shadow(0 30px 60px rgba(14,17,22,.22));
-    transform:rotateY(7deg) rotateX(10deg) rotate(-6deg);
-    transition:transform .5s cubic-bezier(.2,.8,.2,1);
-    will-change:transform;
-    transform-origin:center center;
-  }
-  .hero-shot:hover{
-    transform:rotateY(-6deg) rotateX(3deg) rotate(1deg) scale(1.32);
-  }
-   
-  /* ====== SECTIONS ====== */
-  section{padding:34px 0;}
-  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:26px;}
-  .eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--accent-ink);letter-spacing:.02em;text-transform:lowercase;}
-  h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:-.025em;margin:6px 0 0;line-height:1.05;}
-  .sec-note{font-size:15px;color:var(--ink-3);max-width:30ch;text-align:right;}
+/* placeholder — a slot, not a picture */
+.ph{position:relative;background:#E4E2DC;border:1px solid var(--rule);overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+.ph.r43{aspect-ratio:4/3}
+.ph.r11{aspect-ratio:1/1}
+.ph.r34{aspect-ratio:3/4}
+.ph span{
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+}
+/* the picture sits on top of the slot. Placeholder files are fully transparent,
+   so the flat slot shows through until a real photograph replaces the file.
+   Never filter, tint or screen these — they are photographs. */
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 
-  /* featured card */
-  .featured{
-    background:var(--surface);border-radius:var(--r-card);border:1px solid var(--line);
-    box-shadow:var(--shadow);overflow:hidden;
-    display:grid;grid-template-columns:1.15fr .85fr;
-  }
-  .feat-body{padding:38px;}
-  .feat-tag{font-family:var(--mono);font-size:12px;color:var(--accent-ink);background:var(--accent-soft);display:inline-block;padding:5px 11px;border-radius:8px;margin-bottom:16px;}
-  .featured h3{font-family:var(--display);font-weight:700;font-size:30px;letter-spacing:-.02em;margin:0 0 12px;}
-  .featured p{color:var(--ink-2);font-size:16px;margin:0 0 14px;}
-  .stack{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 24px;}
-  .chip{font-family:var(--mono);font-size:12px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:6px 11px;border-radius:var(--r-chip);}
-  .feat-links{display:flex;flex-wrap:wrap;gap:10px;}
-  .link-btn{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:500;padding:10px 15px;border-radius:11px;border:1px solid var(--line-2);background:var(--surface);transition:transform .15s,box-shadow .15s;}
-  .link-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
-  .link-btn.solid{background:var(--ink);color:#fff;border-color:var(--ink);}
-  .link-btn svg{width:15px;height:15px;}
-  .feat-visual{
-    background:transparent;
-    display:flex;align-items:center;justify-content:center;position:relative;overflow:visible;padding:30px 10px;
-  }
-  .feat-fan{position:relative;display:flex;align-items:center;justify-content:center;width:100%;}
-  .feat-fan img{
-    width:42%;
-    max-width:155px;
-    height:auto;
-    filter:drop-shadow(0 18px 34px rgba(14,17,22,.30));
-  }
-  .feat-fan img:nth-child(1){transform:rotate(-13deg) translateY(12px);margin-right:-13%;z-index:1;}
-  .feat-fan img:nth-child(2){z-index:3;}
-  .feat-fan img:nth-child(3){transform:rotate(13deg) translateY(12px);margin-left:-13%;z-index:1;}
-  
-  /* work grid */
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  .card{
-    background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;
-    box-shadow:var(--shadow-sm);transition:transform .18s, box-shadow .18s;display:flex;flex-direction:column;
-  }
-  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
-  .card .kicker{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-bottom:14px;}
-  .card h3{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;margin:0 0 8px;}
-  .card p{color:var(--ink-2);font-size:14.5px;margin:0 0 16px;flex:1;}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;}
-  .tags span{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:4px 8px;border-radius:8px;}
-  .card-cta{font-family:var(--mono);font-size:11.5px;color:var(--accent-ink);margin-top:12px;}
-  .card.wide{grid-column:span 1;}
+.copy p{max-width:42ch}
+.copy p+p{margin-top:12px}
+dl{margin-top:22px;border-top:1px solid var(--rule)}
+.dr{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule-soft)}
+dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+dd{font-size:11px}
+.links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px}
+.links a{
+  color:var(--accent);text-decoration:none;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--accent);padding-bottom:3px;
+}
+.links a:hover{background:var(--accent);color:var(--paper)}
+.links a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.links a[data-x]::after{content:" ↗"}
 
-  /* toolbox */
-  .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-  .tool-col h4{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-transform:lowercase;letter-spacing:.02em;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid var(--line);}
-  .tool-col ul{list-style:none;margin:0;padding:0;}
-  .tool-col li{font-size:15px;color:var(--ink);padding:5px 0;}
+/* ---- footer ---- */
+footer{padding:clamp(44px,7vw,96px) var(--pad) clamp(28px,4vw,48px)}
+footer h2{font-family:var(--disp);font-weight:600;font-size:clamp(26px,4.6vw,54px);letter-spacing:-.03em;line-height:1}
+.cts{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.cts a{background:var(--paper);padding:16px;text-decoration:none;color:var(--ink);display:block}
+.cts a:hover{background:#E6E4DE}
+.cts a:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.cts .k{display:block;margin-bottom:5px}
+.colo{margin-top:clamp(28px,4vw,52px);padding-top:14px;border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
 
-  /* about */
-  .about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
-  .about p{font-size:17px;color:var(--ink-2);margin:0 0 16px;}
-  .about p strong{color:var(--ink);font-weight:600;}
-  .facts{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:8px 24px;box-shadow:var(--shadow-sm);}
-  .fact{display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--line);}
-  .fact:last-child{border-bottom:0;}
-  .fact .k{font-family:var(--mono);font-size:13px;color:var(--ink-3);}
-  .fact .v{font-size:15px;font-weight:500;text-align:right;}
-
-  /* contact */
-  .contact{
-    background:var(--ink);color:#fff;border-radius:var(--r-card);
-    padding:54px 44px;text-align:center;box-shadow:var(--shadow-lg);
-  }
-  .contact h2{color:#fff;margin-bottom:14px;}
-  .contact p{color:rgba(255,255,255,.66);max-width:46ch;margin:0 auto 30px;font-size:17px;}
-  .contact-links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
-  .clink{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#fff;font-weight:500;font-size:15px;transition:background .15s,transform .15s;}
-  .clink:hover{background:rgba(255,255,255,.13);transform:translateY(-2px);}
-  .clink.green{background:var(--accent);border-color:var(--accent);}
-  .clink.green:hover{background:#23c068;}
-  .clink svg{width:17px;height:17px;}
-
-  footer{padding:36px 0 50px;text-align:center;color:var(--ink-3);font-size:14px;}
-  footer .sep{margin:0 8px;}
-
-  /* reveal */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
-  .reveal.in{opacity:1;transform:none;}
-
-  /* ====== RESPONSIVE ====== */
-  @media (max-width:900px){
-    .hero-grid{grid-template-columns:1fr;gap:40px;}
-    .phone-stage{order:-1;}
-    .featured{grid-template-columns:1fr;}
-    .feat-visual{min-height:180px;order:-1;}
-    .grid{grid-template-columns:repeat(2,1fr);}
-    .tools{grid-template-columns:repeat(2,1fr);}
-    .about{grid-template-columns:1fr;gap:28px;}
-    .sec-note{display:none;}
-  }
-  @media (max-width:560px){
-    body{font-size:16px;}
-    .nav-links{position:fixed;inset:62px 0 auto 0;flex-direction:column;background:rgba(238,240,244,.98);backdrop-filter:blur(18px);padding:18px 24px 24px;gap:18px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:transform .25s;align-items:flex-start;}
-    .nav-links.open{transform:none;}
-    .nav-toggle{display:block;}
-    .grid{grid-template-columns:1fr;}
-    .tools{grid-template-columns:1fr;}
-    .contact{padding:40px 24px;}
-    h1{font-size:clamp(34px,11vw,46px);}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation:none !important;scroll-behavior:auto;}
-    .reveal{opacity:1;transform:none;transition:none;}
-  }
+@media (max-width:820px){
+  .mast{grid-template-columns:1fr;gap:18px;align-items:start}
+  .row{grid-template-columns:40px 1fr 16px;row-gap:4px}
+  .row .ty{grid-column:2;grid-row:2;padding:0}
+  .row .yr{display:none}
+  .body{grid-template-columns:1fr}
+  header{position:static}
+  .brand{padding:12px var(--pad)}
+  nav a,nav button{padding:12px 11px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<!-- ================= NAV ================= -->
-<nav>
-  <div class="wrap nav-inner">
-    <a href="#top" class="brand"><span class="mark">K</span>Kerim Ak</a>
-    <button class="nav-toggle" aria-label="Menu" id="navToggle"><span></span><span></span><span></span></button>
-    <div class="nav-links" id="navLinks">
-      <a href="#work" data-i18n="nav.work">Work</a>
-      <a href="#toolbox" data-i18n="nav.toolbox">Toolbox</a>
-      <a href="#about" data-i18n="nav.about">About</a>
-      <div class="lang-toggle" id="langToggle">
-        <button data-set-lang="en">EN</button>
-        <span class="lang-sep">/</span>
-        <button data-set-lang="tr">TR</button>
-      </div>
-      <a href="#contact" class="nav-cta" data-i18n="nav.contact">Get in touch</a>
-    </div>
-  </div>
-</nav>
+<div class="frame">
+  <header>
+    <div class="brand">Kerim Ak<span style="color:var(--accent)">.</span></div>
+    <nav>
+      <button class="on" id="lang-en" lang="en" aria-pressed="true">EN</button>
+      <button id="lang-tr" lang="tr" aria-pressed="false">TR</button>
+      <a href="cv/kerim-cv-en.pdf" id="cv-link" data-i18n="nav.cv">CV</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+  </header>
 
-<!-- ================= HERO ================= -->
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="status"><span class="dot"></span><span data-i18n="hero.status">Available for iOS roles &amp; internships · Summer 2026</span></span>
-      <h1>Kerim Ak</h1>
-      <p class="role" data-i18n="hero.role">iOS Developer</p>
-      <p class="lede" data-i18n="hero.lede">I build iOS apps end to end — the SwiftUI front end and the backend that feeds it.</p>
-      <p class="meta-line" data-i18n="hero.meta">Istanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Computer Engineering '26</p>
-      <div class="hero-cta">
-        <a href="#work" class="btn btn-primary">
-          <span data-i18n="hero.seework">See my work</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a href="cv/kerim-cv-en.pdf" download target="_blank" rel="noopener" class="btn btn-ghost" id="cv-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 11l4 4 4-4M5 21h14"/></svg>
-          <span data-i18n="hero.cv">Download CV</span>
-        </a>
-      </div>
-    </div>
+  <section class="mast">
+    <h1><span data-i18n="mast.h1">Software and objects</span><em>.</em></h1>
+    <p><b data-i18n="mast.lede.lead">Computer engineer in Istanbul.</b> <span data-i18n="mast.lede.rest">I build iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on. Five of them below, with what went into each.</span></p>
+  </section>
 
-    <!-- Eczane app, the thesis -->
-    <div class="phone-stage">
-      <img src="images/eczane-hero.png" alt="Eczane app showing on-duty pharmacies on a map" class="hero-shot" />
-    </div>
-  </div>
-</header>
+  <div class="idx" id="idx">
 
-<!-- ================= FEATURED ================= -->
-<section id="featured">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><span class="eyebrow" data-i18n="feat.eyebrow">featured project</span><h2 data-i18n="feat.title">On-Duty Pharmacies</h2></div>
-      <p class="sec-note" data-i18n="feat.note">The one I'd want you to open first.</p>
-    </div>
-
-    <div class="featured reveal">
-      <div class="feat-body">
-        <span class="feat-tag" data-i18n="feat.tag">iOS · live backend</span>
-        <h3 data-i18n="feat.h3">On-duty pharmacy finder</h3>
-        <p data-i18n="feat.p1">In Turkey, only a rotating set of pharmacies stay open overnight and on holidays. Finding the nearest one usually means digging through a slow government site at the worst possible moment.</p>
-        <p data-i18n="feat.p2">Eczane puts every on-duty pharmacy on a map, sorted by distance, with one tap to navigate or call. A FastAPI service caches the official roster so the app stays fast and the source site only gets hit once.</p>
-        <div class="stack">
-          <span class="chip">SwiftUI</span>
-          <span class="chip">MapKit</span>
-          <span class="chip">CoreLocation</span>
-          <span class="chip">FastAPI</span>
-          <span class="chip">SQLite</span>
-          <span class="chip">Cloudflare Tunnel</span>
+    <!-- 01 ................................................................ -->
+    <div class="item open">
+      <button class="row" aria-expanded="true" aria-controls="panel-1" id="row-1">
+        <span class="no">01/</span>
+        <span class="nm" data-i18n="p1.name">PharmacyMap</span>
+        <span class="ty" data-i18n="p1.type">iOS app</span>
+        <span class="yr" data-i18n="p1.year">2026</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap" id="panel-1" role="region" aria-labelledby="row-1"><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
+              <img src="img/pharmacymap-1.png" width="1600" height="1200" alt="The PharmacyMap iOS app showing a map of Istanbul covered in red pharmacy pins, with the Pharmacies Nearby sheet raised to a list of the closest pharmacies and their distances." data-i18n-alt="p1.alt1" loading="eager" decoding="async"></div>
+            <figcaption data-i18n="p1.cap1">Duty map, bottom sheet at medium detent</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r34"><span>Fig 02</span>
+                <img src="img/pharmacymap-2.png" width="1200" height="1600" alt="PharmacyMap's province fallback list, showing the pharmacies on duty across a whole province when a precise location is not available." data-i18n-alt="p1.alt2" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p1.cap2">Province fallback</figcaption></figure>
+            <figure><div class="ph r34"><span>Fig 03</span>
+                <img src="img/pharmacymap-3.png" width="1200" height="1600" alt="A single pharmacy's detail sheet open over the map, with a red walking route drawn to it and Navigate and Call buttons." data-i18n-alt="p1.alt3" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p1.cap3">Detail sheet</figcaption></figure>
+          </div>
         </div>
-        <div class="feat-links">
-          <!-- TODO: paste your TestFlight link here when your Apple Developer account is ready -- add a ">" after --
-          <a href="#" class="link-btn solid">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 12l-9 6V6l9 6z"/></svg>
-            TestFlight
-          </a>
-          remove this line -->
-          <a href="https://github.com/kerimxak/eczane" class="link-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
-            <span data-i18n="feat.source">Source</span>
-          </a>
+        <div class="copy">
+          <p data-i18n="p1.body1">Turkey's pharmacies take turns staying open overnight, and finding the one on duty means checking a different site for every province. This finds it on a map.</p>
+          <p data-i18n="p1.body2">The hard part was the data. I reverse-engineered a nationwide dataset from e-Devlet and got government GPS coordinates for 99.7% of pharmacies, so the map is accurate rather than approximate.</p>
+          <dl>
+            <div class="dr"><dt data-i18n="p1.k1">App</dt><dd data-i18n="p1.v1">SwiftUI · MapKit · iOS 26</dd></div>
+            <div class="dr"><dt data-i18n="p1.k2">Backend</dt><dd data-i18n="p1.v2">FastAPI · SQLite on a Linux VPS</dd></div>
+            <div class="dr"><dt data-i18n="p1.k3">Coverage</dt><dd data-i18n="p1.v3">81 provinces, nationwide</dd></div>
+            <div class="dr"><dt data-i18n="p1.k4">Role</dt><dd data-i18n="p1.v4">Everything</dd></div>
+          </dl>
+          <div class="links"><a href="#" data-i18n="p1.l1">App Store</a><a href="https://github.com/kerimxak/eczane" data-x data-i18n="p1.l2">Source</a></div>
         </div>
-      </div>
-      <div class="feat-visual">
-        <div class="feat-fan">
-          <img src="images/eczane-1.png" alt="Eczane map screen" />
-          <img src="images/eczane-3.png" alt="Eczane route to a pharmacy" />
-          <img src="images/eczane-2.png" alt="Eczane pharmacy list" />
+      </div></div></div>
+    </div>
 
+    <!-- 02 ................................................................ -->
+    <div class="item">
+      <button class="row" aria-expanded="false" aria-controls="panel-2" id="row-2">
+        <span class="no">02/</span>
+        <span class="nm" data-i18n="p2.name">benday</span>
+        <span class="ty" data-i18n="p2.type">Web tool</span>
+        <span class="yr" data-i18n="p2.year">2026</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap" id="panel-2" role="region" aria-labelledby="row-2" inert><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
+              <img src="img/benday-1.png" width="1600" height="1200" alt="A benday spiral halftone screen filling a 150 by 150 millimetre plate, black geometry on pale paper." data-i18n-alt="p2.alt1" loading="lazy" decoding="async"></div>
+            <figcaption data-i18n="p2.cap1">Spiral screen, 150 × 150 mm plate</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span>
+                <img src="img/benday-2.png" width="1400" height="1400" alt="A close view of a benday dot screen where neighbouring dots have merged into continuous flowing shapes." data-i18n-alt="p2.alt2" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p2.cap2">Merged dot screen</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span>
+                <img src="img/benday-3.png" width="1400" height="1400" alt="The same screen after 3D printing — a two-colour physical panel, raised black geometry on a light base." data-i18n-alt="p2.alt3" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p2.cap3">Printed result</figcaption></figure>
+          </div>
         </div>
-      </div>
+        <div class="copy">
+          <p data-i18n="p2.body1">A halftone screen generator that thinks in millimetres. It turns a photograph into two-colour vector geometry you can 3D print, laser engrave or plot — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.</p>
+          <p data-i18n="p2.body2">Dots merge through a signed-distance field rather than pairwise, which is what lets them flow together instead of looking glued.</p>
+          <dl>
+            <div class="dr"><dt data-i18n="p2.k1">Built with</dt><dd data-i18n="p2.v1">Vanilla JS · Canvas · SVG</dd></div>
+            <div class="dr"><dt data-i18n="p2.k2">Hosting</dt><dd data-i18n="p2.v2">Cloudflare Workers</dd></div>
+            <div class="dr"><dt data-i18n="p2.k3">Output</dt><dd data-i18n="p2.v3">SVG in true mm, PNG, JPEG</dd></div>
+            <div class="dr"><dt data-i18n="p2.k4">Role</dt><dd data-i18n="p2.v4">Everything</dd></div>
+          </dl>
+          <div class="links"><a href="https://benday.kerimxak.xyz" data-x>benday.kerimxak.xyz</a><a href="#" data-i18n="p2.l2">Source</a></div>
+        </div>
+      </div></div></div>
     </div>
+
+    <!-- 03 ................................................................ -->
+    <div class="item">
+      <button class="row" aria-expanded="false" aria-controls="panel-3" id="row-3">
+        <span class="no">03/</span>
+        <span class="nm" data-i18n="p3.name">Korin Labs</span>
+        <span class="ty" data-i18n="p3.type">Product</span>
+        <span class="yr" data-i18n="p3.year">2025—</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap" id="panel-3" role="region" aria-labelledby="row-3" inert><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
+              <img src="img/korin-labs-1.png" width="1600" height="1200" alt="The Korin Labs Tatlı collection lit and grouped together — the Éclair and Marshmallow lamps side by side." data-i18n-alt="p3.alt1" loading="lazy" decoding="async"></div>
+            <figcaption data-i18n="p3.cap1">Tatlı collection — Éclair, Marshmallow</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span>
+                <img src="img/korin-labs-2.png" width="1400" height="1400" alt="A close view of the twist-lock collar that joins a Korin Labs lamp shade to its base, printed without supports." data-i18n-alt="p3.alt2" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p3.cap2">Twist-lock collar</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span>
+                <img src="img/korin-labs-3.png" width="1400" height="1400" alt="The Cinnamon Swirl lamp lit in a dim room, its printed spiral ridges catching the light." data-i18n-alt="p3.alt3" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p3.cap3">Cinnamon Swirl</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p data-i18n="p3.body1">A small lighting brand. I design the lamps in Fusion 360, print them, photograph them, run the shop and pack the orders.</p>
+          <p data-i18n="p3.body2">Designing for a 0.4 mm nozzle is its own discipline — the twist-lock collar exists because a threaded one needs supports, and supports on a visible surface ruin the part.</p>
+          <dl>
+            <div class="dr"><dt data-i18n="p3.k1">Design</dt><dd data-i18n="p3.v1">Fusion 360</dd></div>
+            <div class="dr"><dt data-i18n="p3.k2">Production</dt><dd data-i18n="p3.v2">Bambu Lab A1, in house</dd></div>
+            <div class="dr"><dt data-i18n="p3.k3">Shop</dt><dd data-i18n="p3.v3">ikas · shipping in Turkey</dd></div>
+            <div class="dr"><dt data-i18n="p3.k4">Role</dt><dd data-i18n="p3.v4">Design, production, everything else</dd></div>
+          </dl>
+          <div class="links"><a href="https://korinlabs.store" data-x>korinlabs.store</a><a href="#" data-i18n="p3.l2">Instagram</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- 04 ................................................................ -->
+    <div class="item">
+      <button class="row" aria-expanded="false" aria-controls="panel-4" id="row-4">
+        <span class="no">04/</span>
+        <span class="nm" data-i18n="p4.name">Elevator Robot</span>
+        <span class="ty" data-i18n="p4.type">Robotics</span>
+        <span class="yr" data-i18n="p4.year">2026</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap" id="panel-4" role="region" aria-labelledby="row-4" inert><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
+              <img src="img/elevator-robot-1.png" width="1600" height="1200" alt="The elevator robot standing in front of a lift door, its camera mast rising from a wheeled chassis." data-i18n-alt="p4.alt1" loading="lazy" decoding="async"></div>
+            <figcaption data-i18n="p4.cap1">Chassis and camera mast</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span>
+                <img src="img/elevator-robot-2.png" width="1400" height="1400" alt="The robot's camera view with a detection box drawn around an elevator call button on the wall." data-i18n-alt="p4.alt2" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p4.cap2">Button detection</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span>
+                <img src="img/elevator-robot-3.png" width="1400" height="1400" alt="The drive electronics on the chassis deck — ESP32 board, motor drivers and wiring." data-i18n-alt="p4.alt3" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p4.cap3">Drive electronics</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p data-i18n="p4.body1">Graduation project: a robot that rides a lift on its own. It finds the call button, presses it, waits, goes in, and picks the floor — which sounds small until you try it in a building it has never seen.</p>
+          <p data-i18n="p4.body2">Vision runs on a Raspberry Pi, motor control on an ESP32 over BLE, and the two talk through ROS2.</p>
+          <dl>
+            <div class="dr"><dt data-i18n="p4.k1">Vision</dt><dd data-i18n="p4.v1">YOLOv8 on Raspberry Pi 4</dd></div>
+            <div class="dr"><dt data-i18n="p4.k2">Control</dt><dd data-i18n="p4.v2">ROS2 · ESP32 over BLE</dd></div>
+            <div class="dr"><dt data-i18n="p4.k3">Team</dt><dd data-i18n="p4.v3">Capstone, Bahçeşehir University</dd></div>
+            <div class="dr"><dt data-i18n="p4.k4">Role</dt><dd data-i18n="p4.v4">Vision and integration</dd></div>
+          </dl>
+          <div class="links"><a href="#" data-i18n="p4.l1">Write-up</a><a href="#" data-i18n="p4.l2">Source</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- 05 ................................................................ -->
+    <div class="item">
+      <button class="row" aria-expanded="false" aria-controls="panel-5" id="row-5">
+        <span class="no">05/</span>
+        <span class="nm" data-i18n="p5.name">ESP32 Console</span>
+        <span class="ty" data-i18n="p5.type">Hardware</span>
+        <span class="yr" data-i18n="p5.year">2025</span>
+        <span class="mk"></span>
+      </button>
+      <div class="wrap" id="panel-5" role="region" aria-labelledby="row-5" inert><div class="inner"><div class="body">
+        <div class="plates">
+          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
+              <img src="img/esp32-console-1.png" width="1600" height="1200" alt="The finished handheld console in its 3D-printed shell, screen lit, held in one hand." data-i18n-alt="p5.alt1" loading="lazy" decoding="async"></div>
+            <figcaption data-i18n="p5.cap1">Assembled, printed shell</figcaption></figure>
+          <div class="duo">
+            <figure><div class="ph r11"><span>Fig 02</span>
+                <img src="img/esp32-console-2.png" width="1400" height="1400" alt="The console opened up, showing the ESP32 board, LiPo cell and tact switches packed inside the shell." data-i18n-alt="p5.alt2" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p5.cap2">Internals</figcaption></figure>
+            <figure><div class="ph r11"><span>Fig 03</span>
+                <img src="img/esp32-console-3.png" width="1400" height="1400" alt="The 128 by 128 pixel screen running the three built-in games: Snake, Dodge and Breakout." data-i18n-alt="p5.alt3" loading="lazy" decoding="async"></div>
+              <figcaption data-i18n="p5.cap3">Snake, Dodge, Breakout</figcaption></figure>
+          </div>
+        </div>
+        <div class="copy">
+          <p data-i18n="p5.body1">A handheld console built from parts, with three games written for it. Tact switches, a 128 × 128 display, USB-C charging, and a printed shell designed around the board rather than the other way round.</p>
+          <p data-i18n="p5.body2">High scores survive a power cut, which took longer to get right than any of the games.</p>
+          <dl>
+            <div class="dr"><dt data-i18n="p5.k1">Board</dt><dd data-i18n="p5.v1">ESP32</dd></div>
+            <div class="dr"><dt data-i18n="p5.k2">Display</dt><dd data-i18n="p5.v2">ST7735, 128 × 128</dd></div>
+            <div class="dr"><dt data-i18n="p5.k3">Power</dt><dd data-i18n="p5.v3">LiPo · TP4056 USB-C</dd></div>
+            <div class="dr"><dt data-i18n="p5.k4">Games</dt><dd data-i18n="p5.v4">Snake, Dodge, Breakout</dd></div>
+          </dl>
+          <div class="links"><a href="#" data-i18n="p5.l1">Source</a></div>
+        </div>
+      </div></div></div>
+    </div>
+
   </div>
-</section>
 
-<!-- ================= WORK ================= -->
-<section id="work">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><span class="eyebrow" data-i18n="work.eyebrow">selected work</span><h2 data-i18n="work.h2">A few other things I've built</h2></div>
-      <p class="sec-note" data-i18n="work.note">Apps, products, and hardware — I like shipping.</p>
+  <footer id="contact">
+    <h2 data-i18n="foot.h2">Open to iOS roles.</h2>
+    <div class="cts">
+      <a href="mailto:kerimxak@icloud.com"><span class="k lbl" data-i18n="foot.email">Email</span>kerimxak@icloud.com</a>
+      <a href="https://t.me/kerimxak"><span class="k lbl">Telegram</span>@kerimxak</a>
+      <a href="https://github.com/kerimxak"><span class="k lbl">GitHub</span>kerimxak</a>
+      <a href="https://linkedin.com/in/kerimxak"><span class="k lbl">LinkedIn</span>Kerim Ak</a>
     </div>
-
-    <div class="grid">
-      <div class="card reveal">
-        <div class="kicker" data-i18n="c1.kicker">swiftui · series</div>
-        <h3>100 Days of SwiftUI</h3>
-        <p data-i18n="c1.p">A run of small, finished apps — a Pomodoro timer shipped at v1.0, an expense tracker, and MoneySplit for splitting bills. Reps until the framework felt native.</p>
-        <div class="tags"><span>Swift</span><span>SwiftUI</span><span>SwiftData</span></div>
-      </div>
-
-      <a href="https://korinlabs.store" target="_blank" rel="noopener" class="card reveal">
-        <div class="kicker" data-i18n="c2.kicker">product · e-commerce</div>
-        <h3>Korin Labs</h3>
-        <p data-i18n="c2.p">A 3D-printed designer lamp brand I run end to end — CAD in Fusion 360, printing on a Bambu Lab A1, an online store, and Meta ad campaigns. Real orders, real shipping logistics.</p>
-        <div class="tags"><span>Fusion 360</span><span>3D printing</span><span>Storefront</span></div>
-        <div class="card-cta">korinlabs.store ↗</div>
-      </a>
-
-      <div class="card reveal">
-        <div class="kicker" data-i18n="c3.kicker">robotics · capstone</div>
-        <h3 data-i18n="c3.h3">Elevator-navigating robot</h3>
-        <p data-i18n="c3.p">An autonomous robot that finds and rides elevators between floors, using ROS2 for control and YOLO on a Raspberry Pi for button and door detection.</p>
-        <div class="tags"><span>ROS2</span><span>YOLO</span><span>Raspberry Pi</span></div>
-      </div>
-
-      <div class="card reveal">
-        <div class="kicker" data-i18n="c4.kicker">embedded · hardware</div>
-        <h3 data-i18n="c4.h3">ESP32 builds</h3>
-        <p data-i18n="c4.p">A pocket digital camera on an ESP32-S3 with an ST7789 display and LiPo power, plus a Snake game on a joystick handheld. Schematics, sourcing, and firmware.</p>
-        <div class="tags"><span>ESP32-S3</span><span>C/C++</span><span>LiPo</span></div>
-      </div>
-
-      <div class="card reveal">
-        <div class="kicker" data-i18n="c5.kicker">backend · infra</div>
-        <h3 data-i18n="c5.h3">Self-hosted infrastructure</h3>
-        <p data-i18n="c5.p">A FastAPI caching service on a Linux VPS, fronted by a Cloudflare Tunnel — the backbone behind Eczane. Comfortable with Linux, SSH, and keeping a service up.</p>
-        <div class="tags"><span>Python</span><span>FastAPI</span><span>Linux</span></div>
-      </div>
+    <div class="colo lbl">
+      <span data-i18n="foot.loc">Istanbul · UTC+3</span>
+      <span data-i18n="foot.type">Set in Archivo and JetBrains Mono</span>
+      <span data-i18n="foot.priv">No trackers, no cookies</span>
     </div>
-  </div>
-</section>
-
-<!-- ================= TOOLBOX ================= -->
-<section id="toolbox">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><span class="eyebrow" data-i18n="tb.eyebrow">toolbox</span><h2 data-i18n="tb.h2">What I reach for</h2></div>
-    </div>
-    <div class="tools reveal">
-      <div class="tool-col">
-        <h4>ios</h4>
-        <ul><li>Swift</li><li>SwiftUI</li><li>MapKit</li><li>CoreLocation</li><li>SwiftData</li><li>Xcode &amp; TestFlight</li></ul>
-      </div>
-      <div class="tool-col">
-        <h4 data-i18n="tb.col2">backend</h4>
-        <ul><li>Python</li><li>FastAPI</li><li>SQLite</li><li>REST APIs</li><li>Cloudflare Tunnel</li><li>Linux / SSH</li></ul>
-      </div>
-      <div class="tool-col">
-        <h4 data-i18n="tb.col3">tools</h4>
-        <ul><li>Git &amp; GitHub</li><li>JavaScript</li><li>Astro</li><li data-i18n="tb.figma">Figma basics</li><li data-i18n="tb.vps">VPS deployment</li></ul>
-      </div>
-      <div class="tool-col">
-        <h4 data-i18n="tb.col4">hardware</h4>
-        <ul><li>ESP32 / RP2040</li><li>Arduino</li><li>ROS2 · YOLO</li><li>Fusion 360 (CAD)</li><li data-i18n="tb.print">3D printing</li></ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ABOUT ================= -->
-<section id="about">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><span class="eyebrow" data-i18n="about.eyebrow">about</span><h2 data-i18n="about.h2">Who's building this</h2></div>
-    </div>
-    <div class="about reveal">
-      <div>
-        <p data-i18n="about.p1">I'm a Computer Engineering graduate in Istanbul, focused on <strong>iOS development</strong>. I like the whole loop — designing a screen, wiring the Swift behind it, and standing up the backend that makes it real.</p>
-        <p data-i18n="about.p2">Outside of the IDE I run a small 3D-printed lamp brand, tinker with ESP32 and RP2040 boards, and founded a university club for students new to Istanbul. The common thread is finishing things and putting them in front of people.</p>
-        <p data-i18n="about.p3">I'm looking for an <strong>iOS role or internship</strong> where I can learn from a strong team and ship work that gets used.</p>
-      </div>
-      <div class="facts">
-        <div class="fact"><span class="k" data-i18n="about.f1k">based in</span><span class="v">Istanbul, Türkiye</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f2k">languages</span><span class="v" data-i18n="about.f2v">English C2 · Turkish C2 · Russian</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f3k">education</span><span class="v">Computer Eng. · BAU · '26</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f4k">focus</span><span class="v">iOS / SwiftUI</span></div>
-        <div class="fact"><span class="k" data-i18n="about.f5k">open to</span><span class="v" data-i18n="about.f5v">Internship · Junior iOS · Remote</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= CONTACT ================= -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact reveal">
-      <span class="eyebrow" style="color:#5fe49a" data-i18n="contact.eyebrow">contact</span>
-      <h2 data-i18n="contact.h2">Let's talk</h2>
-      <p data-i18n="contact.p">If you're hiring for iOS — or just want to see Eczane in action — I'm a message away.</p>
-      <div class="contact-links">
-        <a href="mailto:kerimxak@icloud.com" class="clink green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          kerimxak@icloud.com
-        </a>
-        <a href="https://t.me/kerimxak" class="clink">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.4 13.6l-4.7-1.5c-1-.3-1-1 .2-1.5l18.4-7.1c.8-.3 1.6.2 1.6 1.3z"/></svg>
-          @kerimxak
-        </a>
-        <a href="https://github.com/kerimxak" class="clink">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>
-          github.com/kerimxak
-        </a>
-        <!-- TODO: confirm this LinkedIn URL resolves to your profile -->
-        <a href="https://linkedin.com/in/kerimxak" class="clink">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <span data-i18n="footer.text">Built by hand with HTML &amp; CSS · Istanbul ·</span> <span id="year"></span>
-  </div>
-</footer>
+  </footer>
+</div>
 
 <script>
-  // ====== i18n ======
-  const translations = {
-    en: {
-      docTitle: "Kerim Ak — iOS Developer",
-      "nav.work": "Work",
-      "nav.toolbox": "Toolbox",
-      "nav.about": "About",
-      "nav.contact": "Get in touch",
-      "hero.status": "Available for iOS roles &amp; internships · Summer 2026",
-      "hero.role": "iOS Developer",
-      "hero.lede": "I build iOS apps end to end — the SwiftUI front end and the backend that feeds it.",
-      "hero.meta": "Istanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Computer Engineering '26",
-      "hero.seework": "See my work",
-      "hero.cv": "Download CV",
-      "feat.title": "On-Duty Pharmacies",
-      "feat.eyebrow": "featured project",
-      "feat.note": "The one I'd want you to open first.",
-      "feat.tag": "iOS · live backend",
-      "feat.h3": "The nearest open pharmacy, right when you need it",
-      "feat.p1": "In Turkey most pharmacies shut at night and on holidays — only a rotating handful stay open. The official way to find them is a slow, clunky government site, which is the last thing you want to fight with when it's late and someone needs medicine.",
-      "feat.p2": "I built this because none of the existing options were actually pleasant to use. It shows the open pharmacies near you on a map, closest first, and gets you there or on the phone in one tap — fast, native, and simple, the way an iOS app should feel.",
-      "feat.source": "Source",
-      "work.eyebrow": "selected work",
-      "work.h2": "A few other things I've built",
-      "work.note": "Apps, products, and hardware — I like shipping.",
-      "c1.kicker": "swiftui · series",
-      "c1.p": "A run of small, finished apps — a Pomodoro timer shipped at v1.0, an expense tracker, and MoneySplit for splitting bills. Reps until the framework felt native.",
-      "c2.kicker": "product · e-commerce",
-      "c2.p": "A 3D-printed designer lamp brand I run end to end — CAD in Fusion 360, printing on a Bambu Lab A1, an online store, and Meta ad campaigns. Real orders, real shipping logistics.",
-      "c3.kicker": "robotics · capstone",
-      "c3.h3": "Elevator-navigating robot",
-      "c3.p": "An autonomous robot that finds and rides elevators between floors, using ROS2 for control and YOLO on a Raspberry Pi for button and door detection.",
-      "c4.kicker": "embedded · hardware",
-      "c4.h3": "ESP32 builds",
-      "c4.p": "A pocket digital camera on an ESP32-S3 with an ST7789 display and LiPo power, plus a Snake game on a joystick handheld. Schematics, sourcing, and firmware.",
-      "c5.kicker": "backend · infra",
-      "c5.h3": "Self-hosted infrastructure",
-      "c5.p": "A FastAPI caching service on a Linux VPS, fronted by a Cloudflare Tunnel — the backbone behind Eczane. Comfortable with Linux, SSH, and keeping a service up.",
-      "tb.eyebrow": "toolbox",
-      "tb.h2": "What I reach for",
-      "tb.col2": "backend",
-      "tb.col3": "tools",
-      "tb.col4": "hardware",
-      "tb.figma": "Figma basics",
-      "tb.vps": "VPS deployment",
-      "tb.print": "3D printing",
-      "about.eyebrow": "about",
-      "about.h2": "Who's building this",
-      "about.p1": "I'm a Computer Engineering graduate in Istanbul, focused on <strong>iOS development</strong>. I like the whole loop — designing a screen, wiring the Swift behind it, and standing up the backend that makes it real.",
-      "about.p2": "Outside of the IDE I run a small 3D-printed lamp brand, tinker with ESP32 and RP2040 boards, and founded a university club for students new to Istanbul. The common thread is finishing things and putting them in front of people.",
-      "about.p3": "I'm looking for an <strong>iOS role or internship</strong> where I can learn from a strong team and ship work that gets used.",
-      "about.f1k": "based in",
-      "about.f2k": "languages",
-      "about.f2v": "English C2 · Turkish C2 · Russian",
-      "about.f3k": "education",
-      "about.f4k": "focus",
-      "about.f5k": "open to",
-      "about.f5v": "Internship · Junior iOS · Remote",
-      "contact.eyebrow": "contact",
-      "contact.h2": "Let's talk",
-      "contact.p": "If you're hiring for iOS — or just want to see Eczane in action — I'm a message away.",
-      "footer.text": "Built by hand with HTML &amp; CSS · Istanbul ·"
-    },
-    tr: {
-      docTitle: "Kerim Ak — iOS Geliştirici",
-      "nav.work": "Çalışmalar",
-      "nav.toolbox": "Araçlar",
-      "nav.about": "Hakkımda",
-      "nav.contact": "İletişime geç",
-      "hero.status": "iOS pozisyonları ve stajlar için uygun · Yaz 2026",
-      "hero.role": "iOS Geliştirici",
-      "hero.lede": "iOS uygulamalarını uçtan uca geliştiriyorum — SwiftUI arayüzü ve onu besleyen arka uç.",
-      "hero.meta": "İstanbul, TR &nbsp;·&nbsp; EN / TR / RU &nbsp;·&nbsp; Bilgisayar Mühendisliği '26",
-      "hero.seework": "Çalışmalarımı gör",
-      "hero.cv": "CV'yi indir",
-      "feat.eyebrow": "öne çıkan proje",
-      "feat.title": "Nöbetçi Eczane",
-      "feat.note": "İlk açmanızı istediğim proje.",
-      "feat.tag": "iOS · canlı arka uç",
-      "feat.h3": "İhtiyacın olduğu an, en yakın açık eczane",
-      "feat.p1": "Türkiye'de eczanelerin çoğu gece ve tatillerde kapalı; sadece dönüşümlü birkaçı nöbetçi kalıyor. Onları bulmanın resmi yolu ise yavaş ve hantal bir devlet sitesi — hem de gece yarısı, birine ilaç lazımken uğraşmak isteyeceğin son şey.",
-      "feat.p2": "Bunu yaptım çünkü mevcut seçeneklerin hiçbiri düzgün kullanılmıyordu. Sana en yakın açık eczaneleri, en yakından başlayarak haritada gösterir; tek dokunuşla yol tarifi alır ya da ararsın. Hızlı, sade ve bir iOS uygulamasının olması gerektiği gibi.",
-      "feat.source": "Kaynak",
-      "work.eyebrow": "seçilmiş çalışmalar",
-      "work.h2": "Geliştirdiğim birkaç şey daha",
-      "work.note": "Uygulamalar, ürünler ve donanım — bitirmeyi severim.",
-      "c1.kicker": "swiftui · seri",
-      "c1.p": "Tamamlanmış küçük uygulamalardan oluşan bir seri — v1.0 olarak yayınlanan bir Pomodoro zamanlayıcı, bir harcama takipçisi ve hesap bölüşmek için MoneySplit. Framework doğal gelene kadar tekrar.",
-      "c2.kicker": "ürün · e-ticaret",
-      "c2.p": "Uçtan uca yönettiğim 3D baskı tasarım lamba markası — Fusion 360'ta CAD, Bambu Lab A1'de baskı, çevrim içi mağaza ve Meta reklam kampanyaları. Gerçek siparişler, gerçek kargo lojistiği.",
-      "c3.kicker": "robotik · bitirme projesi",
-      "c3.h3": "Asansör kullanan robot",
-      "c3.p": "Katlar arasında asansör bulup kullanan otonom robot; kontrol için ROS2, düğme ve kapı tespiti için Raspberry Pi üzerinde YOLO.",
-      "c4.kicker": "gömülü · donanım",
-      "c4.h3": "ESP32 projeleri",
-      "c4.p": "ST7789 ekranlı ve LiPo güçlü bir ESP32-S3 üzerinde cep boyutunda dijital kamera, ayrıca joystick'li bir el konsolunda Snake oyunu. Şemalar, tedarik ve firmware.",
-      "c5.kicker": "arka uç · altyapı",
-      "c5.h3": "Kendi barındırdığım altyapı",
-      "c5.p": "Linux VPS üzerinde, önünde Cloudflare Tunnel olan bir FastAPI önbellek servisi — Eczane'nin arkasındaki omurga. Linux, SSH ve bir servisi ayakta tutma konusunda rahatım.",
-      "tb.eyebrow": "araçlar",
-      "tb.h2": "Kullandıklarım",
-      "tb.col2": "arka uç",
-      "tb.col3": "araçlar",
-      "tb.col4": "donanım",
-      "tb.figma": "Figma (temel)",
-      "tb.vps": "VPS dağıtımı",
-      "tb.print": "3D baskı",
-      "about.eyebrow": "hakkımda",
-      "about.h2": "Bunu kim yapıyor",
-      "about.p1": "İstanbul'da, <strong>iOS geliştirmeye</strong> odaklanan bir Bilgisayar Mühendisliği mezunuyum. Tüm döngüyü severim — bir ekran tasarlamak, arkasındaki Swift'i yazmak ve onu gerçek kılan arka ucu ayağa kaldırmak.",
-      "about.p2": "IDE dışında küçük bir 3D baskı lamba markası işletiyorum, ESP32 ve RP2040 kartlarıyla uğraşıyorum ve İstanbul'a yeni gelen öğrenciler için bir üniversite kulübü kurdum. Ortak nokta: işleri bitirip insanların önüne koymak.",
-      "about.p3": "Güçlü bir ekipten öğrenebileceğim ve kullanılan işler çıkarabileceğim bir <strong>iOS pozisyonu veya staj</strong> arıyorum.",
-      "about.f1k": "konum",
-      "about.f2k": "diller",
-      "about.f2v": "İngilizce C2 · Türkçe C2 · Rusça",
-      "about.f3k": "eğitim",
-      "about.f4k": "odak",
-      "about.f5k": "açık olduğum",
-      "about.f5v": "Staj · Junior iOS · Uzaktan",
-      "contact.eyebrow": "iletişim",
-      "contact.h2": "Konuşalım",
-      "contact.p": "iOS için işe alım yapıyorsanız — ya da sadece Eczane'yi çalışırken görmek istiyorsanız — bir mesaj uzağınızdayım.",
-      "footer.text": "El emeğiyle HTML &amp; CSS ile yapıldı · İstanbul ·"
-    }
-  };
+(function(){
+"use strict";
 
-  function setLang(lang){
-    document.documentElement.lang = lang;
-    try { localStorage.setItem('lang', lang); } catch(e){}
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      const val = translations[lang][key];
-      if (val !== undefined) el.innerHTML = val;
-    });
-    const cv = document.getElementById('cv-btn');
-    if (cv) cv.setAttribute('href', lang === 'tr' ? 'cv/kerim-cv-tr.pdf' : 'cv/kerim-cv-en.pdf');
-    document.querySelectorAll('[data-set-lang]').forEach(b =>
-      b.classList.toggle('active', b.getAttribute('data-set-lang') === lang));
-    document.title = translations[lang].docTitle;
+/* ------------------------------------------------------------------ copy
+   One object, keyed by language. Every visible string lives here.
+
+   TODO(tr): every Turkish value below is deliberately empty — Kerim writes
+   these by hand. Nothing here is machine-translated. An empty string falls
+   back to the English one at render time, so the site stays readable while
+   the translation is unfinished; fill a value in and it appears immediately.
+   ------------------------------------------------------------------------ */
+var COPY = {
+  en: {
+    "doc.title":     "Kerim Ak — Software and objects",
+    "nav.cv":        "CV",
+    "nav.contact":   "Contact",
+    "nav.langLabel": "Language",
+
+    "mast.h1":         "Software and objects",
+    "mast.lede.lead":  "Computer engineer in Istanbul.",
+    "mast.lede.rest":  "I build iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on. Five of them below, with what went into each.",
+
+    "p1.name":"PharmacyMap", "p1.type":"iOS app", "p1.year":"2026",
+    "p1.cap1":"Duty map, bottom sheet at medium detent",
+    "p1.cap2":"Province fallback",
+    "p1.cap3":"Detail sheet",
+    "p1.alt1":"The PharmacyMap iOS app showing a map of Istanbul covered in red pharmacy pins, with the Pharmacies Nearby sheet raised to a list of the closest pharmacies and their distances.",
+    "p1.alt2":"PharmacyMap's province fallback list, showing the pharmacies on duty across a whole province when a precise location is not available.",
+    "p1.alt3":"A single pharmacy's detail sheet open over the map, with a red walking route drawn to it and Navigate and Call buttons.",
+    "p1.body1":"Turkey's pharmacies take turns staying open overnight, and finding the one on duty means checking a different site for every province. This finds it on a map.",
+    "p1.body2":"The hard part was the data. I reverse-engineered a nationwide dataset from e-Devlet and got government GPS coordinates for 99.7% of pharmacies, so the map is accurate rather than approximate.",
+    "p1.k1":"App",      "p1.v1":"SwiftUI · MapKit · iOS 26",
+    "p1.k2":"Backend",  "p1.v2":"FastAPI · SQLite on a Linux VPS",
+    "p1.k3":"Coverage", "p1.v3":"81 provinces, nationwide",
+    "p1.k4":"Role",     "p1.v4":"Everything",
+    "p1.l1":"App Store","p1.l2":"Source",
+
+    "p2.name":"benday", "p2.type":"Web tool", "p2.year":"2026",
+    "p2.cap1":"Spiral screen, 150 × 150 mm plate",
+    "p2.cap2":"Merged dot screen",
+    "p2.cap3":"Printed result",
+    "p2.alt1":"A benday spiral halftone screen filling a 150 by 150 millimetre plate, black geometry on pale paper.",
+    "p2.alt2":"A close view of a benday dot screen where neighbouring dots have merged into continuous flowing shapes.",
+    "p2.alt3":"The same screen after 3D printing — a two-colour physical panel, raised black geometry on a light base.",
+    "p2.body1":"A halftone screen generator that thinks in millimetres. It turns a photograph into two-colour vector geometry you can 3D print, laser engrave or plot — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.",
+    "p2.body2":"Dots merge through a signed-distance field rather than pairwise, which is what lets them flow together instead of looking glued.",
+    "p2.k1":"Built with","p2.v1":"Vanilla JS · Canvas · SVG",
+    "p2.k2":"Hosting",   "p2.v2":"Cloudflare Workers",
+    "p2.k3":"Output",    "p2.v3":"SVG in true mm, PNG, JPEG",
+    "p2.k4":"Role",      "p2.v4":"Everything",
+    "p2.l2":"Source",
+
+    "p3.name":"Korin Labs", "p3.type":"Product", "p3.year":"2025—",
+    "p3.cap1":"Tatlı collection — Éclair, Marshmallow",
+    "p3.cap2":"Twist-lock collar",
+    "p3.cap3":"Cinnamon Swirl",
+    "p3.alt1":"The Korin Labs Tatlı collection lit and grouped together — the Éclair and Marshmallow lamps side by side.",
+    "p3.alt2":"A close view of the twist-lock collar that joins a Korin Labs lamp shade to its base, printed without supports.",
+    "p3.alt3":"The Cinnamon Swirl lamp lit in a dim room, its printed spiral ridges catching the light.",
+    "p3.body1":"A small lighting brand. I design the lamps in Fusion 360, print them, photograph them, run the shop and pack the orders.",
+    "p3.body2":"Designing for a 0.4 mm nozzle is its own discipline — the twist-lock collar exists because a threaded one needs supports, and supports on a visible surface ruin the part.",
+    "p3.k1":"Design",    "p3.v1":"Fusion 360",
+    "p3.k2":"Production","p3.v2":"Bambu Lab A1, in house",
+    "p3.k3":"Shop",      "p3.v3":"ikas · shipping in Turkey",
+    "p3.k4":"Role",      "p3.v4":"Design, production, everything else",
+    "p3.l2":"Instagram",
+
+    "p4.name":"Elevator Robot", "p4.type":"Robotics", "p4.year":"2026",
+    "p4.cap1":"Chassis and camera mast",
+    "p4.cap2":"Button detection",
+    "p4.cap3":"Drive electronics",
+    "p4.alt1":"The elevator robot standing in front of a lift door, its camera mast rising from a wheeled chassis.",
+    "p4.alt2":"The robot's camera view with a detection box drawn around an elevator call button on the wall.",
+    "p4.alt3":"The drive electronics on the chassis deck — ESP32 board, motor drivers and wiring.",
+    "p4.body1":"Graduation project: a robot that rides a lift on its own. It finds the call button, presses it, waits, goes in, and picks the floor — which sounds small until you try it in a building it has never seen.",
+    "p4.body2":"Vision runs on a Raspberry Pi, motor control on an ESP32 over BLE, and the two talk through ROS2.",
+    "p4.k1":"Vision", "p4.v1":"YOLOv8 on Raspberry Pi 4",
+    "p4.k2":"Control","p4.v2":"ROS2 · ESP32 over BLE",
+    "p4.k3":"Team",   "p4.v3":"Capstone, Bahçeşehir University",
+    "p4.k4":"Role",   "p4.v4":"Vision and integration",
+    "p4.l1":"Write-up","p4.l2":"Source",
+
+    "p5.name":"ESP32 Console", "p5.type":"Hardware", "p5.year":"2025",
+    "p5.cap1":"Assembled, printed shell",
+    "p5.cap2":"Internals",
+    "p5.cap3":"Snake, Dodge, Breakout",
+    "p5.alt1":"The finished handheld console in its 3D-printed shell, screen lit, held in one hand.",
+    "p5.alt2":"The console opened up, showing the ESP32 board, LiPo cell and tact switches packed inside the shell.",
+    "p5.alt3":"The 128 by 128 pixel screen running the three built-in games: Snake, Dodge and Breakout.",
+    "p5.body1":"A handheld console built from parts, with three games written for it. Tact switches, a 128 × 128 display, USB-C charging, and a printed shell designed around the board rather than the other way round.",
+    "p5.body2":"High scores survive a power cut, which took longer to get right than any of the games.",
+    "p5.k1":"Board",  "p5.v1":"ESP32",
+    "p5.k2":"Display","p5.v2":"ST7735, 128 × 128",
+    "p5.k3":"Power",  "p5.v3":"LiPo · TP4056 USB-C",
+    "p5.k4":"Games",  "p5.v4":"Snake, Dodge, Breakout",
+    "p5.l1":"Source",
+
+    "foot.h2":"Open to iOS roles.",
+    "foot.email":"Email",
+    "foot.loc":"Istanbul · UTC+3",
+    "foot.type":"Set in Archivo and JetBrains Mono",
+    "foot.priv":"No trackers, no cookies"
+  },
+
+  tr: {
+    /* TODO(tr): write these. Empty = falls back to English. */
+    "doc.title":"",
+    "nav.cv":"", "nav.contact":"", "nav.langLabel":"",
+
+    "mast.h1":"", "mast.lede.lead":"", "mast.lede.rest":"",
+
+    "p1.name":"", "p1.type":"", "p1.year":"",
+    "p1.cap1":"", "p1.cap2":"", "p1.cap3":"",
+    "p1.alt1":"", "p1.alt2":"", "p1.alt3":"",
+    "p1.body1":"", "p1.body2":"",
+    "p1.k1":"", "p1.v1":"", "p1.k2":"", "p1.v2":"",
+    "p1.k3":"", "p1.v3":"", "p1.k4":"", "p1.v4":"",
+    "p1.l1":"", "p1.l2":"",
+
+    "p2.name":"", "p2.type":"", "p2.year":"",
+    "p2.cap1":"", "p2.cap2":"", "p2.cap3":"",
+    "p2.alt1":"", "p2.alt2":"", "p2.alt3":"",
+    "p2.body1":"", "p2.body2":"",
+    "p2.k1":"", "p2.v1":"", "p2.k2":"", "p2.v2":"",
+    "p2.k3":"", "p2.v3":"", "p2.k4":"", "p2.v4":"",
+    "p2.l2":"",
+
+    "p3.name":"", "p3.type":"", "p3.year":"",
+    "p3.cap1":"", "p3.cap2":"", "p3.cap3":"",
+    "p3.alt1":"", "p3.alt2":"", "p3.alt3":"",
+    "p3.body1":"", "p3.body2":"",
+    "p3.k1":"", "p3.v1":"", "p3.k2":"", "p3.v2":"",
+    "p3.k3":"", "p3.v3":"", "p3.k4":"", "p3.v4":"",
+    "p3.l2":"",
+
+    "p4.name":"", "p4.type":"", "p4.year":"",
+    "p4.cap1":"", "p4.cap2":"", "p4.cap3":"",
+    "p4.alt1":"", "p4.alt2":"", "p4.alt3":"",
+    "p4.body1":"", "p4.body2":"",
+    "p4.k1":"", "p4.v1":"", "p4.k2":"", "p4.v2":"",
+    "p4.k3":"", "p4.v3":"", "p4.k4":"", "p4.v4":"",
+    "p4.l1":"", "p4.l2":"",
+
+    "p5.name":"", "p5.type":"", "p5.year":"",
+    "p5.cap1":"", "p5.cap2":"", "p5.cap3":"",
+    "p5.alt1":"", "p5.alt2":"", "p5.alt3":"",
+    "p5.body1":"", "p5.body2":"",
+    "p5.k1":"", "p5.v1":"", "p5.k2":"", "p5.v2":"",
+    "p5.k3":"", "p5.v3":"", "p5.k4":"", "p5.v4":"",
+    "p5.l1":"",
+
+    "foot.h2":"", "foot.email":"",
+    "foot.loc":"", "foot.type":"", "foot.priv":""
+  }
+};
+
+var CV = { en:"cv/kerim-cv-en.pdf", tr:"cv/kerim-cv-tr.pdf" };
+
+/* ------------------------------------------------------------------ i18n */
+var lang = "en";
+
+function t(key, l){
+  var v = COPY[l] && COPY[l][key];
+  return (v === undefined || v === "") ? COPY.en[key] : v;   /* empty → English */
+}
+
+function render(l){
+  lang = (l === "tr") ? "tr" : "en";
+
+  document.documentElement.lang = lang;
+  document.title = t("doc.title", lang);
+
+  var i, els = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < els.length; i++){
+    els[i].textContent = t(els[i].getAttribute("data-i18n"), lang);
+  }
+  els = document.querySelectorAll("[data-i18n-alt]");
+  for(i = 0; i < els.length; i++){
+    els[i].alt = t(els[i].getAttribute("data-i18n-alt"), lang);
   }
 
-  let saved = null;
-  try { saved = localStorage.getItem('lang'); } catch(e){}
-  const browserTR = (navigator.language || '').toLowerCase().startsWith('tr');
-  setLang(saved || (browserTR ? 'tr' : 'en'));
+  document.getElementById("cv-link").href = CV[lang];
 
-  document.querySelectorAll('[data-set-lang]').forEach(b =>
-    b.addEventListener('click', () => setLang(b.getAttribute('data-set-lang'))));
+  var en = document.getElementById("lang-en"), tr = document.getElementById("lang-tr");
+  en.classList.toggle("on", lang === "en");
+  tr.classList.toggle("on", lang === "tr");
+  en.setAttribute("aria-pressed", String(lang === "en"));
+  tr.setAttribute("aria-pressed", String(lang === "tr"));
+}
 
-  // year
-  document.getElementById('year').textContent = new Date().getFullYear();
+/* URL carries the choice so a link is shareable. EN is the default and
+   stays clean — no ?lang=en. */
+function setLang(l, push){
+  render(l);
+  if(push){
+    var url = new URL(window.location.href);
+    if(lang === "en") url.searchParams.delete("lang");
+    else url.searchParams.set("lang", "tr");
+    history.replaceState(null, "", url);
+  }
+}
 
-  // mobile nav
-  const t = document.getElementById('navToggle');
-  const l = document.getElementById('navLinks');
-  t.addEventListener('click', () => l.classList.toggle('open'));
-  l.querySelectorAll('a').forEach(a => a.addEventListener('click', () => l.classList.remove('open')));
+document.getElementById("lang-en").addEventListener("click", function(){ setLang("en", true); });
+document.getElementById("lang-tr").addEventListener("click", function(){ setLang("tr", true); });
 
-  // reveal on scroll
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+setLang(new URLSearchParams(window.location.search).get("lang"), false);
+
+/* -------------------------------------------------------------- accordion
+   One open at a time. Closed panels are inert so their links stay out of
+   the tab order. */
+var rows = document.querySelectorAll("#idx .row");
+for(var r = 0; r < rows.length; r++){
+  rows[r].addEventListener("click", function(){
+    var item = this.closest(".item");
+    var wasOpen = item.classList.contains("open");
+
+    var items = document.querySelectorAll("#idx .item");
+    for(var i = 0; i < items.length; i++){
+      items[i].classList.remove("open");
+      items[i].querySelector(".row").setAttribute("aria-expanded", "false");
+      items[i].querySelector(".wrap").setAttribute("inert", "");
+    }
+    if(!wasOpen){
+      item.classList.add("open");
+      this.setAttribute("aria-expanded", "true");
+      item.querySelector(".wrap").removeAttribute("inert");
+    }
+  });
+}
+
+/* Test hook: lets the Playwright suite seed a Turkish string and watch it
+   swap, without anyone machine-translating the real copy. */
+window.__i18n = { COPY: COPY, setLang: setLang, getLang: function(){ return lang; } };
+})();
 </script>
 </body>
 </html>
