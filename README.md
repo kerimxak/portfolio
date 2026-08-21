@@ -1,103 +1,105 @@
 # kerimxak.xyz
 
-One-page portfolio. Vanilla HTML/CSS/JS, no framework, no bundler, no runtime
-dependencies. `index.html` opens by double-clicking.
+One-page portfolio. Six sections, six projects, a fixed left rail. Vanilla
+HTML/CSS/JS, no framework, no bundler, no runtime dependencies. `index.html`
+opens by double-clicking.
 
 ```
-index.html            the site
-fonts/                Archivo + JetBrains Mono, self-hosted woff2
-img/                  project figures — see below
-cv/                   kerim-cv-en.pdf, kerim-cv-tr.pdf
-favicon.svg           the mark
-apple-touch-icon.png  180×180
-og.png                1200×630 social card
-privacy.html          PharmacyMap App Store privacy policy (standalone)
-portfolio-mockup.html the approved design spec
-tests/                Playwright checks
-shots/                screenshots the checks write (gitignored)
+index.html               the site
+fonts/                   Archivo + JetBrains Mono, self-hosted variable woff2
+img/                     the PharmacyMap figures — see below
+images/                  original app screenshots the figures were built from
+cv/                      kerim-cv-en.pdf, kerim-cv-tr.pdf
+favicon.svg              the mark
+apple-touch-icon.png     180×180
+og.png                   1200×630 social card
+privacy.html             PharmacyMap App Store privacy policy (standalone)
+portfolio-mockup-d2.html the approved design spec
+tests/                   Playwright checks
+shots/                   screenshots the checks write (gitignored)
 ```
+
+## The page
+
+| # | Section     | What is in it                                               |
+| - | ----------- | ----------------------------------------------------------- |
+| 1 | Intro       | headline, two-paragraph pitch, four-cell facts block, two CTAs |
+| 2 | PharmacyMap | the flagship case study, four figures, a facts block         |
+| 3 | Also built  | five more projects, each with a spec table                   |
+| 4 | Stack       | what was used, listed against the thing it shipped in        |
+| 5 | Background  | degree, club presidency, Korin Labs, localisation, languages |
+| 6 | Contact     | the one inverted block on the page                           |
+
+Six projects in total: PharmacyMap, benday, Korin Labs, Elevator Robot,
+self-hosted VPN infrastructure, ESP32 Handheld Console.
 
 ## Images to shoot
 
-Fifteen slots, three per project. Thirteen are transparent placeholders — the
-flat "photo pending" slot shows through until a real file replaces them.
+Four slots, all in the PharmacyMap case study. Two are real captures; two are
+transparent placeholders — the flat "photo pending" slot shows through until a
+real file replaces them.
 
-**Drop a file into `img/` with the matching name and it appears. That is the
-only step.** Nothing else to edit, except the alt text (below).
+| File                | Ratio | Suggested   | What it shows                       | Status   |
+| ------------------- | ----- | ----------- | ----------------------------------- | -------- |
+| `pharmacymap-1.png` | 16:9  | 1920 × 1080 | Duty map with the bottom sheet up   | **done** |
+| `pharmacymap-2.png` | 4:3   | 1600 × 1200 | Pharmacy detail sheet with a route  | **done** |
+| `pharmacymap-3.png` | 4:3   | 1600 × 1200 | Province fallback list              | needed   |
+| `pharmacymap-4.png` | 4:3   | 1600 × 1200 | Offline / cached-data state         | needed   |
 
-Images are cropped with `object-fit: cover`, so shoot at the listed ratio or the
-edges get trimmed. Suggested pixel size is 2× the largest rendered size.
+**Dropping a correctly named file into `img/` is the first step.** The second is
+deleting that slot's `<span data-i18n="slot.pending…">` from `index.html` — plates
+are transparent outside the subject, so the label would otherwise show through.
 
-### 01 · PharmacyMap
+Images are cropped with `object-fit: cover`, so supply them at the listed ratio or
+the edges get trimmed. Suggested pixel size is 2× the largest rendered size.
 
-| File                 | Ratio | Suggested   | What it shows                     | Status |
-| -------------------- | ----- | ----------- | --------------------------------- | ------ |
-| `pharmacymap-1.png`  | 4:3   | 1600 × 1200 | Duty map, bottom sheet at medium detent | **done** |
-| `pharmacymap-2.png`  | 3:4   | 1200 × 1600 | Province fallback                 | needed |
-| `pharmacymap-3.png`  | 3:4   | 1200 × 1600 | Detail sheet                      | **done** |
-
-Slots 1 and 3 use real captures, composited onto the slot's own ground colour so
-a 9:16 phone screenshot fills a 4:3 and a 3:4 plate without cropping. Match that
-treatment for slot 2 rather than cropping the phone — see
-`CLAUDE.md → How the image slots work`.
-
-### 02 · benday
-
-| File            | Ratio | Suggested   | What it shows                        |
-| --------------- | ----- | ----------- | ------------------------------------ |
-| `benday-1.png`  | 4:3   | 1600 × 1200 | Spiral screen, 150 × 150 mm plate    |
-| `benday-2.png`  | 1:1   | 1400 × 1400 | Merged dot screen, close up          |
-| `benday-3.png`  | 1:1   | 1400 × 1400 | Printed result, the physical panel   |
-
-### 03 · Korin Labs
-
-| File                | Ratio | Suggested   | What it shows                          |
-| ------------------- | ----- | ----------- | -------------------------------------- |
-| `korin-labs-1.png`  | 4:3   | 1600 × 1200 | Tatlı collection — Éclair, Marshmallow |
-| `korin-labs-2.png`  | 1:1   | 1400 × 1400 | Twist-lock collar, close up            |
-| `korin-labs-3.png`  | 1:1   | 1400 × 1400 | Cinnamon Swirl, lit                    |
-
-### 04 · Elevator Robot
-
-| File                     | Ratio | Suggested   | What it shows                   |
-| ------------------------ | ----- | ----------- | ------------------------------- |
-| `elevator-robot-1.png`   | 4:3   | 1600 × 1200 | Chassis and camera mast         |
-| `elevator-robot-2.png`   | 1:1   | 1400 × 1400 | Button detection, camera view   |
-| `elevator-robot-3.png`   | 1:1   | 1400 × 1400 | Drive electronics               |
-
-### 05 · ESP32 Console
-
-| File                    | Ratio | Suggested   | What it shows                  |
-| ----------------------- | ----- | ----------- | ------------------------------ |
-| `esp32-console-1.png`   | 4:3   | 1600 × 1200 | Assembled, printed shell       |
-| `esp32-console-2.png`   | 1:1   | 1400 × 1400 | Internals                      |
-| `esp32-console-3.png`   | 1:1   | 1400 × 1400 | Snake, Dodge, Breakout on screen |
+Slots 1 and 2 are 9:16 phone captures from `images/`, centred on a **transparent**
+ground so they fill a 16:9 and a 4:3 frame without cropping. The transparency is
+deliberate: the slot's own `--slot` colour shows through, so one file is correct
+in both the light and dark themes. Match that treatment for slots 3 and 4 rather
+than cropping the phone — see `CLAUDE.md → How the image slots work`.
 
 **Alt text.** Each slot already has alt text describing the intended photograph.
 If what you shoot differs, update both the `alt` attribute on the `<img>` and the
-matching `pN.altN` key in the `COPY` object.
+matching `pm.altN` key in the `COPY` object.
 
-## Turkish copy
+## Language
+
+A `tr` or `tr-*` browser gets Turkish on the first visit; everyone else gets
+English. `?lang=tr` and `?lang=en` override that, so a link is shareable. English
+keeps a clean URL — the parameter is only written when a choice contradicts what
+detection would have picked.
 
 Every string lives in the `COPY` object in `index.html`, keyed `en` and `tr`. The
 Turkish values are empty and marked `TODO(tr)` — they are yours to write, nothing
 is machine-translated. An empty value falls back to English, so the page stays
-readable while you work through them.
+readable while you work through them. Fill in `COPY.tr` and the TR toggle starts
+serving it.
 
-Fill in `COPY.tr` and the TR toggle starts serving it. `?lang=tr` is shareable.
+## Theme
+
+Light and dark. The first visit follows the operating system; the sun/moon switch
+in the rail overrides it and the choice is remembered in the URL as
+`?theme=dark` or `?theme=light`. Nothing is written to localStorage, and a choice
+that agrees with the OS leaves the URL clean.
 
 ## Still to wire up
 
 Placeholder `href="#"` links, left as the mockup had them:
 
-- 01 PharmacyMap — App Store
-- 02 benday — Source
-- 03 Korin Labs — Instagram
-- 04 Elevator Robot — Write-up, Source
-- 05 ESP32 Console — Source
+- PharmacyMap — the 40-second demo recording
+- benday — Source
+- Korin Labs — Instagram
+- Elevator Robot — Write-up, Source
+- Self-hosted VPN — How it works
+- ESP32 Console — Source
+
+The CV button's size label (`PDF · 21 KB`) is hard-coded per language in the `CV`
+object in `index.html`. Update it when you replace either PDF.
 
 `og:image` and `og:url` assume the site is served from `https://kerimxak.xyz/`.
-Correct them in `index.html` if the domain differs — Open Graph needs absolute URLs.
+Correct them in `index.html` if the domain differs — Open Graph needs absolute
+URLs.
 
 ## Tests
 
@@ -108,9 +110,13 @@ npm test
 ```
 
 Loads the page in chromium and webkit at 375, 768 and 1440, writes screenshots to
-`shots/`, and asserts no console errors, a working language toggle, an accordion
-that opens one row at a time, the first project image above the 1440×900 fold, and
-a reduced-motion snap.
+`shots/`, and asserts: no console errors; a working language toggle plus browser
+detection; a theme that follows `prefers-color-scheme` and round-trips through
+`?theme=` without touching localStorage; the headline, facts block and both CTA
+buttons visible at 1440×900 without scrolling; a facts grid that goes 4 → 2 → 1
+with equal-height cells; no horizontal overflow from 320 to 1920px; a rail whose
+active mark tracks scroll and that becomes a bottom strip below 900px; and a
+reduced-motion snap.
 
 Run it before calling any layout change done.
 

@@ -4,422 +4,642 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Kerim Ak — Software and objects</title>
-<meta name="description" content="Computer engineer in Istanbul. iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on.">
+<title>Kerim Ak — iOS Developer</title>
+<meta name="description" content="Junior iOS developer in Istanbul. SwiftUI and MapKit on the front, a scraper and a self-hosted API behind it, and five other things I built and keep running.">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kerim Ak — Software and objects">
-<meta property="og:description" content="Computer engineer in Istanbul. iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on.">
+<meta property="og:title" content="Kerim Ak — iOS Developer">
+<meta property="og:description" content="Junior iOS developer in Istanbul. SwiftUI and MapKit on the front, a scraper and a self-hosted API behind it, and five other things I built and keep running.">
 <meta property="og:image" content="https://kerimxak.xyz/og.png">
 <meta property="og:url" content="https://kerimxak.xyz/">
 <meta name="twitter:card" content="summary_large_image">
 
+<meta name="theme-color" content="#E8E7E3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
+
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-<link rel="preload" href="fonts/archivo-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/jetbrainsmono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- The two faces the first screenful needs. crossorigin is required for fonts
+     even same-origin; see CLAUDE.md for why the file:// warning is left alone. -->
+<link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/jetbrainsmono-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- An explicit ?theme= choice has to land before first paint. Everything else
+     about the theme is CSS. -->
+<script>
+(function(){
+  var t = new URLSearchParams(location.search).get("theme");
+  if(t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+})();
+</script>
 
 <style>
-/* ---- self-hosted faces: latin + latin-ext, the latter for Turkish ---- */
-@font-face{font-family:"Archivo";font-style:normal;font-weight:500;font-display:swap;
-  src:url(fonts/archivo-500-latin-ext.woff2) format("woff2");
+/* ---- self-hosted variable faces: latin + latin-ext, the latter for Turkish ---- */
+@font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-display:swap;
+  src:url(fonts/archivo-latin-ext.woff2) format("woff2");
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:"Archivo";font-style:normal;font-weight:500;font-display:swap;
-  src:url(fonts/archivo-500-latin.woff2) format("woff2");
+@font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-display:swap;
+  src:url(fonts/archivo-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Archivo";font-style:normal;font-weight:600;font-display:swap;
-  src:url(fonts/archivo-600-latin-ext.woff2) format("woff2");
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400 800;font-display:swap;
+  src:url(fonts/jetbrainsmono-latin-ext.woff2) format("woff2");
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:"Archivo";font-style:normal;font-weight:600;font-display:swap;
-  src:url(fonts/archivo-600-latin.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Archivo";font-style:normal;font-weight:700;font-display:swap;
-  src:url(fonts/archivo-700-latin-ext.woff2) format("woff2");
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:"Archivo";font-style:normal;font-weight:700;font-display:swap;
-  src:url(fonts/archivo-700-latin.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;
-  src:url(fonts/jetbrainsmono-400-latin-ext.woff2) format("woff2");
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;
-  src:url(fonts/jetbrainsmono-400-latin.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;
-  src:url(fonts/jetbrainsmono-500-latin-ext.woff2) format("woff2");
-  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;
-  src:url(fonts/jetbrainsmono-500-latin.woff2) format("woff2");
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400 800;font-display:swap;
+  src:url(fonts/jetbrainsmono-latin.woff2) format("woff2");
   unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
+/* ---- palette -------------------------------------------------------------
+   One token list. light-dark() carries both themes, so the default follows the
+   OS with no JavaScript and no flash; data-theme only overrides color-scheme.
+   -------------------------------------------------------------------------- */
 :root{
-  --paper:#EDECE7;
-  --ink:#101010;
-  --rule:#C6C4BD;
-  --rule-soft:#DBD9D3;
-  --muted:#78766F;
-  --accent:#FF3B00;
+  color-scheme:light dark;
+
+  --ground:   light-dark(#E8E7E3, #141413);
+  --panel:    light-dark(#F3F2EF, #1C1C1A);
+  --dark:     light-dark(#121211, #0B0B0A);
+  --ink:      light-dark(#101010, #F2F1EC);
+  --body:     light-dark(#43423C, #A8A79E);
+  --muted:    light-dark(#86857D, #75746C);
+  --rule:     light-dark(#CFCEC7, #2E2E2A);
+  --rule-soft:light-dark(#DEDDD6, #242421);
+  --slot:     light-dark(#DDDCD4, #232320);
+  --accent:#FF4A17;
+
+  --sans:"Archivo",Helvetica,Arial,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-  --disp:"Archivo",Helvetica,Arial,sans-serif;
-  --pad:clamp(16px,3.2vw,40px);
+  --rail:230px;
+  --pad:clamp(20px,4vw,64px);
 }
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"] {color-scheme:dark}
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  background:var(--paper);color:var(--ink);
-  font-family:var(--mono);font-size:12px;line-height:1.6;
+  background:var(--ground);color:var(--body);
+  font-family:var(--sans);font-size:15px;line-height:1.62;
   -webkit-font-smoothing:antialiased;
-  padding:10px;
+  overflow-wrap:break-word;
 }
-.frame{border:1px solid var(--ink);min-height:calc(100vh - 20px)}
+body,.rail,.facts>div,.built,.ph,.cta{transition:background-color .35s ease,color .35s ease,border-color .35s ease}
+h1,h2,h3,strong,b{color:var(--ink)}
+.lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+img{max-width:100%}
 
-.lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+/* ================= rail ================= */
+.rail{
+  position:fixed;inset:0 auto 0 0;width:var(--rail);z-index:50;
+  background:var(--ground);border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:26px 0 22px;
+}
+.rail .top{padding:0 20px}
+.rail .nm{font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:-.02em;
+  color:var(--ink);line-height:1.2}
+.rail .nm em{font-style:normal;color:var(--accent)}
+.rail .rl{margin-top:5px;display:block}
 
-/* ---- top bar ---- */
-header{
-  display:flex;align-items:stretch;justify-content:space-between;
-  border-bottom:1px solid var(--ink);position:sticky;top:10px;
-  background:var(--paper);z-index:10;
+.rail nav{padding:0 0 0 20px}
+.rail ol{list-style:none}
+.rail li{position:relative}
+.rail li a{
+  display:flex;align-items:baseline;gap:10px;padding:9px 20px 9px 0;
+  text-decoration:none;color:var(--muted);
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  transform-origin:left center;
+  transition:transform .18s cubic-bezier(.2,.7,.3,1),color .18s;
 }
-.brand{padding:14px var(--pad);font-family:var(--disp);font-weight:700;
-  font-size:15px;letter-spacing:-.02em;line-height:1.4;white-space:nowrap}
-nav{display:flex}
-nav a,nav button{
-  display:flex;align-items:center;padding:14px 16px;
-  border-left:1px solid var(--rule);background:none;cursor:pointer;
-  font:inherit;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;
+.rail li a i{font-style:normal;font-size:9.5px;opacity:.7}
+.rail li a:hover{color:var(--ink);transform:scale(1.14) translateX(3px)}
+.rail li.on a{color:var(--ink)}
+.rail li::before{
+  content:"";position:absolute;left:-20px;top:50%;transform:translateY(-50%);
+  width:0;height:3px;background:var(--accent);transition:width .18s;
 }
-nav a:hover,nav button:hover{color:var(--ink)}
-nav .on{color:var(--ink)}
-nav a:focus-visible,nav button:focus-visible,.row:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.rail li.on::before,.rail li:hover::before{width:12px}
 
-/* ---- masthead ---- */
-.mast{
-  padding:clamp(30px,5vw,58px) var(--pad) clamp(24px,3.4vw,38px);
-  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
-  gap:clamp(20px,4vw,56px);align-items:end;
-}
-h1{
-  font-family:var(--disp);font-weight:600;
-  font-size:clamp(38px,7vw,88px);line-height:.92;letter-spacing:-.035em;
-  max-width:12ch;
-}
-h1 em{font-style:normal;color:var(--accent)}
-.mast p{max-width:42ch;color:var(--muted);font-size:12px}
-.mast p b{font-weight:400;color:var(--ink)}
+.rail .btm{padding:0 20px;display:grid;gap:14px}
+.avail{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.avail i{width:8px;height:8px;background:var(--accent);display:block;flex:none}
+.switches{display:flex;gap:8px}
+.sw{display:flex;border:1px solid var(--rule)}
+.sw button{background:none;border:0;cursor:pointer;color:var(--muted);
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:6px 9px;line-height:1.4}
+.sw button+button{border-left:1px solid var(--rule)}
+.sw button[aria-pressed="true"]{background:var(--ink);color:var(--ground)}
+/* sun and moon are drawn, not typed — neither glyph is in the latin or
+   latin-ext subsets, so a character here would fall back to whatever the
+   system has and render as something else entirely */
+.sw button svg{display:block;width:12px;height:12px;fill:none;
+  stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cvbtn{display:block;text-align:center;text-decoration:none;color:var(--ink);
+  border:1px solid var(--ink);padding:9px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase}
+.cvbtn:hover{background:var(--ink);color:var(--ground)}
+.cvbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff;padding:13px 10px}
+.cvbtn.primary em{display:block;font-style:normal;font-size:9px;letter-spacing:.1em;
+  opacity:.85;margin-top:5px;text-transform:none}
+.cvbtn.primary:hover{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 
-/* ---- index ---- */
-.idx{border-top:1px solid var(--ink)}
-.item{border-bottom:1px solid var(--rule)}
-.item:last-child{border-bottom:1px solid var(--ink)}
-.row{
-  width:100%;display:grid;
-  grid-template-columns:64px 1fr 130px 62px 20px;
-  align-items:center;gap:12px;
-  padding:18px var(--pad);
-  background:none;border:0;cursor:pointer;font:inherit;text-align:left;
-  position:relative;color:var(--ink);
-}
-.row:hover{background:#E6E4DE}
-.row .no{font-size:10px;letter-spacing:.14em;color:var(--muted)}
-.row .nm{font-family:var(--disp);font-weight:600;font-size:clamp(17px,2.6vw,26px);letter-spacing:-.02em}
-.row .ty,.row .yr{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.row .mk{justify-self:end;width:9px;height:9px;border:1px solid var(--muted)}
-.item.open .row .no{color:var(--accent)}
-.item.open .row .mk{background:var(--accent);border-color:var(--accent)}
-.item.open .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+main{margin-left:var(--rail)}
+section{padding:clamp(52px,7vw,104px) var(--pad);scroll-margin-top:20px}
+@media (min-width:901px){main>section{min-height:100vh}}
 
-.wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .34s cubic-bezier(.2,.7,.3,1)}
-.item.open .wrap{grid-template-rows:1fr}
-.inner{overflow:hidden}
-.body{
-  padding:8px var(--pad) clamp(36px,5vw,64px);
-  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
-  gap:clamp(20px,3vw,44px);align-items:start;
+/* ================= hero ================= */
+.hero{
+  padding:clamp(40px,6vw,84px) var(--pad) clamp(28px,4vw,48px);
+  position:relative;overflow:hidden;
 }
-.plates{display:grid;grid-template-columns:1fr;gap:14px}
-.plates .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
-figure{margin:0}
-figcaption{margin-top:7px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+/* the registration-cross pattern. The wrapper carries the downward fade, its
+   pseudo carries the cross mask over an ink fill — so the pattern takes its
+   colour from --ink and needs no second copy for the dark theme. */
+.hero>.xgrid{position:absolute;inset:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 78%);
+          mask-image:linear-gradient(to bottom,#000,transparent 78%)}
+.hero>.xgrid::before{
+  content:"";position:absolute;inset:0;background:var(--ink);opacity:.16;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 12v10M12 17h10' stroke='%23000' stroke-width='1.1'/%3E%3C/svg%3E");
+          mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 12v10M12 17h10' stroke='%23000' stroke-width='1.1'/%3E%3C/svg%3E");
+  -webkit-mask-repeat:repeat;mask-repeat:repeat;
+  -webkit-mask-size:34px 34px;mask-size:34px 34px;
+}
+.hero>*{position:relative}
+.hero h1{
+  font-size:clamp(40px,6.6vw,84px);font-weight:600;line-height:.94;letter-spacing:-.04em;
+  max-width:14ch;
+}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{margin-top:20px;font-size:16px;max-width:58ch}
+.hero .sub+.sub{margin-top:12px}
 
-/* placeholder — a slot, not a picture */
-.ph{position:relative;background:#E4E2DC;border:1px solid var(--rule);overflow:hidden;
+/* ---- the facts block: 4 → 2 → 1, never 3+1, cells all one height ---- */
+.facts{
+  margin-top:clamp(26px,3.4vw,42px);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+}
+.facts>div{background:var(--ground);padding:18px 16px}
+.facts .v{font-family:var(--mono);font-size:clamp(20px,2.6vw,32px);color:var(--ink);
+  display:block;line-height:1.05;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.facts .k{margin-top:10px;display:block}
+@media (max-width:1024px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px) {.facts{grid-template-columns:minmax(0,1fr)}}
+
+/* ================= sections ================= */
+.rule{border-top:1px solid var(--rule)}
+.shead{max-width:70ch}
+.shead h2{margin-top:12px;font-size:clamp(28px,4.4vw,52px);font-weight:600;
+  letter-spacing:-.035em;line-height:1.02}
+.shead p{margin-top:16px;max-width:60ch;font-size:16px}
+h3{margin-top:42px;font-size:19px;font-weight:600;letter-spacing:-.015em}
+p+p{margin-top:15px}
+.col{max-width:64ch}
+
+figure{margin:32px 0 0}
+.ph{position:relative;background:var(--slot);border:1px solid var(--rule);overflow:hidden;
   display:flex;align-items:center;justify-content:center}
+.ph.r169{aspect-ratio:16/9}
 .ph.r43{aspect-ratio:4/3}
-.ph.r11{aspect-ratio:1/1}
-.ph.r34{aspect-ratio:3/4}
-.ph span{
-  font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
-}
-/* the picture sits on top of the slot. Placeholder files are fully transparent,
-   so the flat slot shows through until a real photograph replaces the file.
+.ph span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);padding:0 12px;text-align:center}
+/* The picture sits on top of the slot. Plates are transparent outside the
+   subject, so the slot's own ground shows through and follows the theme.
    Never filter, tint or screen these — they are photographs. */
 .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+figcaption{margin-top:10px;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 
-.copy p{max-width:42ch}
-.copy p+p{margin-top:12px}
-dl{margin-top:22px;border-top:1px solid var(--rule)}
-.dr{display:grid;grid-template-columns:88px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule-soft)}
-dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-dd{font-size:11px}
-.links{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px 22px}
-.links a{
-  color:var(--accent);text-decoration:none;
-  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
-  border-bottom:1px solid var(--accent);padding-bottom:3px;
+.status{margin-top:14px;font-size:14px}
+.status .lbl{margin-right:10px}
+.note{margin-top:36px;border-left:3px solid var(--accent);padding:4px 0 4px 20px;max-width:60ch}
+.btns{margin-top:clamp(24px,2.8vw,32px);display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;text-decoration:none;padding:12px 18px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--ink);color:var(--ground);border:1px solid var(--ink)}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.o{background:none;color:var(--ink)}
+.btn.o:hover{background:var(--ink);color:var(--ground)}
+.btn[data-x]::after{content:" ↗"}
+
+/* ---- also built ---- */
+.built{background:var(--panel);border-block:1px solid var(--rule)}
+.built .facts>div{background:var(--panel)}
+.alist{margin-top:34px;border-top:1px solid var(--rule)}
+.arow{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,.75fr);
+  gap:24px;padding:26px 0;border-bottom:1px solid var(--rule);align-items:start}
+.arow .n{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.arow h3{margin:0;font-size:22px}
+.arow .d{margin-top:8px;font-size:14.5px}
+.arow .lk{margin-top:14px;display:flex;gap:18px;flex-wrap:wrap}
+.arow .lk a{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink);border-bottom:2px solid var(--accent);padding-bottom:2px}
+.arow .lk a:hover{background:var(--accent);color:#fff}
+.arow .lk a[data-x]::after{content:" ↗"}
+.arow .sp{border-left:1px solid var(--rule);padding-left:20px}
+.arow .sp div{display:flex;justify-content:space-between;gap:14px;padding:5px 0;
+  border-bottom:1px solid var(--rule-soft);font-size:13px;color:var(--ink)}
+.arow .sp div:last-child{border-bottom:0}
+.arow .sp b{font-weight:400;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);flex:none}
+.arow .sp span{text-align:right;min-width:0}
+
+/* ---- stack ---- */
+.stack{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px}
+.stack h3{margin:0 0 10px;font-family:var(--mono);font-size:10px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.stack li{list-style:none;display:flex;justify-content:space-between;gap:12px;
+  padding:7px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--ink)}
+.stack li em{font-style:normal;font-size:12px;color:var(--muted);text-align:right;min-width:0}
+
+/* ---- background ---- */
+.bg{margin-top:34px;border-top:1px solid var(--rule)}
+.bgrow{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:24px;
+  padding:18px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.bgrow .yr{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.bgrow strong{display:block;font-size:16px}
+.bgrow p{margin-top:5px;font-size:14px;max-width:56ch}
+.bgrow .pl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);text-align:right;white-space:nowrap}
+
+/* ================= contact ================= */
+.cta{background:var(--dark);color:#B9B8B1;border-top:1px solid var(--dark);
+  padding:clamp(56px,8vw,120px) var(--pad)}
+.cta .lbl{color:var(--accent)}
+.cta h2{margin-top:16px;color:#fff;font-size:clamp(34px,5.6vw,72px);
+  font-weight:600;letter-spacing:-.04em;line-height:.98;max-width:16ch}
+.cta p{margin-top:20px;max-width:48ch;font-size:17px}
+.ctabtns{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
+.ctabtns a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  padding:16px 22px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:#fff;border:1px solid #35342F}
+.ctabtns a:hover{border-color:#fff}
+.ctabtns a.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+.ctabtns a.primary:hover{background:#fff;color:#121211;border-color:#fff}
+.ctafoot{margin-top:clamp(40px,5vw,72px);padding-top:18px;border-top:1px solid #2A2925;
+  display:flex;flex-wrap:wrap;gap:10px 30px;justify-content:space-between}
+.ctafoot .lbl{color:#6E6D66}
+
+/* ================= the one breakpoint the rail turns on ================= */
+@media (max-width:900px){
+  main{margin-left:0;padding-bottom:68px}
+  .rail{
+    inset:auto 0 0 0;width:100%;height:auto;flex-direction:row;align-items:stretch;
+    border-right:0;border-top:1px solid var(--rule);padding:0;
+  }
+  .rail .top{display:none}
+  /* only the section links scroll; the switches stay put, because the language
+     and theme controls exist nowhere else on the page */
+  .rail nav{padding:0;flex:1 1 auto;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .rail ol{display:flex}
+  .rail li a{padding:16px 14px;transform:none!important;white-space:nowrap}
+  .rail li::before{left:0;top:0;transform:none;height:3px;width:0}
+  .rail li.on::before,.rail li:hover::before{width:100%}
+  .rail li a i{display:none}
+  .rail .btm{flex:none;display:flex;align-items:center;padding:0 12px;gap:0;
+    border-left:1px solid var(--rule)}
+  .rail .avail,.rail .cvbtn{display:none}
+  .arow{grid-template-columns:36px minmax(0,1fr);row-gap:0}
+  .arow .sp{grid-column:2;border-left:0;padding-left:0;margin-top:16px;
+    border-top:1px solid var(--rule);padding-top:8px}
+  .trio{grid-template-columns:minmax(0,1fr);gap:10px}
+  .bgrow{grid-template-columns:minmax(0,1fr);gap:4px}
+  .bgrow .pl{text-align:left}
 }
-.links a:hover{background:var(--accent);color:var(--paper)}
-.links a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.links a[data-x]::after{content:" ↗"}
-
-/* ---- footer ---- */
-footer{padding:clamp(44px,7vw,96px) var(--pad) clamp(28px,4vw,48px)}
-footer h2{font-family:var(--disp);font-weight:600;font-size:clamp(26px,4.6vw,54px);letter-spacing:-.03em;line-height:1}
-.cts{margin-top:clamp(24px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.cts a{background:var(--paper);padding:16px;text-decoration:none;color:var(--ink);display:block}
-.cts a:hover{background:#E6E4DE}
-.cts a:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
-.cts .k{display:block;margin-bottom:5px}
-.colo{margin-top:clamp(28px,4vw,52px);padding-top:14px;border-top:1px solid var(--rule);
-  display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between}
-
-@media (max-width:820px){
-  .mast{grid-template-columns:1fr;gap:18px;align-items:start}
-  .row{grid-template-columns:40px 1fr 16px;row-gap:4px}
-  .row .ty{grid-column:2;grid-row:2;padding:0}
-  .row .yr{display:none}
-  .body{grid-template-columns:1fr}
-  header{position:static}
-  .brand{padding:12px var(--pad)}
-  nav a,nav button{padding:12px 11px}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .rail li a:hover{transform:none}
+  html{scroll-behavior:auto}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<div class="frame">
-  <header>
-    <div class="brand">Kerim Ak<span style="color:var(--accent)">.</span></div>
-    <nav>
-      <button class="on" id="lang-en" lang="en" aria-pressed="true">EN</button>
-      <button id="lang-tr" lang="tr" aria-pressed="false">TR</button>
-      <a href="cv/kerim-cv-en.pdf" id="cv-link" data-i18n="nav.cv">CV</a>
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
-    </nav>
-  </header>
-
-  <section class="mast">
-    <h1><span data-i18n="mast.h1">Software and objects</span><em>.</em></h1>
-    <p><b data-i18n="mast.lede.lead">Computer engineer in Istanbul.</b> <span data-i18n="mast.lede.rest">I build iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on. Five of them below, with what went into each.</span></p>
-  </section>
-
-  <div class="idx" id="idx">
-
-    <!-- 01 ................................................................ -->
-    <div class="item open">
-      <button class="row" aria-expanded="true" aria-controls="panel-1" id="row-1">
-        <span class="no">01/</span>
-        <span class="nm" data-i18n="p1.name">PharmacyMap</span>
-        <span class="ty" data-i18n="p1.type">iOS app</span>
-        <span class="yr" data-i18n="p1.year">2026</span>
-        <span class="mk"></span>
-      </button>
-      <div class="wrap" id="panel-1" role="region" aria-labelledby="row-1"><div class="inner"><div class="body">
-        <div class="plates">
-          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
-              <img src="img/pharmacymap-1.png" width="1600" height="1200" alt="The PharmacyMap iOS app showing a map of Istanbul covered in red pharmacy pins, with the Pharmacies Nearby sheet raised to a list of the closest pharmacies and their distances." data-i18n-alt="p1.alt1" loading="eager" decoding="async"></div>
-            <figcaption data-i18n="p1.cap1">Duty map, bottom sheet at medium detent</figcaption></figure>
-          <div class="duo">
-            <figure><div class="ph r34"><span>Fig 02</span>
-                <img src="img/pharmacymap-2.png" width="1200" height="1600" alt="PharmacyMap's province fallback list, showing the pharmacies on duty across a whole province when a precise location is not available." data-i18n-alt="p1.alt2" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p1.cap2">Province fallback</figcaption></figure>
-            <figure><div class="ph r34"><span>Fig 03</span>
-                <img src="img/pharmacymap-3.png" width="1200" height="1600" alt="A single pharmacy's detail sheet open over the map, with a red walking route drawn to it and Navigate and Call buttons." data-i18n-alt="p1.alt3" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p1.cap3">Detail sheet</figcaption></figure>
-          </div>
-        </div>
-        <div class="copy">
-          <p data-i18n="p1.body1">Turkey's pharmacies take turns staying open overnight, and finding the one on duty means checking a different site for every province. This finds it on a map.</p>
-          <p data-i18n="p1.body2">The hard part was the data. I reverse-engineered a nationwide dataset from e-Devlet and got government GPS coordinates for 99.7% of pharmacies, so the map is accurate rather than approximate.</p>
-          <dl>
-            <div class="dr"><dt data-i18n="p1.k1">App</dt><dd data-i18n="p1.v1">SwiftUI · MapKit · iOS 26</dd></div>
-            <div class="dr"><dt data-i18n="p1.k2">Backend</dt><dd data-i18n="p1.v2">FastAPI · SQLite on a Linux VPS</dd></div>
-            <div class="dr"><dt data-i18n="p1.k3">Coverage</dt><dd data-i18n="p1.v3">81 provinces, nationwide</dd></div>
-            <div class="dr"><dt data-i18n="p1.k4">Role</dt><dd data-i18n="p1.v4">Everything</dd></div>
-          </dl>
-          <div class="links"><a href="#" data-i18n="p1.l1">App Store</a><a href="https://github.com/kerimxak/eczane" data-x data-i18n="p1.l2">Source</a></div>
-        </div>
-      </div></div></div>
-    </div>
-
-    <!-- 02 ................................................................ -->
-    <div class="item">
-      <button class="row" aria-expanded="false" aria-controls="panel-2" id="row-2">
-        <span class="no">02/</span>
-        <span class="nm" data-i18n="p2.name">benday</span>
-        <span class="ty" data-i18n="p2.type">Web tool</span>
-        <span class="yr" data-i18n="p2.year">2026</span>
-        <span class="mk"></span>
-      </button>
-      <div class="wrap" id="panel-2" role="region" aria-labelledby="row-2" inert><div class="inner"><div class="body">
-        <div class="plates">
-          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
-              <img src="img/benday-1.png" width="1600" height="1200" alt="A benday spiral halftone screen filling a 150 by 150 millimetre plate, black geometry on pale paper." data-i18n-alt="p2.alt1" loading="lazy" decoding="async"></div>
-            <figcaption data-i18n="p2.cap1">Spiral screen, 150 × 150 mm plate</figcaption></figure>
-          <div class="duo">
-            <figure><div class="ph r11"><span>Fig 02</span>
-                <img src="img/benday-2.png" width="1400" height="1400" alt="A close view of a benday dot screen where neighbouring dots have merged into continuous flowing shapes." data-i18n-alt="p2.alt2" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p2.cap2">Merged dot screen</figcaption></figure>
-            <figure><div class="ph r11"><span>Fig 03</span>
-                <img src="img/benday-3.png" width="1400" height="1400" alt="The same screen after 3D printing — a two-colour physical panel, raised black geometry on a light base." data-i18n-alt="p2.alt3" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p2.cap3">Printed result</figcaption></figure>
-          </div>
-        </div>
-        <div class="copy">
-          <p data-i18n="p2.body1">A halftone screen generator that thinks in millimetres. It turns a photograph into two-colour vector geometry you can 3D print, laser engrave or plot — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.</p>
-          <p data-i18n="p2.body2">Dots merge through a signed-distance field rather than pairwise, which is what lets them flow together instead of looking glued.</p>
-          <dl>
-            <div class="dr"><dt data-i18n="p2.k1">Built with</dt><dd data-i18n="p2.v1">Vanilla JS · Canvas · SVG</dd></div>
-            <div class="dr"><dt data-i18n="p2.k2">Hosting</dt><dd data-i18n="p2.v2">Cloudflare Workers</dd></div>
-            <div class="dr"><dt data-i18n="p2.k3">Output</dt><dd data-i18n="p2.v3">SVG in true mm, PNG, JPEG</dd></div>
-            <div class="dr"><dt data-i18n="p2.k4">Role</dt><dd data-i18n="p2.v4">Everything</dd></div>
-          </dl>
-          <div class="links"><a href="https://benday.kerimxak.xyz" data-x>benday.kerimxak.xyz</a><a href="#" data-i18n="p2.l2">Source</a></div>
-        </div>
-      </div></div></div>
-    </div>
-
-    <!-- 03 ................................................................ -->
-    <div class="item">
-      <button class="row" aria-expanded="false" aria-controls="panel-3" id="row-3">
-        <span class="no">03/</span>
-        <span class="nm" data-i18n="p3.name">Korin Labs</span>
-        <span class="ty" data-i18n="p3.type">Product</span>
-        <span class="yr" data-i18n="p3.year">2025—</span>
-        <span class="mk"></span>
-      </button>
-      <div class="wrap" id="panel-3" role="region" aria-labelledby="row-3" inert><div class="inner"><div class="body">
-        <div class="plates">
-          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
-              <img src="img/korin-labs-1.png" width="1600" height="1200" alt="The Korin Labs Tatlı collection lit and grouped together — the Éclair and Marshmallow lamps side by side." data-i18n-alt="p3.alt1" loading="lazy" decoding="async"></div>
-            <figcaption data-i18n="p3.cap1">Tatlı collection — Éclair, Marshmallow</figcaption></figure>
-          <div class="duo">
-            <figure><div class="ph r11"><span>Fig 02</span>
-                <img src="img/korin-labs-2.png" width="1400" height="1400" alt="A close view of the twist-lock collar that joins a Korin Labs lamp shade to its base, printed without supports." data-i18n-alt="p3.alt2" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p3.cap2">Twist-lock collar</figcaption></figure>
-            <figure><div class="ph r11"><span>Fig 03</span>
-                <img src="img/korin-labs-3.png" width="1400" height="1400" alt="The Cinnamon Swirl lamp lit in a dim room, its printed spiral ridges catching the light." data-i18n-alt="p3.alt3" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p3.cap3">Cinnamon Swirl</figcaption></figure>
-          </div>
-        </div>
-        <div class="copy">
-          <p data-i18n="p3.body1">A small lighting brand. I design the lamps in Fusion 360, print them, photograph them, run the shop and pack the orders.</p>
-          <p data-i18n="p3.body2">Designing for a 0.4 mm nozzle is its own discipline — the twist-lock collar exists because a threaded one needs supports, and supports on a visible surface ruin the part.</p>
-          <dl>
-            <div class="dr"><dt data-i18n="p3.k1">Design</dt><dd data-i18n="p3.v1">Fusion 360</dd></div>
-            <div class="dr"><dt data-i18n="p3.k2">Production</dt><dd data-i18n="p3.v2">Bambu Lab A1, in house</dd></div>
-            <div class="dr"><dt data-i18n="p3.k3">Shop</dt><dd data-i18n="p3.v3">ikas · shipping in Turkey</dd></div>
-            <div class="dr"><dt data-i18n="p3.k4">Role</dt><dd data-i18n="p3.v4">Design, production, everything else</dd></div>
-          </dl>
-          <div class="links"><a href="https://korinlabs.store" data-x>korinlabs.store</a><a href="#" data-i18n="p3.l2">Instagram</a></div>
-        </div>
-      </div></div></div>
-    </div>
-
-    <!-- 04 ................................................................ -->
-    <div class="item">
-      <button class="row" aria-expanded="false" aria-controls="panel-4" id="row-4">
-        <span class="no">04/</span>
-        <span class="nm" data-i18n="p4.name">Elevator Robot</span>
-        <span class="ty" data-i18n="p4.type">Robotics</span>
-        <span class="yr" data-i18n="p4.year">2026</span>
-        <span class="mk"></span>
-      </button>
-      <div class="wrap" id="panel-4" role="region" aria-labelledby="row-4" inert><div class="inner"><div class="body">
-        <div class="plates">
-          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
-              <img src="img/elevator-robot-1.png" width="1600" height="1200" alt="The elevator robot standing in front of a lift door, its camera mast rising from a wheeled chassis." data-i18n-alt="p4.alt1" loading="lazy" decoding="async"></div>
-            <figcaption data-i18n="p4.cap1">Chassis and camera mast</figcaption></figure>
-          <div class="duo">
-            <figure><div class="ph r11"><span>Fig 02</span>
-                <img src="img/elevator-robot-2.png" width="1400" height="1400" alt="The robot's camera view with a detection box drawn around an elevator call button on the wall." data-i18n-alt="p4.alt2" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p4.cap2">Button detection</figcaption></figure>
-            <figure><div class="ph r11"><span>Fig 03</span>
-                <img src="img/elevator-robot-3.png" width="1400" height="1400" alt="The drive electronics on the chassis deck — ESP32 board, motor drivers and wiring." data-i18n-alt="p4.alt3" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p4.cap3">Drive electronics</figcaption></figure>
-          </div>
-        </div>
-        <div class="copy">
-          <p data-i18n="p4.body1">Graduation project: a robot that rides a lift on its own. It finds the call button, presses it, waits, goes in, and picks the floor — which sounds small until you try it in a building it has never seen.</p>
-          <p data-i18n="p4.body2">Vision runs on a Raspberry Pi, motor control on an ESP32 over BLE, and the two talk through ROS2.</p>
-          <dl>
-            <div class="dr"><dt data-i18n="p4.k1">Vision</dt><dd data-i18n="p4.v1">YOLOv8 on Raspberry Pi 4</dd></div>
-            <div class="dr"><dt data-i18n="p4.k2">Control</dt><dd data-i18n="p4.v2">ROS2 · ESP32 over BLE</dd></div>
-            <div class="dr"><dt data-i18n="p4.k3">Team</dt><dd data-i18n="p4.v3">Capstone, Bahçeşehir University</dd></div>
-            <div class="dr"><dt data-i18n="p4.k4">Role</dt><dd data-i18n="p4.v4">Vision and integration</dd></div>
-          </dl>
-          <div class="links"><a href="#" data-i18n="p4.l1">Write-up</a><a href="#" data-i18n="p4.l2">Source</a></div>
-        </div>
-      </div></div></div>
-    </div>
-
-    <!-- 05 ................................................................ -->
-    <div class="item">
-      <button class="row" aria-expanded="false" aria-controls="panel-5" id="row-5">
-        <span class="no">05/</span>
-        <span class="nm" data-i18n="p5.name">ESP32 Console</span>
-        <span class="ty" data-i18n="p5.type">Hardware</span>
-        <span class="yr" data-i18n="p5.year">2025</span>
-        <span class="mk"></span>
-      </button>
-      <div class="wrap" id="panel-5" role="region" aria-labelledby="row-5" inert><div class="inner"><div class="body">
-        <div class="plates">
-          <figure><div class="ph r43"><span>Fig 01 · photo pending</span>
-              <img src="img/esp32-console-1.png" width="1600" height="1200" alt="The finished handheld console in its 3D-printed shell, screen lit, held in one hand." data-i18n-alt="p5.alt1" loading="lazy" decoding="async"></div>
-            <figcaption data-i18n="p5.cap1">Assembled, printed shell</figcaption></figure>
-          <div class="duo">
-            <figure><div class="ph r11"><span>Fig 02</span>
-                <img src="img/esp32-console-2.png" width="1400" height="1400" alt="The console opened up, showing the ESP32 board, LiPo cell and tact switches packed inside the shell." data-i18n-alt="p5.alt2" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p5.cap2">Internals</figcaption></figure>
-            <figure><div class="ph r11"><span>Fig 03</span>
-                <img src="img/esp32-console-3.png" width="1400" height="1400" alt="The 128 by 128 pixel screen running the three built-in games: Snake, Dodge and Breakout." data-i18n-alt="p5.alt3" loading="lazy" decoding="async"></div>
-              <figcaption data-i18n="p5.cap3">Snake, Dodge, Breakout</figcaption></figure>
-          </div>
-        </div>
-        <div class="copy">
-          <p data-i18n="p5.body1">A handheld console built from parts, with three games written for it. Tact switches, a 128 × 128 display, USB-C charging, and a printed shell designed around the board rather than the other way round.</p>
-          <p data-i18n="p5.body2">High scores survive a power cut, which took longer to get right than any of the games.</p>
-          <dl>
-            <div class="dr"><dt data-i18n="p5.k1">Board</dt><dd data-i18n="p5.v1">ESP32</dd></div>
-            <div class="dr"><dt data-i18n="p5.k2">Display</dt><dd data-i18n="p5.v2">ST7735, 128 × 128</dd></div>
-            <div class="dr"><dt data-i18n="p5.k3">Power</dt><dd data-i18n="p5.v3">LiPo · TP4056 USB-C</dd></div>
-            <div class="dr"><dt data-i18n="p5.k4">Games</dt><dd data-i18n="p5.v4">Snake, Dodge, Breakout</dd></div>
-          </dl>
-          <div class="links"><a href="#" data-i18n="p5.l1">Source</a></div>
-        </div>
-      </div></div></div>
-    </div>
-
+<aside class="rail">
+  <div class="top">
+    <div class="nm">Kerim Ak<em>.</em></div>
+    <span class="lbl rl" data-i18n="rail.role">iOS Developer</span>
   </div>
 
-  <footer id="contact">
-    <h2 data-i18n="foot.h2">Open to iOS roles.</h2>
-    <div class="cts">
-      <a href="mailto:kerimxak@icloud.com"><span class="k lbl" data-i18n="foot.email">Email</span>kerimxak@icloud.com</a>
-      <a href="https://t.me/kerimxak"><span class="k lbl">Telegram</span>@kerimxak</a>
-      <a href="https://github.com/kerimxak"><span class="k lbl">GitHub</span>kerimxak</a>
-      <a href="https://linkedin.com/in/kerimxak"><span class="k lbl">LinkedIn</span>Kerim Ak</a>
+  <nav aria-label="Sections">
+    <ol>
+      <li class="on"><a href="#s1" aria-current="true"><i class="mono">01</i><span data-i18n="nav.s1">Intro</span></a></li>
+      <li><a href="#s2"><i class="mono">02</i><span data-i18n="nav.s2">PharmacyMap</span></a></li>
+      <li><a href="#s3"><i class="mono">03</i><span data-i18n="nav.s3">Also built</span></a></li>
+      <li><a href="#s4"><i class="mono">04</i><span data-i18n="nav.s4">Stack</span></a></li>
+      <li><a href="#s5"><i class="mono">05</i><span data-i18n="nav.s5">Background</span></a></li>
+      <li><a href="#s6"><i class="mono">06</i><span data-i18n="nav.s6">Contact</span></a></li>
+    </ol>
+  </nav>
+
+  <div class="btm">
+    <div class="switches">
+      <div class="sw" role="group" data-i18n-label="rail.langLabel" aria-label="Language">
+        <button id="lang-en" data-lang="en" aria-pressed="true">EN</button><button id="lang-tr" data-lang="tr" aria-pressed="false">TR</button>
+      </div>
+      <div class="sw" role="group" data-i18n-label="rail.themeLabel" aria-label="Theme">
+        <button id="theme-light" data-theme-set="light" aria-pressed="true" data-i18n-label="rail.light" aria-label="Light theme"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 .9v1.9M8 13.2v1.9M.9 8h1.9M13.2 8h1.9M2.98 2.98l1.34 1.34M11.68 11.68l1.34 1.34M13.02 2.98l-1.34 1.34M4.32 11.68l-1.34 1.34"/></svg></button><button id="theme-dark" data-theme-set="dark" aria-pressed="false" data-i18n-label="rail.dark" aria-label="Dark theme"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.8A5.9 5.9 0 0 1 6.2 2.5a5.9 5.9 0 1 0 7.3 7.3Z"/></svg></button>
+      </div>
     </div>
-    <div class="colo lbl">
-      <span data-i18n="foot.loc">Istanbul · UTC+3</span>
-      <span data-i18n="foot.type">Set in Archivo and JetBrains Mono</span>
-      <span data-i18n="foot.priv">No trackers, no cookies</span>
+    <span class="avail"><i></i><span data-i18n="rail.avail">Available now</span></span>
+    <a class="cvbtn primary" data-cv href="cv/kerim-cv-en.pdf" download>
+      <span data-i18n="rail.cv">Download CV</span>
+      <em id="cv-meta">PDF · 21 KB</em>
+    </a>
+  </div>
+</aside>
+
+<main>
+
+  <!-- 01 · intro ......................................................... -->
+  <section class="hero" id="s1">
+    <div class="xgrid" aria-hidden="true"></div>
+
+    <h1><span data-i18n="hero.h1">iOS apps, and the parts nobody sees</span><em>.</em></h1>
+    <p class="sub" data-i18n="hero.sub">I build complete products, not just screens. For my pharmacy app I reverse-engineered a national dataset, wrote the backend and run it on my own server. I also design and sell a 3D-printed lighting product, and I led a 200-member university club through two terms.</p>
+    <p class="sub"><strong data-i18n="hero.sub2">I'm looking for a junior iOS role — Istanbul or remote — and I can start now.</strong></p>
+
+    <div class="facts">
+      <div><span class="v" data-i18n="hero.f1v">Swift</span><span class="k lbl" data-i18n="hero.f1k">SwiftUI · MapKit</span></div>
+      <div><span class="v"><span data-i18n="hero.f2v1">Istanbul</span><br><span data-i18n="hero.f2v2">or remote</span></span><span class="k lbl" data-i18n="hero.f2k">Open to</span></div>
+      <div><span class="v" data-i18n="hero.f3v">TR·RU·EN</span><span class="k lbl" data-i18n="hero.f3k">Native, native, C2</span></div>
+      <div><span class="v" data-i18n="hero.f4v">BSc 2026</span><span class="k lbl" data-i18n="hero.f4k">Computer engineering</span></div>
     </div>
-  </footer>
-</div>
+
+    <div class="btns">
+      <a class="btn" data-cv href="cv/kerim-cv-en.pdf" download data-i18n="hero.cv">Download CV (PDF)</a>
+      <a class="btn o" href="#s6" data-i18n="hero.contact">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- 02 · PharmacyMap ................................................... -->
+  <section class="rule" id="s2">
+    <div class="shead">
+      <span class="lbl" data-i18n="pm.kicker">Case study · flagship</span>
+      <h2 data-i18n="pm.h2">PharmacyMap</h2>
+      <p data-i18n="pm.lede">Turkey's pharmacies take turns staying open overnight. Finding the one on duty means knowing which of 81 provincial health directorate sites to check, and most of them barely work on a phone. This puts every duty pharmacy in the country on one map.</p>
+      <p class="status"><span class="lbl" data-i18n="pm.statusk">Status</span><span data-i18n="pm.statusv">Rebuilt and resubmitted · awaiting App Store review</span></p>
+    </div>
+
+    <figure>
+      <div class="ph r169">
+        <img src="img/pharmacymap-1.png" width="1920" height="1080" alt="The PharmacyMap iOS app on an iPhone: a map of Istanbul with red pharmacy pins and a walking route drawn to the nearest one, and the Pharmacies Nearby sheet raised over it with Navigate and Call buttons." data-i18n-alt="pm.alt1" loading="eager" decoding="async">
+      </div>
+      <figcaption data-i18n="pm.cap1">The whole app is one screen — nearest duty pharmacy, distance, directions, two taps.</figcaption>
+    </figure>
+
+    <div class="facts">
+      <div><span class="v mono">81</span><span class="k lbl" data-i18n="pm.f1k">Provinces covered</span></div>
+      <div><span class="v mono">99.7%</span><span class="k lbl" data-i18n="pm.f2k">With real GPS coords</span></div>
+      <div><span class="v" data-i18n="pm.f3v">Nightly</span><span class="k lbl" data-i18n="pm.f3k">Rotation refresh</span></div>
+      <div><span class="v" data-i18n="pm.f4v">Swift</span><span class="k lbl" data-i18n="pm.f4k">SwiftUI · MapKit</span></div>
+    </div>
+
+    <div class="col">
+      <h3 data-i18n="pm.h3a">The hard part was the data, not the app</h3>
+      <p data-i18n="pm.p1">There is no public API. The official listings are HTML behind a provincial selector — names and addresses, no coordinates. Geocoding Turkish addresses by string match puts pharmacies on the wrong street often enough to be dangerous when someone is looking for medicine at 3am.</p>
+      <p data-i18n="pm.p2">I found that e-Devlet's own service exposes verified coordinates, and built a scraper that reconciles the two sources. It runs nightly, because duty rotations change daily and a stale list is worse than no list.</p>
+
+      <h3 data-i18n="pm.h3b">What I chose, and why</h3>
+      <p><strong data-i18n="pm.p3lead">SwiftUI and MapKit, not a web view.</strong> <span data-i18n="pm.p3rest">The map is the product. Native clustering, native directions handoff, and a bottom sheet using real detents instead of a custom drag implementation I would have spent a month getting wrong.</span></p>
+      <p><strong data-i18n="pm.p4lead">FastAPI and SQLite on my own VPS, not a managed backend.</strong> <span data-i18n="pm.p4rest">The dataset is small and read-heavy. SQLite handles it comfortably, the whole thing costs a few dollars a month, and I learned more running it than I would have clicking through a console. It sits behind a Cloudflare tunnel, so there is no exposed origin.</span></p>
+      <p><strong data-i18n="pm.p5lead">It works when the backend does not.</strong> <span data-i18n="pm.p5rest">The last known duty list is cached on device with a visible staleness indicator. An app about emergencies should not have a single point of failure.</span></p>
+    </div>
+
+    <figure>
+      <div class="trio">
+        <div class="ph r43">
+          <img src="img/pharmacymap-2.png" width="1600" height="1200" alt="A single pharmacy's detail sheet open over the map, the walking route drawn in red, with Navigate and Call buttons." data-i18n-alt="pm.alt2" loading="lazy" decoding="async">
+        </div>
+        <div class="ph r43"><span data-i18n="slot.pending">Fig 03 · photo pending</span>
+          <img src="img/pharmacymap-3.png" width="1600" height="1200" alt="PharmacyMap's province fallback list, showing the pharmacies on duty across a whole province when a precise location is not available." data-i18n-alt="pm.alt3" loading="lazy" decoding="async">
+        </div>
+        <div class="ph r43"><span data-i18n="slot.pending4">Fig 04 · photo pending</span>
+          <img src="img/pharmacymap-4.png" width="1600" height="1200" alt="PharmacyMap running with no connection, showing the last known duty list from the on-device cache with a staleness indicator." data-i18n-alt="pm.alt4" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <figcaption data-i18n="pm.cap2">Detail sheet, manual province selection, cached-data state.</figcaption>
+    </figure>
+
+    <div class="col">
+      <h3 data-i18n="pm.h3c">Apple rejected the first version</h3>
+      <p data-i18n="pm.p6">Guideline 5.6, and the review team was right. I had built something presenting official health data without being clear enough about where it came from. I rewrote the attribution, put source and last-updated timestamps on every listing, and rebuilt the interface around Apple Maps conventions instead of my own.</p>
+      <p data-i18n="pm.p7">The rebuild is finished. Resubmission is currently blocked by an App Store Connect issue that is open with Apple support, so there is no public link yet — the recording below is the app running on a real device, and the source is on GitHub.</p>
+    </div>
+    <div class="note">
+      <p><strong data-i18n="pm.notelead">What I took from it:</strong> <span data-i18n="pm.noterest">reading the guideline properly the first time is cheaper than a rebuild, and a rejection is feedback from people who have seen a million apps. The version I resubmitted is better than the one I thought was finished.</span></p>
+    </div>
+
+    <div class="btns">
+      <a class="btn" href="#" data-i18n="pm.btn1">Watch a 40-second demo</a>
+      <a class="btn o" href="https://github.com/kerimxak/eczane" data-x data-i18n="pm.btn2">Source on GitHub</a>
+    </div>
+  </section>
+
+  <!-- 03 · also built .................................................... -->
+  <section class="built" id="s3">
+    <div class="shead">
+      <span class="lbl" data-i18n="ab.kicker">Also built</span>
+      <h2 data-i18n="ab.h2">Some other things I've made</h2>
+      <p data-i18n="ab.lede">Different domains, same habit — start it, finish it, keep it running.</p>
+    </div>
+
+    <div class="alist">
+      <div class="arow">
+        <span class="n">02</span>
+        <div>
+          <h3 data-i18n="ab1.name">benday</h3>
+          <p class="d" data-i18n="ab1.desc">A halftone screen generator that works in millimetres. Turns a photograph into two-colour vector geometry for 3D printing, laser engraving or pen plotting — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.</p>
+          <span class="lk"><a href="https://benday.kerimxak.xyz" data-x data-i18n="ab1.lk1">Try it</a><a href="#" data-i18n="ab1.lk2">Source</a></span>
+        </div>
+        <div class="sp">
+          <div><b data-i18n="ab1.k1">Type</b><span data-i18n="ab1.v1">Web tool</span></div>
+          <div><b data-i18n="ab1.k2">Built with</b><span data-i18n="ab1.v2">Vanilla JS</span></div>
+          <div><b data-i18n="ab1.k3">Dependencies</b><span class="mono">0</span></div>
+          <div><b data-i18n="ab1.k4">Year</b><span class="mono">2026</span></div>
+        </div>
+      </div>
+
+      <div class="arow">
+        <span class="n">03</span>
+        <div>
+          <h3 data-i18n="ab2.name">Korin Labs</h3>
+          <p class="d" data-i18n="ab2.desc">A 3D-printed lighting brand with paying customers. I design the lamps in Fusion 360, print them, shoot them, run the shop and pack the orders. The twist-lock collar exists because threads need supports, and supports ruin a visible surface.</p>
+          <span class="lk"><a href="https://korinlabs.store" data-x data-i18n="ab2.lk1">Shop</a><a href="#" data-i18n="ab2.lk2">Instagram</a></span>
+        </div>
+        <div class="sp">
+          <div><b data-i18n="ab2.k1">Type</b><span data-i18n="ab2.v1">Product</span></div>
+          <div><b data-i18n="ab2.k2">Design</b><span>Fusion 360</span></div>
+          <div><b data-i18n="ab2.k3">Nozzle</b><span class="mono">0.4 mm</span></div>
+          <div><b data-i18n="ab2.k4">Year</b><span class="mono">2025—</span></div>
+        </div>
+      </div>
+
+      <div class="arow">
+        <span class="n">04</span>
+        <div>
+          <h3 data-i18n="ab3.name">Elevator Robot</h3>
+          <p class="d" data-i18n="ab3.desc">Graduation project. An autonomous robot that finds a lift call button, presses it, waits, enters and selects a floor — in buildings it has not seen before. Vision on a Raspberry Pi, motor control on an ESP32 over BLE, ROS2 between them.</p>
+          <span class="lk"><a href="#" data-i18n="ab3.lk1">Write-up</a><a href="#" data-i18n="ab3.lk2">Source</a></span>
+        </div>
+        <div class="sp">
+          <div><b data-i18n="ab3.k1">Type</b><span data-i18n="ab3.v1">Robotics</span></div>
+          <div><b data-i18n="ab3.k2">Vision</b><span>YOLOv8</span></div>
+          <div><b data-i18n="ab3.k3">Role</b><span data-i18n="ab3.v3">Vision, integration</span></div>
+          <div><b data-i18n="ab3.k4">Year</b><span class="mono">2026</span></div>
+        </div>
+      </div>
+
+      <div class="arow">
+        <span class="n">05</span>
+        <div>
+          <h3 data-i18n="ab4.name">Self-hosted VPN infrastructure</h3>
+          <p class="d" data-i18n="ab4.desc">Private servers running VLESS with XTLS-Reality, managed through a Remnawave panel, so family in Russia and Turkmenistan can reach a filtered internet. The users cannot debug anything themselves, which is a useful constraint: it has to survive reboots, blocked endpoints and a relative on hotel wifi without me being awake.</p>
+          <span class="lk"><a href="#" data-i18n="ab4.lk1">How it works</a></span>
+        </div>
+        <div class="sp">
+          <div><b data-i18n="ab4.k1">Type</b><span data-i18n="ab4.v1">Infrastructure</span></div>
+          <div><b data-i18n="ab4.k2">Protocol</b><span>VLESS · Reality</span></div>
+          <div><b data-i18n="ab4.k3">Stack</b><span>Linux · Docker · Nginx</span></div>
+          <div><b data-i18n="ab4.k4">Uptime target</b><span data-i18n="ab4.v4">Always</span></div>
+        </div>
+      </div>
+
+      <div class="arow">
+        <span class="n">06</span>
+        <div>
+          <h3 data-i18n="ab5.name">ESP32 Handheld Console</h3>
+          <p class="d" data-i18n="ab5.desc">A handheld console built from parts, with three games written for it. ST7735 display, LiPo and USB-C charging, tact switches, and a printed shell designed around the board. High scores survive a power cut, which took longer to get right than any of the games.</p>
+          <span class="lk"><a href="#" data-i18n="ab5.lk1">Source</a></span>
+        </div>
+        <div class="sp">
+          <div><b data-i18n="ab5.k1">Type</b><span data-i18n="ab5.v1">Hardware</span></div>
+          <div><b data-i18n="ab5.k2">Board</b><span>ESP32</span></div>
+          <div><b data-i18n="ab5.k3">Display</b><span class="mono">128 × 128</span></div>
+          <div><b data-i18n="ab5.k4">Year</b><span class="mono">2025</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · stack ......................................................... -->
+  <section id="s4">
+    <div class="shead">
+      <span class="lbl" data-i18n="st.kicker">Stack</span>
+      <h2 data-i18n="st.h2">What I use, and where I used it</h2>
+      <p data-i18n="st.lede">Listed against the thing it shipped in, so you can check rather than take my word for it.</p>
+    </div>
+    <div class="stack">
+      <div>
+        <h3 data-i18n="st.g1">iOS</h3>
+        <ul>
+          <li>Swift <em>PharmacyMap</em></li>
+          <li>SwiftUI <em>PharmacyMap</em></li>
+          <li>MapKit <em>PharmacyMap</em></li>
+          <li>App Store Connect <em data-i18n="st.g1n4">Shipped</em></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-i18n="st.g2">Backend &amp; infra</h3>
+        <ul>
+          <li>Python <em data-i18n="st.g2n1">Scrapers, API</em></li>
+          <li>FastAPI · SQLite <em>PharmacyMap</em></li>
+          <li>Linux VPS <em data-i18n="st.g2n3">Self-hosted</em></li>
+          <li>Cloudflare <em data-i18n="st.g2n4">Tunnel, Workers</em></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-i18n="st.g3">Beyond</h3>
+        <ul>
+          <li>JavaScript <em>benday</em></li>
+          <li>C++ <em>ESP32</em></li>
+          <li>ROS2 · YOLO <em data-i18n="st.g3n3">Robot</em></li>
+          <li>Fusion 360 <em>Korin Labs</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · background .................................................... -->
+  <section class="rule" id="s5">
+    <div class="shead">
+      <span class="lbl" data-i18n="bg.kicker">Background</span>
+      <h2 data-i18n="bg.h2">Where the rest of it comes from</h2>
+      <p data-i18n="bg.lede">Degree, languages, and the things that taught me to finish what I start.</p>
+    </div>
+
+    <div class="bg">
+      <div class="bgrow">
+        <span class="yr mono">2022 — 2026</span>
+        <div>
+          <strong data-i18n="bg1.t">BSc Computer Engineering</strong>
+          <p data-i18n="bg1.d">Bahçeşehir University, Istanbul. Graduation project was the elevator robot above.</p>
+        </div>
+        <span class="pl" data-i18n="bg1.p">Education</span>
+      </div>
+
+      <div class="bgrow">
+        <span class="yr mono" data-i18n="bg2.y">2 terms</span>
+        <div>
+          <strong data-i18n="bg2.t">President, Istanbul Club — Bahçeşehir University</strong>
+          <p data-i18n="bg2.d">A club that introduces Istanbul to students arriving from other cities and countries. I ran it for two terms with a 15-person organising team and over 200 members — planning events, delegating to people who were not paid to listen to me, and handing it over intact.</p>
+        </div>
+        <span class="pl" data-i18n="bg2.p">Leadership</span>
+      </div>
+
+      <div class="bgrow">
+        <span class="yr mono" data-i18n="bg3.y">2025 — now</span>
+        <div>
+          <strong data-i18n="bg3.t">Founder, Korin Labs</strong>
+          <p data-i18n="bg3.d">Designing, manufacturing and selling a physical product to real customers. Pricing, photography, packaging, support — the parts of shipping that have nothing to do with code.</p>
+        </div>
+        <span class="pl" data-i18n="bg3.p">Product</span>
+      </div>
+
+      <div class="bgrow">
+        <span class="yr mono">2019 — 2021</span>
+        <div>
+          <strong data-i18n="bg4.t">Game Localization — TR / RU / EN</strong>
+          <p data-i18n="bg4.d">Localised a live mobile strategy game across three languages. Taught me how much of software quality is decided by wording nobody notices.</p>
+        </div>
+        <span class="pl" data-i18n="bg4.p">Experience</span>
+      </div>
+
+      <div class="bgrow">
+        <span class="yr mono" data-i18n="bg5.y">Native · Native · C2</span>
+        <div>
+          <strong data-i18n="bg5.t">Turkish, Russian, English</strong>
+          <p data-i18n="bg5.d">Comfortable working, writing and interviewing in all three.</p>
+        </div>
+        <span class="pl" data-i18n="bg5.p">Languages</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · contact ....................................................... -->
+  <section class="cta" id="s6">
+    <span class="lbl" data-i18n="ct.kicker">Contact</span>
+    <h2 data-i18n="ct.h2">I'm looking for a junior iOS role.</h2>
+    <p data-i18n="ct.p">Istanbul or remote. I answer the same day, and I'm glad to walk through any of this on a call — including the parts that didn't work.</p>
+    <div class="ctabtns">
+      <a class="primary" href="mailto:kerimxak@icloud.com">kerimxak@icloud.com</a>
+      <a href="https://t.me/kerimxak">Telegram @kerimxak</a>
+      <a href="https://github.com/kerimxak">GitHub</a>
+      <a href="https://linkedin.com/in/kerimxak">LinkedIn</a>
+      <a data-cv href="cv/kerim-cv-en.pdf" data-i18n="ct.cv">CV (PDF)</a>
+    </div>
+    <div class="ctafoot">
+      <span class="lbl" data-i18n="ct.loc">Istanbul · UTC+3</span>
+      <span class="lbl" data-i18n="ct.type">Set in Archivo &amp; JetBrains Mono</span>
+      <span class="lbl" data-i18n="ct.priv">No trackers, no cookies</span>
+    </div>
+  </section>
+
+</main>
 
 <script>
 (function(){
@@ -435,150 +655,213 @@ footer h2{font-family:var(--disp);font-weight:600;font-size:clamp(26px,4.6vw,54p
    ------------------------------------------------------------------------ */
 var COPY = {
   en: {
-    "doc.title":     "Kerim Ak — Software and objects",
-    "nav.cv":        "CV",
-    "nav.contact":   "Contact",
-    "nav.langLabel": "Language",
+    "doc.title":"Kerim Ak — iOS Developer",
 
-    "mast.h1":         "Software and objects",
-    "mast.lede.lead":  "Computer engineer in Istanbul.",
-    "mast.lede.rest":  "I build iOS apps, browser tools and 3D-printed products — usually the software and the thing it runs on. Five of them below, with what went into each.",
+    "rail.role":"iOS Developer",
+    "rail.avail":"Available now",
+    "rail.cv":"Download CV",
+    "rail.langLabel":"Language",
+    "rail.themeLabel":"Theme",
+    "rail.light":"Light theme",
+    "rail.dark":"Dark theme",
 
-    "p1.name":"PharmacyMap", "p1.type":"iOS app", "p1.year":"2026",
-    "p1.cap1":"Duty map, bottom sheet at medium detent",
-    "p1.cap2":"Province fallback",
-    "p1.cap3":"Detail sheet",
-    "p1.alt1":"The PharmacyMap iOS app showing a map of Istanbul covered in red pharmacy pins, with the Pharmacies Nearby sheet raised to a list of the closest pharmacies and their distances.",
-    "p1.alt2":"PharmacyMap's province fallback list, showing the pharmacies on duty across a whole province when a precise location is not available.",
-    "p1.alt3":"A single pharmacy's detail sheet open over the map, with a red walking route drawn to it and Navigate and Call buttons.",
-    "p1.body1":"Turkey's pharmacies take turns staying open overnight, and finding the one on duty means checking a different site for every province. This finds it on a map.",
-    "p1.body2":"The hard part was the data. I reverse-engineered a nationwide dataset from e-Devlet and got government GPS coordinates for 99.7% of pharmacies, so the map is accurate rather than approximate.",
-    "p1.k1":"App",      "p1.v1":"SwiftUI · MapKit · iOS 26",
-    "p1.k2":"Backend",  "p1.v2":"FastAPI · SQLite on a Linux VPS",
-    "p1.k3":"Coverage", "p1.v3":"81 provinces, nationwide",
-    "p1.k4":"Role",     "p1.v4":"Everything",
-    "p1.l1":"App Store","p1.l2":"Source",
+    "nav.s1":"Intro", "nav.s2":"PharmacyMap", "nav.s3":"Also built",
+    "nav.s4":"Stack", "nav.s5":"Background",  "nav.s6":"Contact",
 
-    "p2.name":"benday", "p2.type":"Web tool", "p2.year":"2026",
-    "p2.cap1":"Spiral screen, 150 × 150 mm plate",
-    "p2.cap2":"Merged dot screen",
-    "p2.cap3":"Printed result",
-    "p2.alt1":"A benday spiral halftone screen filling a 150 by 150 millimetre plate, black geometry on pale paper.",
-    "p2.alt2":"A close view of a benday dot screen where neighbouring dots have merged into continuous flowing shapes.",
-    "p2.alt3":"The same screen after 3D printing — a two-colour physical panel, raised black geometry on a light base.",
-    "p2.body1":"A halftone screen generator that thinks in millimetres. It turns a photograph into two-colour vector geometry you can 3D print, laser engrave or plot — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.",
-    "p2.body2":"Dots merge through a signed-distance field rather than pairwise, which is what lets them flow together instead of looking glued.",
-    "p2.k1":"Built with","p2.v1":"Vanilla JS · Canvas · SVG",
-    "p2.k2":"Hosting",   "p2.v2":"Cloudflare Workers",
-    "p2.k3":"Output",    "p2.v3":"SVG in true mm, PNG, JPEG",
-    "p2.k4":"Role",      "p2.v4":"Everything",
-    "p2.l2":"Source",
+    "hero.h1":"iOS apps, and the parts nobody sees",
+    "hero.sub":"I build complete products, not just screens. For my pharmacy app I reverse-engineered a national dataset, wrote the backend and run it on my own server. I also design and sell a 3D-printed lighting product, and I led a 200-member university club through two terms.",
+    "hero.sub2":"I'm looking for a junior iOS role — Istanbul or remote — and I can start now.",
+    "hero.f1v":"Swift",     "hero.f1k":"SwiftUI · MapKit",
+    "hero.f2v1":"Istanbul", "hero.f2v2":"or remote", "hero.f2k":"Open to",
+    "hero.f3v":"TR·RU·EN",  "hero.f3k":"Native, native, C2",
+    "hero.f4v":"BSc 2026",  "hero.f4k":"Computer engineering",
+    "hero.cv":"Download CV (PDF)",
+    "hero.contact":"Get in touch",
 
-    "p3.name":"Korin Labs", "p3.type":"Product", "p3.year":"2025—",
-    "p3.cap1":"Tatlı collection — Éclair, Marshmallow",
-    "p3.cap2":"Twist-lock collar",
-    "p3.cap3":"Cinnamon Swirl",
-    "p3.alt1":"The Korin Labs Tatlı collection lit and grouped together — the Éclair and Marshmallow lamps side by side.",
-    "p3.alt2":"A close view of the twist-lock collar that joins a Korin Labs lamp shade to its base, printed without supports.",
-    "p3.alt3":"The Cinnamon Swirl lamp lit in a dim room, its printed spiral ridges catching the light.",
-    "p3.body1":"A small lighting brand. I design the lamps in Fusion 360, print them, photograph them, run the shop and pack the orders.",
-    "p3.body2":"Designing for a 0.4 mm nozzle is its own discipline — the twist-lock collar exists because a threaded one needs supports, and supports on a visible surface ruin the part.",
-    "p3.k1":"Design",    "p3.v1":"Fusion 360",
-    "p3.k2":"Production","p3.v2":"Bambu Lab A1, in house",
-    "p3.k3":"Shop",      "p3.v3":"ikas · shipping in Turkey",
-    "p3.k4":"Role",      "p3.v4":"Design, production, everything else",
-    "p3.l2":"Instagram",
+    "slot.pending":"Fig 03 · photo pending",
+    "slot.pending4":"Fig 04 · photo pending",
 
-    "p4.name":"Elevator Robot", "p4.type":"Robotics", "p4.year":"2026",
-    "p4.cap1":"Chassis and camera mast",
-    "p4.cap2":"Button detection",
-    "p4.cap3":"Drive electronics",
-    "p4.alt1":"The elevator robot standing in front of a lift door, its camera mast rising from a wheeled chassis.",
-    "p4.alt2":"The robot's camera view with a detection box drawn around an elevator call button on the wall.",
-    "p4.alt3":"The drive electronics on the chassis deck — ESP32 board, motor drivers and wiring.",
-    "p4.body1":"Graduation project: a robot that rides a lift on its own. It finds the call button, presses it, waits, goes in, and picks the floor — which sounds small until you try it in a building it has never seen.",
-    "p4.body2":"Vision runs on a Raspberry Pi, motor control on an ESP32 over BLE, and the two talk through ROS2.",
-    "p4.k1":"Vision", "p4.v1":"YOLOv8 on Raspberry Pi 4",
-    "p4.k2":"Control","p4.v2":"ROS2 · ESP32 over BLE",
-    "p4.k3":"Team",   "p4.v3":"Capstone, Bahçeşehir University",
-    "p4.k4":"Role",   "p4.v4":"Vision and integration",
-    "p4.l1":"Write-up","p4.l2":"Source",
+    "pm.kicker":"Case study · flagship",
+    "pm.h2":"PharmacyMap",
+    "pm.lede":"Turkey's pharmacies take turns staying open overnight. Finding the one on duty means knowing which of 81 provincial health directorate sites to check, and most of them barely work on a phone. This puts every duty pharmacy in the country on one map.",
+    "pm.statusk":"Status",
+    "pm.statusv":"Rebuilt and resubmitted · awaiting App Store review",
+    "pm.cap1":"The whole app is one screen — nearest duty pharmacy, distance, directions, two taps.",
+    "pm.cap2":"Detail sheet, manual province selection, cached-data state.",
+    "pm.alt1":"The PharmacyMap iOS app on an iPhone: a map of Istanbul with red pharmacy pins and a walking route drawn to the nearest one, and the Pharmacies Nearby sheet raised over it with Navigate and Call buttons.",
+    "pm.alt2":"A single pharmacy's detail sheet open over the map, the walking route drawn in red, with Navigate and Call buttons.",
+    "pm.alt3":"PharmacyMap's province fallback list, showing the pharmacies on duty across a whole province when a precise location is not available.",
+    "pm.alt4":"PharmacyMap running with no connection, showing the last known duty list from the on-device cache with a staleness indicator.",
+    "pm.f1k":"Provinces covered",
+    "pm.f2k":"With real GPS coords",
+    "pm.f3v":"Nightly", "pm.f3k":"Rotation refresh",
+    "pm.f4v":"Swift",   "pm.f4k":"SwiftUI · MapKit",
+    "pm.h3a":"The hard part was the data, not the app",
+    "pm.p1":"There is no public API. The official listings are HTML behind a provincial selector — names and addresses, no coordinates. Geocoding Turkish addresses by string match puts pharmacies on the wrong street often enough to be dangerous when someone is looking for medicine at 3am.",
+    "pm.p2":"I found that e-Devlet's own service exposes verified coordinates, and built a scraper that reconciles the two sources. It runs nightly, because duty rotations change daily and a stale list is worse than no list.",
+    "pm.h3b":"What I chose, and why",
+    "pm.p3lead":"SwiftUI and MapKit, not a web view.",
+    "pm.p3rest":"The map is the product. Native clustering, native directions handoff, and a bottom sheet using real detents instead of a custom drag implementation I would have spent a month getting wrong.",
+    "pm.p4lead":"FastAPI and SQLite on my own VPS, not a managed backend.",
+    "pm.p4rest":"The dataset is small and read-heavy. SQLite handles it comfortably, the whole thing costs a few dollars a month, and I learned more running it than I would have clicking through a console. It sits behind a Cloudflare tunnel, so there is no exposed origin.",
+    "pm.p5lead":"It works when the backend does not.",
+    "pm.p5rest":"The last known duty list is cached on device with a visible staleness indicator. An app about emergencies should not have a single point of failure.",
+    "pm.h3c":"Apple rejected the first version",
+    "pm.p6":"Guideline 5.6, and the review team was right. I had built something presenting official health data without being clear enough about where it came from. I rewrote the attribution, put source and last-updated timestamps on every listing, and rebuilt the interface around Apple Maps conventions instead of my own.",
+    "pm.p7":"The rebuild is finished. Resubmission is currently blocked by an App Store Connect issue that is open with Apple support, so there is no public link yet — the recording below is the app running on a real device, and the source is on GitHub.",
+    "pm.notelead":"What I took from it:",
+    "pm.noterest":"reading the guideline properly the first time is cheaper than a rebuild, and a rejection is feedback from people who have seen a million apps. The version I resubmitted is better than the one I thought was finished.",
+    "pm.btn1":"Watch a 40-second demo",
+    "pm.btn2":"Source on GitHub",
 
-    "p5.name":"ESP32 Console", "p5.type":"Hardware", "p5.year":"2025",
-    "p5.cap1":"Assembled, printed shell",
-    "p5.cap2":"Internals",
-    "p5.cap3":"Snake, Dodge, Breakout",
-    "p5.alt1":"The finished handheld console in its 3D-printed shell, screen lit, held in one hand.",
-    "p5.alt2":"The console opened up, showing the ESP32 board, LiPo cell and tact switches packed inside the shell.",
-    "p5.alt3":"The 128 by 128 pixel screen running the three built-in games: Snake, Dodge and Breakout.",
-    "p5.body1":"A handheld console built from parts, with three games written for it. Tact switches, a 128 × 128 display, USB-C charging, and a printed shell designed around the board rather than the other way round.",
-    "p5.body2":"High scores survive a power cut, which took longer to get right than any of the games.",
-    "p5.k1":"Board",  "p5.v1":"ESP32",
-    "p5.k2":"Display","p5.v2":"ST7735, 128 × 128",
-    "p5.k3":"Power",  "p5.v3":"LiPo · TP4056 USB-C",
-    "p5.k4":"Games",  "p5.v4":"Snake, Dodge, Breakout",
-    "p5.l1":"Source",
+    "ab.kicker":"Also built",
+    "ab.h2":"Some other things I've made",
+    "ab.lede":"Different domains, same habit — start it, finish it, keep it running.",
 
-    "foot.h2":"Open to iOS roles.",
-    "foot.email":"Email",
-    "foot.loc":"Istanbul · UTC+3",
-    "foot.type":"Set in Archivo and JetBrains Mono",
-    "foot.priv":"No trackers, no cookies"
+    "ab1.name":"benday",
+    "ab1.desc":"A halftone screen generator that works in millimetres. Turns a photograph into two-colour vector geometry for 3D printing, laser engraving or pen plotting — six screen types, and a minimum feature size so nothing comes out smaller than your nozzle can make.",
+    "ab1.lk1":"Try it", "ab1.lk2":"Source",
+    "ab1.k1":"Type", "ab1.v1":"Web tool",
+    "ab1.k2":"Built with", "ab1.v2":"Vanilla JS",
+    "ab1.k3":"Dependencies", "ab1.k4":"Year",
+
+    "ab2.name":"Korin Labs",
+    "ab2.desc":"A 3D-printed lighting brand with paying customers. I design the lamps in Fusion 360, print them, shoot them, run the shop and pack the orders. The twist-lock collar exists because threads need supports, and supports ruin a visible surface.",
+    "ab2.lk1":"Shop", "ab2.lk2":"Instagram",
+    "ab2.k1":"Type", "ab2.v1":"Product",
+    "ab2.k2":"Design", "ab2.k3":"Nozzle", "ab2.k4":"Year",
+
+    "ab3.name":"Elevator Robot",
+    "ab3.desc":"Graduation project. An autonomous robot that finds a lift call button, presses it, waits, enters and selects a floor — in buildings it has not seen before. Vision on a Raspberry Pi, motor control on an ESP32 over BLE, ROS2 between them.",
+    "ab3.lk1":"Write-up", "ab3.lk2":"Source",
+    "ab3.k1":"Type", "ab3.v1":"Robotics",
+    "ab3.k2":"Vision", "ab3.k3":"Role", "ab3.v3":"Vision, integration", "ab3.k4":"Year",
+
+    "ab4.name":"Self-hosted VPN infrastructure",
+    "ab4.desc":"Private servers running VLESS with XTLS-Reality, managed through a Remnawave panel, so family in Russia and Turkmenistan can reach a filtered internet. The users cannot debug anything themselves, which is a useful constraint: it has to survive reboots, blocked endpoints and a relative on hotel wifi without me being awake.",
+    "ab4.lk1":"How it works",
+    "ab4.k1":"Type", "ab4.v1":"Infrastructure",
+    "ab4.k2":"Protocol", "ab4.k3":"Stack",
+    "ab4.k4":"Uptime target", "ab4.v4":"Always",
+
+    "ab5.name":"ESP32 Handheld Console",
+    "ab5.desc":"A handheld console built from parts, with three games written for it. ST7735 display, LiPo and USB-C charging, tact switches, and a printed shell designed around the board. High scores survive a power cut, which took longer to get right than any of the games.",
+    "ab5.lk1":"Source",
+    "ab5.k1":"Type", "ab5.v1":"Hardware",
+    "ab5.k2":"Board", "ab5.k3":"Display", "ab5.k4":"Year",
+
+    "st.kicker":"Stack",
+    "st.h2":"What I use, and where I used it",
+    "st.lede":"Listed against the thing it shipped in, so you can check rather than take my word for it.",
+    "st.g1":"iOS", "st.g1n4":"Shipped",
+    "st.g2":"Backend & infra", "st.g2n1":"Scrapers, API", "st.g2n3":"Self-hosted", "st.g2n4":"Tunnel, Workers",
+    "st.g3":"Beyond", "st.g3n3":"Robot",
+
+    "bg.kicker":"Background",
+    "bg.h2":"Where the rest of it comes from",
+    "bg.lede":"Degree, languages, and the things that taught me to finish what I start.",
+    "bg1.t":"BSc Computer Engineering",
+    "bg1.d":"Bahçeşehir University, Istanbul. Graduation project was the elevator robot above.",
+    "bg1.p":"Education",
+    "bg2.y":"2 terms",
+    "bg2.t":"President, Istanbul Club — Bahçeşehir University",
+    "bg2.d":"A club that introduces Istanbul to students arriving from other cities and countries. I ran it for two terms with a 15-person organising team and over 200 members — planning events, delegating to people who were not paid to listen to me, and handing it over intact.",
+    "bg2.p":"Leadership",
+    "bg3.y":"2025 — now",
+    "bg3.t":"Founder, Korin Labs",
+    "bg3.d":"Designing, manufacturing and selling a physical product to real customers. Pricing, photography, packaging, support — the parts of shipping that have nothing to do with code.",
+    "bg3.p":"Product",
+    "bg4.t":"Game Localization — TR / RU / EN",
+    "bg4.d":"Localised a live mobile strategy game across three languages. Taught me how much of software quality is decided by wording nobody notices.",
+    "bg4.p":"Experience",
+    "bg5.y":"Native · Native · C2",
+    "bg5.t":"Turkish, Russian, English",
+    "bg5.d":"Comfortable working, writing and interviewing in all three.",
+    "bg5.p":"Languages",
+
+    "ct.kicker":"Contact",
+    "ct.h2":"I'm looking for a junior iOS role.",
+    "ct.p":"Istanbul or remote. I answer the same day, and I'm glad to walk through any of this on a call — including the parts that didn't work.",
+    "ct.cv":"CV (PDF)",
+    "ct.loc":"Istanbul · UTC+3",
+    "ct.type":"Set in Archivo & JetBrains Mono",
+    "ct.priv":"No trackers, no cookies"
   },
 
   tr: {
     /* TODO(tr): write these. Empty = falls back to English. */
     "doc.title":"",
-    "nav.cv":"", "nav.contact":"", "nav.langLabel":"",
 
-    "mast.h1":"", "mast.lede.lead":"", "mast.lede.rest":"",
+    "rail.role":"", "rail.avail":"", "rail.cv":"", "rail.langLabel":"",
+    "rail.themeLabel":"", "rail.light":"", "rail.dark":"",
 
-    "p1.name":"", "p1.type":"", "p1.year":"",
-    "p1.cap1":"", "p1.cap2":"", "p1.cap3":"",
-    "p1.alt1":"", "p1.alt2":"", "p1.alt3":"",
-    "p1.body1":"", "p1.body2":"",
-    "p1.k1":"", "p1.v1":"", "p1.k2":"", "p1.v2":"",
-    "p1.k3":"", "p1.v3":"", "p1.k4":"", "p1.v4":"",
-    "p1.l1":"", "p1.l2":"",
+    "nav.s1":"", "nav.s2":"", "nav.s3":"", "nav.s4":"",
+    "nav.s5":"", "nav.s6":"",
 
-    "p2.name":"", "p2.type":"", "p2.year":"",
-    "p2.cap1":"", "p2.cap2":"", "p2.cap3":"",
-    "p2.alt1":"", "p2.alt2":"", "p2.alt3":"",
-    "p2.body1":"", "p2.body2":"",
-    "p2.k1":"", "p2.v1":"", "p2.k2":"", "p2.v2":"",
-    "p2.k3":"", "p2.v3":"", "p2.k4":"", "p2.v4":"",
-    "p2.l2":"",
+    "hero.h1":"", "hero.sub":"", "hero.sub2":"", "hero.f1v":"",
+    "hero.f1k":"", "hero.f2v1":"", "hero.f2v2":"", "hero.f2k":"",
+    "hero.f3v":"", "hero.f3k":"", "hero.f4v":"", "hero.f4k":"",
+    "hero.cv":"", "hero.contact":"",
 
-    "p3.name":"", "p3.type":"", "p3.year":"",
-    "p3.cap1":"", "p3.cap2":"", "p3.cap3":"",
-    "p3.alt1":"", "p3.alt2":"", "p3.alt3":"",
-    "p3.body1":"", "p3.body2":"",
-    "p3.k1":"", "p3.v1":"", "p3.k2":"", "p3.v2":"",
-    "p3.k3":"", "p3.v3":"", "p3.k4":"", "p3.v4":"",
-    "p3.l2":"",
+    "slot.pending":"", "slot.pending4":"",
 
-    "p4.name":"", "p4.type":"", "p4.year":"",
-    "p4.cap1":"", "p4.cap2":"", "p4.cap3":"",
-    "p4.alt1":"", "p4.alt2":"", "p4.alt3":"",
-    "p4.body1":"", "p4.body2":"",
-    "p4.k1":"", "p4.v1":"", "p4.k2":"", "p4.v2":"",
-    "p4.k3":"", "p4.v3":"", "p4.k4":"", "p4.v4":"",
-    "p4.l1":"", "p4.l2":"",
+    "pm.kicker":"", "pm.h2":"", "pm.lede":"", "pm.statusk":"",
+    "pm.statusv":"", "pm.cap1":"", "pm.cap2":"", "pm.alt1":"",
+    "pm.alt2":"", "pm.alt3":"", "pm.alt4":"", "pm.f1k":"",
+    "pm.f2k":"", "pm.f3v":"", "pm.f3k":"", "pm.f4v":"",
+    "pm.f4k":"", "pm.h3a":"", "pm.p1":"", "pm.p2":"",
+    "pm.h3b":"", "pm.p3lead":"", "pm.p3rest":"", "pm.p4lead":"",
+    "pm.p4rest":"", "pm.p5lead":"", "pm.p5rest":"", "pm.h3c":"",
+    "pm.p6":"", "pm.p7":"", "pm.notelead":"", "pm.noterest":"",
+    "pm.btn1":"", "pm.btn2":"",
 
-    "p5.name":"", "p5.type":"", "p5.year":"",
-    "p5.cap1":"", "p5.cap2":"", "p5.cap3":"",
-    "p5.alt1":"", "p5.alt2":"", "p5.alt3":"",
-    "p5.body1":"", "p5.body2":"",
-    "p5.k1":"", "p5.v1":"", "p5.k2":"", "p5.v2":"",
-    "p5.k3":"", "p5.v3":"", "p5.k4":"", "p5.v4":"",
-    "p5.l1":"",
+    "ab.kicker":"", "ab.h2":"", "ab.lede":"",
 
-    "foot.h2":"", "foot.email":"",
-    "foot.loc":"", "foot.type":"", "foot.priv":""
+    "ab1.name":"", "ab1.desc":"", "ab1.lk1":"", "ab1.lk2":"",
+    "ab1.k1":"", "ab1.v1":"", "ab1.k2":"", "ab1.v2":"",
+    "ab1.k3":"", "ab1.k4":"",
+
+    "ab2.name":"", "ab2.desc":"", "ab2.lk1":"", "ab2.lk2":"",
+    "ab2.k1":"", "ab2.v1":"", "ab2.k2":"", "ab2.k3":"",
+    "ab2.k4":"",
+
+    "ab3.name":"", "ab3.desc":"", "ab3.lk1":"", "ab3.lk2":"",
+    "ab3.k1":"", "ab3.v1":"", "ab3.k2":"", "ab3.k3":"",
+    "ab3.v3":"", "ab3.k4":"",
+
+    "ab4.name":"", "ab4.desc":"", "ab4.lk1":"", "ab4.k1":"",
+    "ab4.v1":"", "ab4.k2":"", "ab4.k3":"", "ab4.k4":"",
+    "ab4.v4":"",
+
+    "ab5.name":"", "ab5.desc":"", "ab5.lk1":"", "ab5.k1":"",
+    "ab5.v1":"", "ab5.k2":"", "ab5.k3":"", "ab5.k4":"",
+
+    "st.kicker":"", "st.h2":"", "st.lede":"", "st.g1":"",
+    "st.g1n4":"", "st.g2":"", "st.g2n1":"", "st.g2n3":"",
+    "st.g2n4":"", "st.g3":"", "st.g3n3":"",
+
+    "bg.kicker":"", "bg.h2":"", "bg.lede":"",
+
+    "bg1.t":"", "bg1.d":"", "bg1.p":"",
+
+    "bg2.y":"", "bg2.t":"", "bg2.d":"", "bg2.p":"",
+
+    "bg3.y":"", "bg3.t":"", "bg3.d":"", "bg3.p":"",
+
+    "bg4.t":"", "bg4.d":"", "bg4.p":"",
+
+    "bg5.y":"", "bg5.t":"", "bg5.d":"", "bg5.p":"",
+
+    "ct.kicker":"", "ct.h2":"", "ct.p":"", "ct.cv":"",
+    "ct.loc":"", "ct.type":"", "ct.priv":""
   }
 };
 
-var CV = { en:"cv/kerim-cv-en.pdf", tr:"cv/kerim-cv-tr.pdf" };
+/* File facts, not copy — these follow the language because the files do. */
+var CV = {
+  en: { href:"cv/kerim-cv-en.pdf", meta:"PDF · 21 KB" },
+  tr: { href:"cv/kerim-cv-tr.pdf", meta:"PDF · 25 KB" }
+};
 
 /* ------------------------------------------------------------------ i18n */
 var lang = "en";
@@ -602,59 +885,119 @@ function render(l){
   for(i = 0; i < els.length; i++){
     els[i].alt = t(els[i].getAttribute("data-i18n-alt"), lang);
   }
+  els = document.querySelectorAll("[data-i18n-label]");
+  for(i = 0; i < els.length; i++){
+    els[i].setAttribute("aria-label", t(els[i].getAttribute("data-i18n-label"), lang));
+  }
 
-  document.getElementById("cv-link").href = CV[lang];
+  els = document.querySelectorAll("[data-cv]");
+  for(i = 0; i < els.length; i++) els[i].href = CV[lang].href;
+  document.getElementById("cv-meta").textContent = CV[lang].meta;
 
-  var en = document.getElementById("lang-en"), tr = document.getElementById("lang-tr");
-  en.classList.toggle("on", lang === "en");
-  tr.classList.toggle("on", lang === "tr");
-  en.setAttribute("aria-pressed", String(lang === "en"));
-  tr.setAttribute("aria-pressed", String(lang === "tr"));
+  document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
+  document.getElementById("lang-tr").setAttribute("aria-pressed", String(lang === "tr"));
 }
 
-/* URL carries the choice so a link is shareable. EN is the default and
-   stays clean — no ?lang=en. */
+/* tr-* browsers get Turkish, everyone else English. ?lang= overrides. */
+function detectLang(){
+  var n = (navigator.language || "en").toLowerCase();
+  return n === "tr" || n.indexOf("tr-") === 0 ? "tr" : "en";
+}
+
+/* The URL carries an explicit choice so a link is shareable. A choice that
+   matches what detection would have picked leaves the URL clean — which for
+   almost everyone means English with no query string at all. */
 function setLang(l, push){
   render(l);
-  if(push){
-    var url = new URL(window.location.href);
-    if(lang === "en") url.searchParams.delete("lang");
-    else url.searchParams.set("lang", "tr");
-    history.replaceState(null, "", url);
+  if(push) writeParam("lang", lang === detectLang() ? null : lang);
+}
+
+/* ----------------------------------------------------------------- theme
+   The default lives in CSS — light-dark() plus color-scheme, so the OS
+   preference applies before any script runs. data-theme is only ever an
+   explicit override, and it is persisted in the URL. Never localStorage. */
+var mqDark = window.matchMedia("(prefers-color-scheme: dark)");
+function osTheme(){ return mqDark.matches ? "dark" : "light"; }
+function currentTheme(){ return document.documentElement.getAttribute("data-theme") || osTheme(); }
+
+function paintTheme(){
+  var now = currentTheme();
+  document.getElementById("theme-light").setAttribute("aria-pressed", String(now === "light"));
+  document.getElementById("theme-dark") .setAttribute("aria-pressed", String(now === "dark"));
+}
+
+function setTheme(th, push){
+  if(th === osTheme()) document.documentElement.removeAttribute("data-theme");
+  else                 document.documentElement.setAttribute("data-theme", th);
+  paintTheme();
+  if(push) writeParam("theme", th === osTheme() ? null : th);
+}
+
+/* value === null removes the parameter */
+function writeParam(key, value){
+  var url = new URL(window.location.href);
+  if(value === null) url.searchParams.delete(key);
+  else               url.searchParams.set(key, value);
+  history.replaceState(null, "", url);
+}
+
+/* ------------------------------------------------------------------ wire */
+document.getElementById("lang-en").addEventListener("click", function(){ setLang("en", true); });
+document.getElementById("lang-tr").addEventListener("click", function(){ setLang("tr", true); });
+document.getElementById("theme-light").addEventListener("click", function(){ setTheme("light", true); });
+document.getElementById("theme-dark") .addEventListener("click", function(){ setTheme("dark",  true); });
+
+/* No explicit choice? Then the OS still decides, and it may change mid-visit. */
+mqDark.addEventListener("change", function(){
+  if(!document.documentElement.hasAttribute("data-theme")) paintTheme();
+});
+
+var param = new URLSearchParams(window.location.search).get("lang");
+setLang(param === "tr" || param === "en" ? param : detectLang(), false);
+paintTheme();
+
+/* ------------------------------------------------------------- rail state
+   Which section the rail marks is derived from scroll position rather than
+   an IntersectionObserver, because sections are only 100vh tall on desktop
+   and the last one has to win when the page bottoms out. */
+var strip = document.querySelector(".rail nav");
+var items = [].slice.call(document.querySelectorAll(".rail li"));
+var secs  = [].slice.call(document.querySelectorAll("main > section"));
+var active = -1, queued = false;
+
+function spy(){
+  queued = false;
+
+  var mid = window.scrollY + window.innerHeight / 2, next = 0;
+  for(var i = 0; i < secs.length; i++) if(secs[i].offsetTop <= mid) next = i;
+  if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2)
+    next = secs.length - 1;
+  if(next === active) return;
+  active = next;
+
+  for(var j = 0; j < items.length; j++){
+    var on = j === active, a = items[j].querySelector("a");
+    items[j].classList.toggle("on", on);
+    if(on) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+  }
+
+  /* keep the marked item in view in the horizontal strip on small screens */
+  if(strip.scrollWidth > strip.clientWidth){
+    var el = items[active];
+    strip.scrollLeft = Math.max(0, el.offsetLeft - (strip.clientWidth - el.offsetWidth) / 2);
   }
 }
 
-document.getElementById("lang-en").addEventListener("click", function(){ setLang("en", true); });
-document.getElementById("lang-tr").addEventListener("click", function(){ setLang("tr", true); });
+window.addEventListener("scroll", function(){
+  if(!queued){ queued = true; window.requestAnimationFrame(spy); }
+}, { passive:true });
+window.addEventListener("resize", spy);
+spy();
 
-setLang(new URLSearchParams(window.location.search).get("lang"), false);
-
-/* -------------------------------------------------------------- accordion
-   One open at a time. Closed panels are inert so their links stay out of
-   the tab order. */
-var rows = document.querySelectorAll("#idx .row");
-for(var r = 0; r < rows.length; r++){
-  rows[r].addEventListener("click", function(){
-    var item = this.closest(".item");
-    var wasOpen = item.classList.contains("open");
-
-    var items = document.querySelectorAll("#idx .item");
-    for(var i = 0; i < items.length; i++){
-      items[i].classList.remove("open");
-      items[i].querySelector(".row").setAttribute("aria-expanded", "false");
-      items[i].querySelector(".wrap").setAttribute("inert", "");
-    }
-    if(!wasOpen){
-      item.classList.add("open");
-      this.setAttribute("aria-expanded", "true");
-      item.querySelector(".wrap").removeAttribute("inert");
-    }
-  });
-}
-
-/* Test hook: lets the Playwright suite seed a Turkish string and watch it
-   swap, without anyone machine-translating the real copy. */
-window.__i18n = { COPY: COPY, setLang: setLang, getLang: function(){ return lang; } };
+/* Test hooks: let the Playwright suite seed a Turkish string and watch it
+   swap, and drive the theme, without anyone machine-translating the copy. */
+window.__i18n  = { COPY: COPY, setLang: setLang, getLang: function(){ return lang; } };
+window.__theme = { set: setTheme, get: currentTheme, os: osTheme };
 })();
 </script>
 </body>
